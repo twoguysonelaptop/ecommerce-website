@@ -39,6 +39,60 @@
   - Sage Green
 - **Overall Feel:** Clean, modern, understated — the design should let the products and honest copy do the talking
 
+## Brand Details
+
+- **Brand Name:** ODD Care Co
+- **Brand Motto:** "ONEE. DOSE. DAILY."
+- **Brand Tagline:** "Skincare for people who have better things to do"
+
+## Product Catalog
+
+### 1. Clear First (ODD-01)
+- **Type:** Facewash
+- **Size:** 100 ml
+- **Packaging:** Tube
+- **Use:** AM or PM. Lather. Wash. Done.
+- **Key Actives:** Niacinamide 2%, Salicylic acid 0.5%, Lactic acid 0.5%, AHA+BHA+PHA, Sodium Hyaluronate 0.1%, Rice Ferment Filtrate, Prebiotic ProVit B5, Orange Peel Exfoliator
+- **Targets:** Cleansing, Microbiome Balancing, Exfoliating
+- **Label:** ![Clear First Label](images/clear-first-facewash-label.jpeg)
+
+### 2. Foam Rinse (ODD-02)
+- **Type:** Foaming Body Wash
+- **Size:** 250 ml
+- **Packaging:** Taller pump bottle (foaming)
+- **Use:** AM or PM. Wet skin. Foam. Rinse.
+- **Key Actives:** Niacinamide 4%, Salicylic acid 0.5%, AHA+BHA+PHA, Humectants, ProVit B5
+- **Targets:** Unclog pores, Reduce body acne, Controls excess oil, Refines skin texture, Hydrating non-drying, Leaves skin clean soft & refreshed
+- **Label:** ![Foam Rinse Label](images/foam-rinse-body-wash-label.jpeg)
+
+### 3. Dawn Shield (ODD-03)
+- **Type:** AM Cream (All-in-one AM Routine — Sunscreen + Moisturizer with Actives)
+- **Size:** 75 g
+- **Packaging:** Narrow pump bottle
+- **SPF:** 50+, PA ++++
+- **Use:** Morning. Before sun exposure. Non-greasy.
+- **Key Actives:** Niacinamide, Ceramide complex, Sodium Hyaluronate, UV Filter, PROVIMC B5
+- **Targets:** UV protection, Hydration, Strengthens Skin Barrier, Brightens, Supports skin microbiome
+- **Label:** ![Dawn Shield Label](images/dawn-shield-am-cream-label.jpeg)
+
+### 4. Deep Dusk (ODD-04)
+- **Type:** PM Cream (All-in-one PM Routine — Night Cream + Moisturizer with Actives)
+- **Size:** 75 g
+- **Packaging:** Narrow pump bottle
+- **Use:** Night. Once. Wake up. Sleep. Levels.
+- **Key Actives:** Marine Bio-Retinol from Microalgae, Niacinamide 2%, Shea Butter
+- **Targets:** Anti Pigmentation, Strengthens Skin Barrier, Supports skin microbiome, Retains Moisture
+- **Label:** ![Deep Dusk Label](images/deep-dusk-pm-cream-label.jpeg)
+
+## Packaging Overview
+
+![Packaging Overview](images/packaging-overview.jpeg)
+
+Packaging types:
+- **AM/PM Creams (Dawn Shield & Deep Dusk):** Narrow pump bottles
+- **Facewash (Clear First):** Tube
+- **Body Wash (Foam Rinse):** Taller pump bottle (foaming dispenser)
+
 ## Reference Materials
 
-_Section reserved for client-provided images and rough design references (to be added)._
+_Section reserved for additional client-provided rough design references (to be added)._
