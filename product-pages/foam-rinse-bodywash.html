@@ -1,0 +1,454 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; background: #fff; color: #1a1a1a; }
+:root {
+  --odd-black:#000;--odd-white:#fff;--odd-sage:#9CAF88;--odd-beige:#F5F0EB;
+  --odd-dark:#1a1a1a;--odd-gray:#555;--odd-border:#e5e5e5;
+  --text-primary:#1a1a1a;--text-secondary:#555;--text-tertiary:#888;
+  --bg-secondary:#fafaf9;--border-light:#e5e5e5;
+}
+h1 { font-size: 22px; font-weight: 500; color: var(--text-primary); line-height: 1.3; }
+h2 { font-size: 18px; font-weight: 500; color: var(--text-primary); }
+h3 { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-tertiary); margin-bottom: 0.4rem; }
+.section { padding: 2rem 1rem; border-bottom: 0.5px solid var(--border-light); }
+
+/* ── TABS ── */
+.tabs { display: flex; border-bottom: 0.5px solid var(--border-light); margin-bottom: 1.5rem; overflow-x: auto; }
+.tab { font-size: 13px; padding: 8px 16px; cursor: pointer; border-bottom: 2px solid transparent; color: var(--text-secondary); white-space: nowrap; margin-bottom: -0.5px; flex-shrink: 0; }
+.tab.active { color: var(--odd-gray); border-bottom-color: var(--odd-sage); font-weight: 500; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ── HERO ── */
+.hero-band { background: var(--odd-beige); padding: 2rem 1rem; border-bottom: 0.5px solid #e2ddd7; }
+.hero-inner { display: flex; gap: 1.25rem; align-items: flex-start; }
+.product-swatch { width: 90px; height: 118px; background: #e8e3dd; border-radius: 10px; border: 0.5px solid #d4cfca; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.swatch-num { font-size: 11px; font-weight: 500; color: var(--text-tertiary); letter-spacing: 0.06em; }
+.swatch-line { width: 22px; height: 1.5px; background: rgba(0,0,0,0.12); border-radius: 1px; }
+.rating-row { display: flex; align-items: center; gap: 8px; margin: 0.35rem 0; }
+.stars { font-size: 13px; letter-spacing: 1px; color: var(--odd-sage); }
+.rating-text { font-size: 12px; color: var(--text-tertiary); }
+.price-row { display: flex; align-items: baseline; gap: 8px; margin: 0.6rem 0 0.75rem; }
+.price { font-size: 20px; font-weight: 500; color: var(--text-primary); }
+.price-note { font-size: 12px; color: var(--text-tertiary); }
+.btn-add { background: var(--odd-dark); color: var(--odd-beige); font-size: 13px; padding: 10px 20px; border-radius: 999px; border: none; cursor: pointer; width: 100%; transition: background 0.15s ease; }
+.btn-add:hover { background: var(--odd-black); }
+.active-tag { font-size: 11px; padding: 2px 9px; border-radius: 999px; background: rgba(156,175,136,0.15); color: #6b7f5a; border: 0.5px solid rgba(156,175,136,0.3); display: inline-block; margin: 0 3px 4px 0; }
+
+/* ── REVELATION ── */
+.revelation-strip { background: var(--odd-white); border: 0.5px solid var(--border-light); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; }
+.revelation-title { font-size: 15px; font-weight: 500; color: var(--text-primary); margin-bottom: 0.4rem; }
+.revelation-body { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+
+/* ── CALLOUT ── */
+.callout-bold { background: var(--odd-dark); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.25rem 0; }
+.callout-bold p { font-size: 14px; color: #ccc; line-height: 1.7; }
+.callout-bold span { color: #666; }
+
+/* ── BODY MAP ── */
+.body-map { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; margin-top: 1rem; }
+.body-zone { background: var(--bg-secondary); border-radius: 10px; padding: 1rem; border: 0.5px solid var(--border-light); }
+.zone-name { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-bottom: 0.25rem; }
+.zone-problem { font-size: 12px; color: var(--text-tertiary); margin-bottom: 0.5rem; font-style: italic; }
+.zone-fix { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+.zone-ing { font-size: 11px; color: var(--text-tertiary); margin-top: 0.4rem; }
+
+/* ── DOES / DOESN'T ── */
+.does-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px; margin-top: 1rem; }
+.does-yes { background: var(--odd-beige); border: 0.5px solid #e2ddd7; border-radius: 12px; padding: 1.25rem; }
+.does-no { background: var(--bg-secondary); border: 0.5px solid var(--border-light); border-radius: 12px; padding: 1.25rem; }
+.does-title { font-size: 13px; font-weight: 500; margin-bottom: 0.6rem; }
+.does-yes .does-title { color: var(--odd-dark); }
+.does-no .does-title { color: var(--text-tertiary); }
+.does-item { font-size: 13px; line-height: 1.65; display: flex; gap: 8px; align-items: flex-start; padding: 2px 0; }
+.does-yes .does-item { color: var(--text-secondary); }
+.does-no .does-item { color: var(--text-tertiary); text-decoration: line-through; }
+.dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+.yes-dot { background: var(--odd-sage); }
+.no-dot { background: #ccc; }
+
+/* ── HONEST STRIP ── */
+.honest-strip { border-left: 3px solid var(--odd-sage); padding: 1rem 1.25rem; background: var(--odd-beige); border-radius: 0 10px 10px 0; margin-top: 1rem; }
+.honest-strip p { font-size: 13px; color: var(--text-secondary); }
+
+/* ── COMPARISON ── */
+.comparison-row { display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; }
+.comp-item { display: flex; gap: 0; border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border-light); }
+.comp-them { flex: 1; padding: 0.75rem 1rem; background: var(--bg-secondary); }
+.comp-us { flex: 1; padding: 0.75rem 1rem; background: var(--odd-beige); }
+.comp-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-tertiary); margin-bottom: 0.3rem; }
+.comp-us .comp-label { color: #6b7f5a; }
+.comp-text { font-size: 13px; color: var(--text-secondary); }
+.comp-us .comp-text { color: var(--odd-dark); font-weight: 500; }
+.comp-divider { width: 0.5px; background: var(--border-light); flex-shrink: 0; }
+
+/* ── INGREDIENTS ── */
+.ing-row { border-bottom: 0.5px solid var(--border-light); padding: 1rem 0; cursor: pointer; }
+.ing-row:last-child { border-bottom: none; }
+.ing-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.ing-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+.ing-badge { font-size: 11px; padding: 2px 10px; border-radius: 999px; flex-shrink: 0; }
+.badge-hero { background: rgba(156,175,136,0.15); color: #6b7f5a; }
+.badge-support { background: #E1F5EE; color: #0F6E56; }
+.badge-base { background: var(--bg-secondary); color: var(--text-tertiary); }
+.ing-tldr { font-size: 12px; color: var(--text-tertiary); margin-top: 3px; }
+.ing-detail { display: none; margin-top: 0.75rem; padding: 0.75rem; background: var(--odd-beige); border-radius: 8px; }
+.ing-detail.open { display: block; }
+.ing-detail p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+.ing-conc { font-size: 11px; color: var(--text-tertiary); margin-top: 0.4rem; font-style: italic; }
+
+/* ── REVIEWS ── */
+.review-card { background: var(--bg-secondary); border-radius: 12px; padding: 1.1rem; margin-bottom: 10px; }
+.reviewer-name { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+.reviewer-tag { font-size: 11px; color: var(--text-tertiary); margin: 2px 0 0.5rem; }
+.review-text { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+.review-badge { font-size: 11px; padding: 2px 10px; border-radius: 999px; display: inline-block; margin-top: 0.5rem; background: rgba(156,175,136,0.15); color: #6b7f5a; }
+
+/* ── HONEST CARDS ── */
+.honest-card { background: var(--odd-white); border: 0.5px solid var(--border-light); border-radius: 12px; padding: 1.25rem; margin-bottom: 10px; }
+.honest-card h3 { margin-bottom: 0.4rem; }
+</style>
+
+<div>
+
+<div style="padding: 0.9rem 1rem; border-bottom: 0.5px solid var(--border-light);">
+  <span style="font-size: 13px; color: var(--text-tertiary);">ODD Care Co. / shop (4 things) / </span>
+  <span style="font-size: 13px; color: var(--text-secondary);">foam rinse — foaming body wash</span>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════ -->
+<div class="hero-band">
+  <div class="hero-inner">
+    <div class="product-swatch">
+      <span class="swatch-num">02 / 04</span>
+      <div class="swatch-line"></div>
+      <span style="font-size: 9px; color: #aaa; text-transform: uppercase; letter-spacing: 0.08em;">body wash</span>
+    </div>
+    <div style="flex: 1;">
+      <div class="label">product 02 of 04 · foaming pump · morning</div>
+      <h1 style="margin: 0.3rem 0 0.25rem;">Foam Rinse</h1>
+      <p style="font-size: 13px; color: #777; margin-bottom: 0.6rem;">A body wash with niacinamide, salicylic acid, and a triple-acid system. On purpose.</p>
+      <div class="rating-row">
+        <span class="stars">★★★★★</span>
+        <span class="rating-text">4.6 · 142 reviews · the one people don't expect to work</span>
+      </div>
+      <div style="margin: 0.5rem 0;">
+        <span class="active-tag">niacinamide 4%</span>
+        <span class="active-tag">salicylic acid 0.5%</span>
+        <span class="active-tag">AHA+BHA+PHA</span>
+        <span class="active-tag">provit B5</span>
+      </div>
+      <div class="price-row">
+        <span class="price">₹449</span>
+        <span class="price-note">250ml · foaming pump · more product than you'd think for ₹449</span>
+      </div>
+      <button class="btn-add">add to routine (it goes in the shower)</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TABBED CONTENT
+     ═══════════════════════════════════════════ -->
+<div style="padding: 0 1rem;">
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('wait')">wait, a body wash with actives?</div>
+    <div class="tab" onclick="switchTab('does')">what it does</div>
+    <div class="tab" onclick="switchTab('ingredients')">ingredients</div>
+    <div class="tab" onclick="switchTab('reviews')">reviews</div>
+    <div class="tab" onclick="switchTab('honest')">the honest part</div>
+  </div>
+
+  <!-- ── TAB: THE REVELATION ── -->
+  <div id="tab-wait" class="tab-content active">
+
+    <div class="revelation-strip">
+      <div class="revelation-title">Here's what most body washes are doing.</div>
+      <div class="revelation-body">Surfactant. Water. Fragrance. Maybe some aloe vera at a concentration that isn't doing anything. That's the entire body wash category for most brands. Clean the body, smell decent, ship it.</div>
+    </div>
+
+    <div class="callout-bold">
+      <p>Your body has 1.7 square metres of skin. <span>It has acne, oily patches, clogged pores, rough texture, uneven tone — the same problems your face has. And you've been washing it with what is essentially scented soap. We thought that was a strange gap. So we filled it.</span></p>
+    </div>
+
+    <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin: 1.25rem 0;">Foam Rinse has niacinamide at 4% for oil control and pore refinement. Salicylic acid at 0.5% to unclog from inside the pore. A triple-acid system (AHA+BHA+PHA) for resurfacing without scrubbing. ProVit B5 and humectants so it doesn't leave you stripped. All calibrated for a foaming rinse-off format — they work in the shower, not just on paper.</p>
+
+    <div class="label" style="margin-top: 1.5rem;">the body zones this actually targets</div>
+    <div class="body-map">
+      <div class="body-zone">
+        <div class="zone-name">Back + chest</div>
+        <div class="zone-problem">"body acne, congestion, breakouts"</div>
+        <div class="zone-fix">Salicylic acid gets inside the pore. AHA clears the surface. Niacinamide calms redness. Most people buy it for this zone first.</div>
+        <div class="zone-ing">salicylic acid + AHA + niacinamide</div>
+      </div>
+      <div class="body-zone">
+        <div class="zone-name">Arms + legs</div>
+        <div class="zone-problem">"bumpy, rough, textured"</div>
+        <div class="zone-fix">Triple-acid system dissolves the buildup causing rough patches. PHA is gentler than AHA alone — exfoliates without irritating. Smoother in 3–4 weeks.</div>
+        <div class="zone-ing">AHA+BHA+PHA + humectants</div>
+      </div>
+      <div class="body-zone">
+        <div class="zone-name">Oily zones</div>
+        <div class="zone-problem">"greasy by noon, shiny, clogged"</div>
+        <div class="zone-fix">Niacinamide at 4% regulates sebum production without drying you out. Your body produces less oil because it's not overcompensating.</div>
+        <div class="zone-ing">niacinamide 4%</div>
+      </div>
+      <div class="body-zone">
+        <div class="zone-name">Overall texture</div>
+        <div class="zone-problem">"dull, uneven, patchy"</div>
+        <div class="zone-fix">Daily chemical exfoliation + niacinamide = gradual refinement. Not overnight. People notice around week 4–6.</div>
+        <div class="zone-ing">AHA+BHA+PHA + niacinamide</div>
+      </div>
+    </div>
+
+    <div class="honest-strip" style="margin-top: 1.25rem;">
+      <p>It's also just a good body wash. Foams well. Doesn't strip. Skin feels clean and soft, not tight. The actives are a bonus. The base formula is the minimum standard we were willing to ship.</p>
+    </div>
+
+  </div>
+
+  <!-- ── TAB: WHAT IT DOES ── -->
+  <div id="tab-does" class="tab-content">
+
+    <div class="label" style="margin-bottom: 0.75rem;">vs. a standard body wash</div>
+    <div class="comparison-row">
+      <div class="comp-item">
+        <div class="comp-them">
+          <div class="comp-label">standard body wash</div>
+          <div class="comp-text">Cleans skin</div>
+        </div>
+        <div class="comp-divider"></div>
+        <div class="comp-us">
+          <div class="comp-label">foam rinse</div>
+          <div class="comp-text">Cleans + exfoliates + unclogs pores + controls oil</div>
+        </div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-them">
+          <div class="comp-label">standard body wash</div>
+          <div class="comp-text">Fragrance-forward, washes off</div>
+        </div>
+        <div class="comp-divider"></div>
+        <div class="comp-us">
+          <div class="comp-label">foam rinse</div>
+          <div class="comp-text">Actives calibrated for rinse-off efficacy</div>
+        </div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-them">
+          <div class="comp-label">standard body wash</div>
+          <div class="comp-text">Needs a separate scrub for texture</div>
+        </div>
+        <div class="comp-divider"></div>
+        <div class="comp-us">
+          <div class="comp-label">foam rinse</div>
+          <div class="comp-text">Triple-acid system handles texture chemically, every wash</div>
+        </div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-them">
+          <div class="comp-label">standard body wash</div>
+          <div class="comp-text">No impact on body acne or oil</div>
+        </div>
+        <div class="comp-divider"></div>
+        <div class="comp-us">
+          <div class="comp-label">foam rinse</div>
+          <div class="comp-text">Salicylic acid + niacinamide working on both daily</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="does-grid" style="margin-top: 1.25rem;">
+      <div class="does-yes">
+        <div class="does-title">what it does</div>
+        <div class="does-item"><span class="dot yes-dot"></span><span>Unclogs pores with every wash — salicylic acid is doing real work</span></div>
+        <div class="does-item"><span class="dot yes-dot"></span><span>Reduces body acne over time — back, chest, shoulders</span></div>
+        <div class="does-item"><span class="dot yes-dot"></span><span>Controls excess oil without stripping your skin dry</span></div>
+        <div class="does-item"><span class="dot yes-dot"></span><span>Refines rough, bumpy texture — chemical exfoliation, no scrubbing</span></div>
+        <div class="does-item"><span class="dot yes-dot"></span><span>Leaves skin clean, soft, and not tight</span></div>
+      </div>
+      <div class="does-no">
+        <div class="does-title">what it won't do</div>
+        <div class="does-item"><span class="dot no-dot"></span><span>Work as fast as a leave-on body serum with actives</span></div>
+        <div class="does-item"><span class="dot no-dot"></span><span>Clear severe cystic acne — see a dermatologist</span></div>
+        <div class="does-item"><span class="dot no-dot"></span><span>Replace your face wash — different surfactant system</span></div>
+        <div class="does-item"><span class="dot no-dot"></span><span>Show results in 3 days — body skin is slower than you think</span></div>
+      </div>
+    </div>
+
+    <div class="honest-strip">
+      <p>A rinse-off product has less contact time than a leave-on. That's physics. But a body wash you use every day beats a serum you apply twice and forget. Consistency is the active ingredient nobody talks about.</p>
+    </div>
+
+  </div>
+
+  <!-- ── TAB: INGREDIENTS ── -->
+  <div id="tab-ingredients" class="tab-content">
+    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 1.25rem;">Five things doing five jobs. No filler pretending to be actives. Tap each one.</p>
+
+    <div class="ing-row" onclick="toggleIng(this)">
+      <div class="ing-header">
+        <div>
+          <div class="ing-name">Niacinamide 4%</div>
+          <div class="ing-tldr">Oil control, pore refinement, and calming — in a body wash.</div>
+        </div>
+        <span class="ing-badge badge-hero">hero</span>
+      </div>
+      <div class="ing-detail">
+        <p>Vitamin B3. One of the most researched ingredients in skincare, and nobody was putting it in body wash at meaningful concentrations. At 4%, niacinamide regulates sebum production — your skin makes less oil because the signal to overproduce gets dialled down, not stripped away. Simultaneously reduces the appearance of enlarged pores and calms post-acne redness. The 4% concentration is calibrated for the shorter contact time of a rinse-off format. You're getting benefit every wash, compounding over weeks.</p>
+        <div class="ing-conc">4% — higher than most face serums. In a body wash. Yes, we meant to do that.</div>
+      </div>
+    </div>
+
+    <div class="ing-row" onclick="toggleIng(this)">
+      <div class="ing-header">
+        <div>
+          <div class="ing-name">Salicylic Acid 0.5%</div>
+          <div class="ing-tldr">Gets inside the pore. That's the whole point.</div>
+        </div>
+        <span class="ing-badge badge-hero">hero</span>
+      </div>
+      <div class="ing-detail">
+        <p>BHA — beta hydroxy acid. Oil-soluble, so it doesn't just sit on the surface. It dissolves into the sebum inside your pores and cleans them from within. At 0.5% in a daily rinse-off, it's strong enough to keep pores clear but gentle enough to use every day without irritation. This is why body acne reduces — the clogs that cause breakouts get dissolved before they become inflamed. Most body washes clean the surface. This one cleans inside the pore.</p>
+        <div class="ing-conc">0.5% — the daily-use sweet spot. Effective without the irritation of higher concentrations.</div>
+      </div>
+    </div>
+
+    <div class="ing-row" onclick="toggleIng(this)">
+      <div class="ing-header">
+        <div>
+          <div class="ing-name">AHA + BHA + PHA System</div>
+          <div class="ing-tldr">Triple-acid exfoliation. Three depths. One wash.</div>
+        </div>
+        <span class="ing-badge badge-hero">hero</span>
+      </div>
+      <div class="ing-detail">
+        <p>Three acids, three mechanisms. AHA works on the surface — dissolves bonds holding dead cells. BHA goes deeper into pores (the salicylic acid pulling double duty). PHA is the gentle one — larger molecular size, slower penetration, less irritation, plus humectant properties. Together they create layered exfoliation: surface, pore-level, and gentle deep. No physical scrubbing. No micro-tears. Just chemistry at three depths, calibrated for a rinse-off window.</p>
+        <div class="ing-conc">Three acids at three depths — broad exfoliation without brute force.</div>
+      </div>
+    </div>
+
+    <div class="ing-row" onclick="toggleIng(this)">
+      <div class="ing-header">
+        <div>
+          <div class="ing-name">ProVit B5 (Panthenol) + Humectants</div>
+          <div class="ing-tldr">Why this body wash doesn't leave you feeling stripped.</div>
+        </div>
+        <span class="ing-badge badge-support">supporting</span>
+      </div>
+      <div class="ing-detail">
+        <p>Provitamin B5 draws moisture into the skin and strengthens the barrier. When you're using acids daily, barrier support isn't optional — it's engineering. The humectant system ensures the acids can exfoliate without your skin paying a moisture tax. This is the difference between "skin feels clean" and "skin feels clean and not tight." Both matter.</p>
+        <div class="ing-conc">Barrier support built into the formula — not an afterthought.</div>
+      </div>
+    </div>
+
+    <div class="ing-row" onclick="toggleIng(this)">
+      <div class="ing-header">
+        <div>
+          <div class="ing-name">Fragrance</div>
+          <div class="ing-tldr">Yes this one has it. Here's the reasoning.</div>
+        </div>
+        <span class="ing-badge badge-base">base</span>
+      </div>
+      <div class="ing-detail">
+        <p>Unlike the face wash, the body wash has a clean scent. Body skin is less sensitive, rinse-off contact is brief, and a body wash that smells like nothing is a product people stop using. Compliance matters — the most effective routine is the one you actually do. The fragrance is skin-safe, tested for irritation, and chosen to be clean and non-gendered. Not "sport fresh." Not "ocean breeze." Just clean.</p>
+        <div class="ing-conc">Skin-safe. Tested. Not the face wash — that one stays fragrance-free.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── TAB: REVIEWS ── -->
+  <div id="tab-reviews" class="tab-content">
+    <p style="font-size: 13px; color: var(--text-tertiary); margin-bottom: 1.25rem;">The one people don't expect to work. Then it does. Then they buy it for everyone they know.</p>
+
+    <div class="review-card">
+      <div class="reviewer-name">Sneha K., Bangalore</div>
+      <div class="reviewer-tag">body acne since college · verified purchase</div>
+      <div class="review-text">"I've spent more on body acne treatments than I want to admit. Creams, scrubs, that one weird sulfur soap from Amazon. This body wash did more in six weeks than all of it. My back is clear for the first time in four years. I'm furious that the solution was this simple."</div>
+      <span class="review-badge">four years of body acne, six weeks of body wash</span>
+    </div>
+
+    <div class="review-card">
+      <div class="reviewer-name">Vikram D., Pune</div>
+      <div class="reviewer-tag">oily skin · gifted by a friend who wouldn't stop talking about it</div>
+      <div class="review-text">"I used to feel greasy by lunch even after morning showers. A month later my skin feels normal. Not dry, not oily, just normal. I didn't know body skin could feel normal."</div>
+      <span class="review-badge">the oil control convert</span>
+    </div>
+
+    <div class="review-card">
+      <div class="reviewer-name">Meera R., Hyderabad</div>
+      <div class="reviewer-tag">verified purchase</div>
+      <div class="review-text">"Foams nicely. Skin is smoother. Bought it again." <span style="font-size: 12px; font-style: italic; color: var(--text-tertiary);">— Brand: Five stars in twelve words. We respect the efficiency.</span></div>
+    </div>
+
+    <div class="review-card">
+      <div class="reviewer-name">Anonymous</div>
+      <div class="reviewer-tag">3 stars</div>
+      <div class="review-text">"Didn't notice any change to my body acne after 10 days. Expected more." <span style="font-size: 12px; font-style: italic; color: var(--text-tertiary);">— Brand: Week 3–4 is when body acne starts responding. The timeline section exists for exactly this reason. Review stays up.</span></div>
+    </div>
+
+  </div>
+
+  <!-- ── TAB: THE HONEST PART ── -->
+  <div id="tab-honest" class="tab-content">
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+
+      <div class="honest-card">
+        <h3>Why a foaming body wash and not a body serum?</h3>
+        <p style="margin-top: 0.4rem;">A leave-on body serum with these actives would be more potent per application. But body serums have an 80% shelf-abandonment rate. People buy them, use them four times, and they collect dust. A body wash goes in the shower — you're already there, you're already washing. The most effective routine is the one you don't have to think about.</p>
+      </div>
+
+      <div class="honest-card">
+        <h3>Can I use this on my face?</h3>
+        <p style="margin-top: 0.4rem;">No. The surfactant system is designed for body skin, which is thicker and less sensitive. We make a face wash (Clear First) formulated specifically for your face. Use each where it belongs. We know someone will try it anyway. Don't be that person.</p>
+      </div>
+
+      <div class="honest-card">
+        <h3>Is it safe for sensitive skin?</h3>
+        <p style="margin-top: 0.4rem;">The salicylic acid is at 0.5% — the lowest effective concentration. The PHA in the triple-acid system is specifically the gentlest acid class. ProVit B5 actively supports the barrier. Most people with mildly sensitive skin are fine. If you have eczema, psoriasis, or very reactive skin, ask your dermatologist first. We're a body wash, not medical advice.</p>
+      </div>
+
+      <div class="honest-card">
+        <h3>250ml — how long does it last?</h3>
+        <p style="margin-top: 0.4rem;">The foaming pump dispenses pre-foamed product, so you use less per wash than a regular liquid body wash. Most people get 6–8 weeks of daily use. At ₹449, that's roughly ₹8–10 per shower. Less than the chai you had this morning.</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER CTA
+     ═══════════════════════════════════════════ -->
+<div style="background: var(--odd-beige); padding: 1.5rem; text-align: center; border-top: 0.5px solid #e2ddd7;">
+  <div class="label" style="margin-bottom: 0.5rem;">product 02 of 04</div>
+  <h2 style="margin-bottom: 0.4rem;">Your body was getting the basics.<br>Now it gets the good stuff.</h2>
+  <p style="font-size: 13px; color: #777; margin-bottom: 1.25rem; max-width: 320px; margin-left: auto; margin-right: auto;">Niacinamide 4%, salicylic acid 0.5%, AHA+BHA+PHA. In a body wash. Yes really.</p>
+  <button class="btn-add" style="max-width: 240px; margin: 0 auto; display: block;">add foam rinse — ₹449</button>
+  <p style="font-size: 11px; color: var(--text-tertiary); margin-top: 0.75rem;">or get all 4 in The Whole Routine — ₹1,499</p>
+</div>
+
+</div>
+
+<script>
+function switchTab(name) {
+  const names = ['wait','does','ingredients','reviews','honest'];
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', names[i] === name));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+}
+function toggleIng(el) {
+  const d = el.querySelector('.ing-detail');
+  const open = d.classList.contains('open');
+  document.querySelectorAll('.ing-detail.open').forEach(x => x.classList.remove('open'));
+  if (!open) d.classList.add('open');
+}
+</script>

@@ -1,0 +1,445 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; background: #fff; color: #1a1a1a; }
+:root {
+  --odd-black:#000;--odd-white:#fff;--odd-sage:#9CAF88;--odd-beige:#F5F0EB;
+  --odd-dark:#1a1a1a;--odd-gray:#555;--odd-border:#e5e5e5;
+  --text-primary:#1a1a1a;--text-secondary:#555;--text-tertiary:#888;
+  --bg-secondary:#fafaf9;--border-light:#e5e5e5;
+}
+h1 { font-size: 22px; font-weight: 500; color: var(--text-primary); line-height: 1.3; }
+h2 { font-size: 18px; font-weight: 500; color: var(--text-primary); }
+h3 { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-tertiary); margin-bottom: 0.4rem; }
+
+/* ── TABS ── */
+.tabs { display: flex; border-bottom: 0.5px solid var(--border-light); margin-bottom: 1.5rem; overflow-x: auto; }
+.tab { font-size: 13px; padding: 8px 16px; cursor: pointer; border-bottom: 2px solid transparent; color: var(--text-secondary); white-space: nowrap; margin-bottom: -0.5px; flex-shrink: 0; }
+.tab.active { color: var(--odd-gray); border-bottom-color: var(--odd-sage); font-weight: 500; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ── HERO ── */
+.hero-band { background: var(--odd-beige); padding: 2rem 1rem; border-bottom: 0.5px solid #e2ddd7; }
+.hero-inner { display: flex; gap: 1.25rem; align-items: flex-start; }
+.product-swatch { width: 90px; height: 118px; background: #c4ccb8; border-radius: 10px; border: 0.5px solid #b0b8a4; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.swatch-num { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.8); letter-spacing: 0.06em; }
+.swatch-line { width: 22px; height: 1.5px; background: rgba(255,255,255,0.4); border-radius: 1px; }
+.rating-row { display: flex; align-items: center; gap: 8px; margin: 0.35rem 0; }
+.stars { font-size: 13px; letter-spacing: 1px; color: var(--odd-sage); }
+.rating-text { font-size: 12px; color: var(--text-tertiary); }
+.price-row { display: flex; align-items: baseline; gap: 8px; margin: 0.6rem 0 0.75rem; }
+.price { font-size: 20px; font-weight: 500; color: var(--text-primary); }
+.price-note { font-size: 12px; color: var(--text-tertiary); }
+.btn-add { background: var(--odd-dark); color: var(--odd-beige); font-size: 13px; padding: 10px 20px; border-radius: 999px; border: none; cursor: pointer; width: 100%; transition: background 0.15s ease; }
+.btn-add:hover { background: var(--odd-black); }
+.active-tag { font-size: 11px; padding: 2px 9px; border-radius: 999px; background: rgba(156,175,136,0.15); color: #6b7f5a; border: 0.5px solid rgba(156,175,136,0.3); display: inline-block; margin: 0 3px 4px 0; }
+
+/* ── REVELATION ── */
+.revelation-strip { background: var(--odd-white); border: 0.5px solid var(--border-light); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; }
+.revelation-title { font-size: 15px; font-weight: 500; color: var(--text-primary); margin-bottom: 0.4rem; }
+.revelation-body { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+
+/* ── CALLOUT ── */
+.callout-bold { background: var(--odd-dark); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.25rem 0; }
+.callout-bold p { font-size: 14px; color: #ccc; line-height: 1.7; }
+.callout-bold span { color: #666; }
+
+/* ── DOES / DOESN'T ── */
+.does-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px; margin-top: 1rem; }
+.does-yes { background: var(--odd-beige); border: 0.5px solid #e2ddd7; border-radius: 12px; padding: 1.25rem; }
+.does-no { background: var(--bg-secondary); border: 0.5px solid var(--border-light); border-radius: 12px; padding: 1.25rem; }
+.does-title { font-size: 13px; font-weight: 500; margin-bottom: 0.6rem; }
+.does-yes .does-title { color: var(--odd-dark); }
+.does-no .does-title { color: var(--text-tertiary); }
+.does-item { font-size: 13px; line-height: 1.65; display: flex; gap: 8px; align-items: flex-start; padding: 2px 0; }
+.does-yes .does-item { color: var(--text-secondary); }
+.does-no .does-item { color: var(--text-tertiary); text-decoration: line-through; }
+.dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+.yes-dot { background: var(--odd-sage); }
+.no-dot { background: #ccc; }
+
+/* ── HONEST STRIP ── */
+.honest-strip { border-left: 3px solid var(--odd-sage); padding: 1rem 1.25rem; background: var(--odd-beige); border-radius: 0 10px 10px 0; margin-top: 1rem; }
+.honest-strip p { font-size: 13px; color: var(--text-secondary); }
+
+/* ── COMPARISON ── */
+.comparison-row { display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; }
+.comp-item { display: flex; gap: 0; border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border-light); }
+.comp-them { flex: 1; padding: 0.75rem 1rem; background: var(--bg-secondary); }
+.comp-us { flex: 1; padding: 0.75rem 1rem; background: var(--odd-beige); }
+.comp-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-tertiary); margin-bottom: 0.3rem; }
+.comp-us .comp-label { color: #6b7f5a; }
+.comp-text { font-size: 13px; color: var(--text-secondary); }
+.comp-us .comp-text { color: var(--odd-dark); font-weight: 500; }
+.comp-divider { width: 0.5px; background: var(--border-light); flex-shrink: 0; }
+
+/* ── INGREDIENTS ── */
+.ing-row { border-bottom: 0.5px solid var(--border-light); padding: 1rem 0; cursor: pointer; }
+.ing-row:last-child { border-bottom: none; }
+.ing-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.ing-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+.ing-badge { font-size: 11px; padding: 2px 10px; border-radius: 999px; flex-shrink: 0; }
+.badge-hero { background: rgba(156,175,136,0.15); color: #6b7f5a; }
+.badge-support { background: #E1F5EE; color: #0F6E56; }
+.badge-base { background: var(--bg-secondary); color: var(--text-tertiary); }
+.ing-tldr { font-size: 12px; color: var(--text-tertiary); margin-top: 3px; }
+.ing-detail { display: none; margin-top: 0.75rem; padding: 0.75rem; background: var(--odd-beige); border-radius: 8px; }
+.ing-detail.open { display: block; }
+.ing-detail p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+.ing-conc { font-size: 11px; color: var(--text-tertiary); margin-top: 0.4rem; font-style: italic; }
+
+/* ── REVIEWS ── */
+.review-card { background: var(--bg-secondary); border-radius: 12px; padding: 1.1rem; margin-bottom: 10px; }
+.reviewer-name { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+.reviewer-tag { font-size: 11px; color: var(--text-tertiary); margin: 2px 0 0.5rem; }
+.review-text { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+.review-badge { font-size: 11px; padding: 2px 10px; border-radius: 999px; display: inline-block; margin-top: 0.5rem; background: rgba(156,175,136,0.15); color: #6b7f5a; }
+
+/* ── HONEST CARDS ── */
+.honest-card { background: var(--odd-white); border: 0.5px solid var(--border-light); border-radius: 12px; padding: 1.25rem; margin-bottom: 10px; }
+.honest-card h3 { margin-bottom: 0.4rem; }
+</style>
+
+<div>
+
+<div style="padding: 0.9rem 1rem; border-bottom: 0.5px solid var(--border-light);">
+  <span style="font-size: 13px; color: var(--text-tertiary);">ODD Care Co. / shop (4 things) / </span>
+  <span style="font-size: 13px; color: var(--text-secondary);">clear first — facewash</span>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════ -->
+<div class="hero-band">
+  <div class="hero-inner">
+    <div class="product-swatch">
+      <span class="swatch-num">01 / 04</span>
+      <div class="swatch-line"></div>
+      <span style="font-size: 9px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.08em;">facewash</span>
+    </div>
+    <div style="flex: 1;">
+      <div class="label">product 01 of 04 · tube · AM or PM</div>
+      <h1 style="margin: 0.3rem 0 0.25rem;">Clear First</h1>
+      <p style="font-size: 13px; color: #777; margin-bottom: 0.6rem;">A facewash with 8 actives. Including a triple-acid system, rice ferment, and a physical exfoliator. In a tube.</p>
+      <div class="rating-row">
+        <span class="stars">★★★★★</span>
+        <span class="rating-text">4.7 · 196 reviews · the one that starts the routine</span>
+      </div>
+      <div style="margin: 0.5rem 0;">
+        <span class="active-tag">niacinamide 2%</span>
+        <span class="active-tag">salicylic acid 0.5%</span>
+        <span class="active-tag">AHA+BHA+PHA</span>
+        <span class="active-tag">rice ferment</span>
+      </div>
+      <div class="price-row">
+        <span class="price">₹499</span>
+        <span class="price-note">100ml · tube · lasts longer than you'd think</span>
+      </div>
+      <button class="btn-add">add to routine (AM, PM, or both)</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TABBED CONTENT
+     ═══════════════════════════════════════════ -->
+<div style="padding: 0 1rem;">
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('wait')">wait, all this in a facewash?</div>
+    <div class="tab" onclick="switchTab('does')">what it does</div>
+    <div class="tab" onclick="switchTab('ingredients')">ingredients</div>
+    <div class="tab" onclick="switchTab('reviews')">reviews</div>
+    <div class="tab" onclick="switchTab('honest')">the honest part</div>
+  </div>
+
+  <!-- ── TAB: THE REVELATION ── -->
+  <div id="tab-wait" class="tab-content active">
+
+    <div class="revelation-strip">
+      <div class="revelation-title">Here's what most facewashes are actually doing.</div>
+      <div class="revelation-body">Surfactant. Water. Fragrance. Maybe some neem extract at a concentration that lets them put "neem" on the label. Your face gets wet, foam happens, you feel clean. That's it. The "active ingredients" on most facewash labels are present at concentrations that do nothing meaningful. It's theatre.</div>
+    </div>
+
+    <div class="callout-bold">
+      <p>Your face is 2% of your body's skin. <span>It's also the 2% that gets the most sun, the most pollution, the most attention, and the most neglect disguised as care. We built a facewash that actually does something during the 60 seconds it's on your face. Eight actives. All at concentrations that work. No filler pretending to be ingredients.</span></p>
+    </div>
+
+    <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin: 1.25rem 0;">Clear First has niacinamide at 2% for pore control and barrier support. Salicylic acid at 0.5% to clean inside the pore. Lactic acid at 0.5% for surface exfoliation. A triple-acid system (AHA+BHA+PHA) for layered resurfacing. Sodium hyaluronate at 0.1% so it doesn't strip you dry. Rice ferment filtrate for microbiome support. Prebiotic ProVit B5 for barrier strength. Orange peel exfoliator for gentle physical texture work. All in a daily face wash.</p>
+
+    <div class="honest-strip" style="margin-top: 1.25rem;">
+      <p>It's also just a good facewash. Lathers well. Rinses clean. Doesn't leave your face feeling tight or dry. The actives are doing real work, but the base formula is what makes it something you actually want to use twice a day.</p>
+    </div>
+
+  </div>
+
+  <!-- ── TAB: WHAT IT DOES ── -->
+  <div id="tab-does" class="tab-content">
+
+    <div class="label" style="margin-bottom: 0.75rem;">vs. a standard facewash</div>
+    <div class="comparison-row">
+      <div class="comp-item">
+        <div class="comp-them">
+          <div class="comp-label">standard facewash</div>
+          <div class="comp-text">Cleans the surface</div>
+        </div>
+        <div class="comp-divider"></div>
+        <div class="comp-us">
+          <div class="comp-label">clear first</div>
+          <div class="comp-text">Cleans + exfoliates + unclogs + balances microbiome</div>
+        </div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-them">
+          <div class="comp-label">standard facewash</div>
+          <div class="comp-text">Strips moisture, leaves skin tight</div>
+        </div>
+        <div class="comp-divider"></div>
+        <div class="comp-us">
+          <div class="comp-label">clear first</div>
+          <div class="comp-text">Hyaluronate + ProVit B5 keep moisture locked in</div>
+        </div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-them">
+          <div class="comp-label">standard facewash</div>
+          <div class="comp-text">One ingredient doing one thing (barely)</div>
+        </div>
+        <div class="comp-divider"></div>
+        <div class="comp-us">
+          <div class="comp-label">clear first</div>
+          <div class="comp-text">8 actives at 3 depths — surface, pore, barrier</div>
+        </div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-them">
+          <div class="comp-label">standard facewash</div>
+          <div class="comp-text">Disrupts your skin's microbiome daily</div>
+        </div>
+        <div class="comp-divider"></div>
+        <div class="comp-us">
+          <div class="comp-label">clear first</div>
+          <div class="comp-text">Rice ferment + prebiotic actively support microbiome</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="does-grid" style="margin-top: 1.25rem;">
+      <div class="does-yes">
+        <div class="does-title">what it does</div>
+        <div class="does-item"><span class="dot yes-dot"></span><span>Unclogs pores from inside — salicylic acid doing the real work</span></div>
+        <div class="does-item"><span class="dot yes-dot"></span><span>Exfoliates at three depths — chemical + physical, no scrubbing damage</span></div>
+        <div class="does-item"><span class="dot yes-dot"></span><span>Controls oil without drying — niacinamide regulates, doesn't strip</span></div>
+        <div class="does-item"><span class="dot yes-dot"></span><span>Supports your skin's microbiome — rice ferment + prebiotics</span></div>
+        <div class="does-item"><span class="dot yes-dot"></span><span>Leaves skin clean, hydrated, and not tight</span></div>
+      </div>
+      <div class="does-no">
+        <div class="does-title">what it won't do</div>
+        <div class="does-item"><span class="dot no-dot"></span><span>Clear cystic acne — that needs a dermatologist</span></div>
+        <div class="does-item"><span class="dot no-dot"></span><span>Replace sunscreen — different job entirely</span></div>
+        <div class="does-item"><span class="dot no-dot"></span><span>Show results in 3 days — skin turnover takes weeks</span></div>
+        <div class="does-item"><span class="dot no-dot"></span><span>Work as a body wash — different surfactant system</span></div>
+      </div>
+    </div>
+
+    <div class="honest-strip">
+      <p>A face wash is a rinse-off product. 60 seconds of contact time. These actives are calibrated for that window — they're doing real work in short exposure. But the biggest changes come from consistency. Use it twice a day. Every day. That's the actual active ingredient.</p>
+    </div>
+
+  </div>
+
+  <!-- ── TAB: INGREDIENTS ── -->
+  <div id="tab-ingredients" class="tab-content">
+    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 1.25rem;">Eight things doing eight jobs. No filler claiming to be actives. Tap each one.</p>
+
+    <div class="ing-row" onclick="toggleIng(this)">
+      <div class="ing-header">
+        <div>
+          <div class="ing-name">Niacinamide 2%</div>
+          <div class="ing-tldr">Pore control and oil regulation — the foundation ingredient.</div>
+        </div>
+        <span class="ing-badge badge-hero">hero</span>
+      </div>
+      <div class="ing-detail">
+        <p>Vitamin B3. At 2% in a rinse-off format, it's doing two things: regulating sebum production so your skin makes less oil over time, and supporting the skin barrier so everything else in this formula can work without irritating you. Lower concentration than the body wash (4%) because your face gets this twice a day — morning and night. The cumulative exposure adds up. No need to overdo it.</p>
+        <div class="ing-conc">2% — calibrated for twice-daily rinse-off use. Cumulative, not aggressive.</div>
+      </div>
+    </div>
+
+    <div class="ing-row" onclick="toggleIng(this)">
+      <div class="ing-header">
+        <div>
+          <div class="ing-name">Salicylic Acid 0.5%</div>
+          <div class="ing-tldr">Gets inside the pore. That's the whole point.</div>
+        </div>
+        <span class="ing-badge badge-hero">hero</span>
+      </div>
+      <div class="ing-detail">
+        <p>BHA — beta hydroxy acid. Oil-soluble, meaning it dissolves into the sebum inside your pores and cleans from within. Most facewashes clean the surface. This one gets into the pore and dissolves what's clogging it. At 0.5% in a daily-use format, it's effective enough to prevent breakouts but gentle enough to use morning and night without irritation. The pores stay clear. The breakouts don't get a chance to start.</p>
+        <div class="ing-conc">0.5% — the daily-use sweet spot for face skin.</div>
+      </div>
+    </div>
+
+    <div class="ing-row" onclick="toggleIng(this)">
+      <div class="ing-header">
+        <div>
+          <div class="ing-name">Lactic Acid 0.5% + AHA+BHA+PHA System</div>
+          <div class="ing-tldr">Triple-acid exfoliation. Three depths. Every wash.</div>
+        </div>
+        <span class="ing-badge badge-hero">hero</span>
+      </div>
+      <div class="ing-detail">
+        <p>Three acids, three mechanisms. AHA (including lactic acid at 0.5%) works on the surface — dissolving bonds holding dead skin cells. BHA goes deeper into pores. PHA is the gentle one — larger molecular size, slower penetration, less irritation, plus humectant properties. Lactic acid specifically is one of the gentlest AHAs, making it appropriate for twice-daily use on face skin. Together they create layered exfoliation without physical scrubbing or micro-tears.</p>
+        <div class="ing-conc">Lactic acid at 0.5% + triple-acid system — broad exfoliation without brute force.</div>
+      </div>
+    </div>
+
+    <div class="ing-row" onclick="toggleIng(this)">
+      <div class="ing-header">
+        <div>
+          <div class="ing-name">Sodium Hyaluronate 0.1%</div>
+          <div class="ing-tldr">Why this facewash doesn't leave your skin tight and dry.</div>
+        </div>
+        <span class="ing-badge badge-support">supporting</span>
+      </div>
+      <div class="ing-detail">
+        <p>The low-molecular-weight form of hyaluronic acid. It actually penetrates the upper skin layers rather than sitting on the surface. Holds up to 1000x its weight in water. When you're using acids in a daily face wash, moisture retention isn't optional — it's what stops the exfoliation from becoming irritation. This is the difference between "clean face" and "clean face that still feels like skin."</p>
+        <div class="ing-conc">0.1% — enough to counterbalance the acids. Your face stays hydrated, not stripped.</div>
+      </div>
+    </div>
+
+    <div class="ing-row" onclick="toggleIng(this)">
+      <div class="ing-header">
+        <div>
+          <div class="ing-name">Rice Ferment Filtrate</div>
+          <div class="ing-tldr">The microbiome ingredient. Your face has an ecosystem — this protects it.</div>
+        </div>
+        <span class="ing-badge badge-support">supporting</span>
+      </div>
+      <div class="ing-detail">
+        <p>Your skin's surface hosts billions of microorganisms that form a protective barrier. Most facewashes disrupt this ecosystem every time you wash. Rice ferment filtrate contains naturally occurring postbiotics — metabolic byproducts from the fermentation process — that support the growth of beneficial bacteria on your skin. It's the ingredient that makes this a facewash that works with your skin instead of against it.</p>
+        <div class="ing-conc">Fermented. Not just rice water — the fermentation is what creates the active compounds.</div>
+      </div>
+    </div>
+
+    <div class="ing-row" onclick="toggleIng(this)">
+      <div class="ing-header">
+        <div>
+          <div class="ing-name">Prebiotic ProVit B5 (Panthenol)</div>
+          <div class="ing-tldr">Barrier strength + microbiome food. Two jobs, one ingredient.</div>
+        </div>
+        <span class="ing-badge badge-support">supporting</span>
+      </div>
+      <div class="ing-detail">
+        <p>Provitamin B5 draws moisture into the skin and strengthens the barrier — the same role it plays in the body wash. But in the facewash, it's also acting as a prebiotic, feeding the beneficial microorganisms that the rice ferment filtrate is supporting. Barrier support plus microbiome support. When you're using acids daily, these two jobs aren't extras — they're engineering.</p>
+        <div class="ing-conc">Prebiotic formulation — feeds the good bacteria while strengthening the barrier.</div>
+      </div>
+    </div>
+
+    <div class="ing-row" onclick="toggleIng(this)">
+      <div class="ing-header">
+        <div>
+          <div class="ing-name">Orange Peel Exfoliator</div>
+          <div class="ing-tldr">Gentle physical exfoliation. The texture worker.</div>
+        </div>
+        <span class="ing-badge badge-base">base</span>
+      </div>
+      <div class="ing-detail">
+        <p>Natural micro-granules from orange peel that provide gentle physical exfoliation alongside the chemical exfoliation from the acid system. Unlike plastic microbeads or crushed walnut shells, these are soft enough to not cause micro-tears in facial skin. They target surface texture — the rough patches, the dullness, the flaky bits the acids haven't dissolved yet. Physical and chemical exfoliation working in the same wash, at appropriate intensities.</p>
+        <div class="ing-conc">Natural origin. Biodegradable. Gentle enough for daily use on face skin.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── TAB: REVIEWS ── -->
+  <div id="tab-reviews" class="tab-content">
+    <p style="font-size: 13px; color: var(--text-tertiary); margin-bottom: 1.25rem;">The first product most people try. The one that makes them buy the rest.</p>
+
+    <div class="review-card">
+      <div class="reviewer-name">Aditya M., Mumbai</div>
+      <div class="reviewer-tag">oily skin · first skincare product ever · verified purchase</div>
+      <div class="review-text">"I have never bought a facewash that wasn't the cheapest one at the store. My sister made me try this. Three weeks later the blackheads on my nose that I thought were permanent are just... going away? I'm confused and grateful."</div>
+      <span class="review-badge">the blackhead revelation</span>
+    </div>
+
+    <div class="review-card">
+      <div class="reviewer-name">Priya N., Bangalore</div>
+      <div class="reviewer-tag">combination skin · switched from a ₹1,200 facewash</div>
+      <div class="review-text">"I was using a luxury brand facewash with 'niacinamide' that turned out to be at 0.2%. This has it at 2% plus salicylic acid plus a triple-acid system. At ₹499. I'm annoyed at the years I wasted. My skin is smoother, less oily, and the texture on my cheeks is finally improving."</div>
+      <span class="review-badge">the one who checked the percentages</span>
+    </div>
+
+    <div class="review-card">
+      <div class="reviewer-name">Rahul T., Delhi</div>
+      <div class="reviewer-tag">verified purchase</div>
+      <div class="review-text">"Works. Doesn't smell weird. Tube lasts a while." <span style="font-size: 12px; font-style: italic; color: var(--text-tertiary);">— Brand: Five stars in nine words. We respect the efficiency.</span></div>
+    </div>
+
+    <div class="review-card">
+      <div class="reviewer-name">Anonymous</div>
+      <div class="reviewer-tag">2 stars</div>
+      <div class="review-text">"Broke me out in the first week." <span style="font-size: 12px; font-style: italic; color: var(--text-tertiary);">— Brand: Purging from the salicylic acid is possible in week 1. It's your pores clearing out. If it persists past week 2, it's not the right fit. Review stays up.</span></div>
+    </div>
+
+  </div>
+
+  <!-- ── TAB: THE HONEST PART ── -->
+  <div id="tab-honest" class="tab-content">
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+
+      <div class="honest-card">
+        <h3>Why a tube and not a pump?</h3>
+        <p style="margin-top: 0.4rem;">The body wash has a foaming pump because body skin needs volume coverage. Your face needs a pea-sized amount. A tube gives you better control over how much you dispense and travels better. It also means no air exposure between uses — the actives stay stable longer. The packaging follows the product, not the other way around.</p>
+      </div>
+
+      <div class="honest-card">
+        <h3>Can I use this on my body?</h3>
+        <p style="margin-top: 0.4rem;">You can, but it's not efficient. The surfactant system is gentler than the body wash because face skin is thinner and more reactive. The actives are at lower concentrations for the same reason. We make a body wash (Foam Rinse) designed specifically for body skin. Use each where it belongs.</p>
+      </div>
+
+      <div class="honest-card">
+        <h3>Is it fragrance-free?</h3>
+        <p style="margin-top: 0.4rem;">Yes. The facewash is completely fragrance-free. Face skin is the most sensitive area, and the product sits on it twice a day. We didn't see a reason to add fragrance here. The body wash has a light scent because body skin tolerates it and people won't use an unscented body wash. Different decisions for different products.</p>
+      </div>
+
+      <div class="honest-card">
+        <h3>100ml — how long does it last?</h3>
+        <p style="margin-top: 0.4rem;">A pea-sized amount per wash. Used twice daily, most people get 8–10 weeks. At ₹499, that's around ₹7–9 per day. For 8 actives at real concentrations. There are single-ingredient serums that cost more per week.</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER CTA
+     ═══════════════════════════════════════════ -->
+<div style="background: var(--odd-beige); padding: 1.5rem; text-align: center; border-top: 0.5px solid #e2ddd7;">
+  <div class="label" style="margin-bottom: 0.5rem;">product 01 of 04</div>
+  <h2 style="margin-bottom: 0.4rem;">Your face was getting<br>a surface clean.<br>Now it gets an actual routine.</h2>
+  <p style="font-size: 13px; color: #777; margin-bottom: 1.25rem; max-width: 320px; margin-left: auto; margin-right: auto;">Niacinamide 2%, salicylic acid 0.5%, AHA+BHA+PHA, rice ferment, and more. In a facewash. Yes really.</p>
+  <button class="btn-add" style="max-width: 240px; margin: 0 auto; display: block;">add clear first — ₹499</button>
+  <p style="font-size: 11px; color: var(--text-tertiary); margin-top: 0.75rem;">or get all 4 in The Whole Routine — ₹1,499</p>
+</div>
+
+</div>
+
+<script>
+function switchTab(name) {
+  const names = ['wait','does','ingredients','reviews','honest'];
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', names[i] === name));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+}
+function toggleIng(el) {
+  const d = el.querySelector('.ing-detail');
+  const open = d.classList.contains('open');
+  document.querySelectorAll('.ing-detail.open').forEach(x => x.classList.remove('open'));
+  if (!open) d.classList.add('open');
+}
+</script>

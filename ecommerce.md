@@ -93,6 +93,62 @@ Packaging types:
 - **Facewash (Clear First):** Tube
 - **Body Wash (Foam Rinse):** Taller pump bottle (foaming dispenser)
 
+## Pricing
+
+| Product | Individual Price |
+|---------|-----------------|
+| Clear First (Facewash) | ₹499 |
+| Foam Rinse (Body Wash) | ₹449 |
+| Dawn Shield (AM Cream) | ₹399 |
+| Deep Dusk (PM Cream) | ₹549 |
+| **The Whole Routine (Bundle)** | **₹1,499** (save ₹397) |
+
+Individual total: ₹1,896 → Bundle: ₹1,499
+
+## Product Description Pages — Status
+
+All 5 product description pages have been created as static HTML files in `product-pages/`. These serve as content blueprints before WooCommerce integration.
+
+### Format
+- **Shorter tabbed format** — client-requested concise, to-the-point layout
+- Each page is a self-contained HTML file with inline CSS and JavaScript
+- Tabbed navigation for content sections (except the bundle page)
+- Expandable ingredient cards with tap-to-reveal details
+- Does/Doesn't grids, comparison rows, review cards, honest disclosure cards
+
+### Pages
+
+| File | Product | Theme | Tabs |
+|------|---------|-------|------|
+| `clear-first-facewash.html` | Clear First (Facewash) | Sage/Beige | wait / does / ingredients / reviews / honest |
+| `foam-rinse-bodywash.html` | Foam Rinse (Body Wash) | Sage/Beige | wait / does / ingredients / reviews / honest |
+| `dawn-shield-sunscreen.html` | Dawn Shield (AM Cream) | Warm Amber | excuses / does / ingredients / reviews / honest |
+| `deep-dusk-nightcream.html` | Deep Dusk (PM Cream) | Dark/Black | retinol story / why you need this / does / ingredients / reviews / honest |
+| `the-whole-routine-bundle.html` | The Whole Routine (Bundle) | Purple Accent | No tabs — member grid, timeline, does/doesn't, reviews |
+
+### Product-Specific Design Notes
+- **Facewash:** Sage green accents, comparison rows vs standard facewash, 7 expandable ingredients
+- **Body Wash:** Sage green accents, body zone map, comparison rows, 5 expandable ingredients
+- **Sunscreen:** Warm amber palette (#bfa98b, #f7f2eb), excuse accordion with verdicts, SPF visual explainer, India-specific UV dark strip
+- **Night Cream:** Full dark theme with algae-green accents, bio-retinol story section, GenZ sleep science strip, weekly timeline, 3 expandable ingredients
+- **Bundle:** Purple accent (#534AB7, #EEEDFE), 2×2 click-to-select member grid, timed daily routine timeline, no tabs
+
+### Key Content Decisions
+- All ingredients are the **actual product ingredients** from this brief (not from reference templates)
+- Bundle named **"The Whole Routine"** (client-approved)
+- All pages cross-reference the bundle: "or get all 4 in The Whole Routine — ₹1,499"
+- Products cross-reference each other where relevant (e.g., night cream mentions sunscreen dependency)
+- Brand voice maintained across all pages: direct, honest, Gen Z-aligned, no hype
+
+## Next Steps
+
+- [ ] Homepage design
+- [ ] WooCommerce product setup and integration
+- [ ] Theme installation (Kadence + child theme)
+- [ ] Plugin installation (Razorpay payments, SEO, etc.)
+- [ ] Shipping configuration
+- [ ] Testing and launch
+
 ## Reference Materials
 
-_Section reserved for additional client-provided rough design references (to be added)._
+_Client-provided rough design references were used to build the product description pages. The shorter tabbed format was the final client-approved direction._

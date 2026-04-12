@@ -1,0 +1,315 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; background: #fff; color: #1a1a1a; }
+:root {
+  --odd-black:#000;--odd-white:#fff;--odd-sage:#9CAF88;--odd-beige:#F5F0EB;
+  --odd-dark:#1a1a1a;--odd-gray:#555;--odd-border:#e5e5e5;
+  --text-primary:#1a1a1a;--text-secondary:#555;--text-tertiary:#888;
+  --bg-secondary:#fafaf9;--border-light:#e5e5e5;
+  --purple:#534AB7;--purple-light:#EEEDFE;--purple-border:#AFA9EC;--purple-dark:#3C3489;--purple-text:#7F77DD;
+}
+h1 { font-size: 22px; font-weight: 500; color: var(--text-primary); line-height: 1.3; }
+h2 { font-size: 18px; font-weight: 500; color: var(--text-primary); }
+h3 { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-tertiary); margin-bottom: 0.4rem; }
+.section { padding: 2rem 0; border-bottom: 0.5px solid var(--border-light); }
+.pill { display: inline-block; font-size: 12px; padding: 3px 12px; border-radius: 999px; border: 0.5px solid var(--border-light); color: var(--text-secondary); margin: 0 4px 4px 0; }
+.pill-active { background: var(--purple-light); color: var(--purple); border-color: var(--purple-border); }
+.pill-green { background: #E1F5EE; color: #0F6E56; border-color: #9FE1CB; }
+
+/* ── MEMBER GRID ── */
+.member-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; margin-top: 1.25rem; }
+.member-card { border-radius: 12px; border: 0.5px solid var(--border-light); padding: 1.25rem; background: var(--odd-white); cursor: pointer; transition: border-color 0.15s; }
+.member-card:hover { border-color: var(--purple-border); }
+.member-card.selected { border: 1.5px solid var(--purple-text); background: var(--purple-light); }
+.member-num { font-size: 11px; color: var(--text-tertiary); margin-bottom: 0.4rem; }
+.member-name { font-size: 15px; font-weight: 500; color: var(--text-primary); margin-bottom: 0.3rem; }
+.member-card.selected .member-name { color: var(--purple-dark); }
+.member-role { font-size: 12px; color: var(--text-tertiary); font-style: italic; margin-bottom: 0.6rem; }
+.member-card.selected .member-role { color: var(--purple-text); }
+.member-actives { display: flex; flex-wrap: wrap; gap: 4px; }
+.active-tag { font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--bg-secondary); color: var(--text-secondary); border: 0.5px solid var(--border-light); }
+.member-card.selected .active-tag { background: #fff; color: var(--purple); border-color: var(--purple-border); }
+.member-detail { display: none; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 0.5px solid var(--purple-border); }
+.member-card.selected .member-detail { display: block; }
+.member-detail p { font-size: 12px; color: var(--purple); line-height: 1.6; }
+
+/* ── BOX HERO ── */
+.box-hero { background: var(--bg-secondary); border-radius: 12px; border: 0.5px solid var(--border-light); padding: 1.5rem; display: flex; gap: 1.5rem; align-items: flex-start; }
+.box-visual { width: 110px; height: 140px; background: var(--purple-light); border-radius: 12px; border: 0.5px solid var(--purple-border); display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; gap: 6px; }
+.box-icon { font-size: 11px; color: var(--purple-text); font-weight: 500; }
+.box-label { font-size: 9px; color: var(--purple-border); text-transform: uppercase; letter-spacing: 0.08em; }
+.price-strike { text-decoration: line-through; color: var(--text-tertiary); font-size: 14px; }
+.price-big { font-size: 24px; font-weight: 500; color: var(--text-primary); }
+.price-save { font-size: 12px; background: #E1F5EE; color: #0F6E56; padding: 3px 10px; border-radius: 999px; }
+.btn-buy { background: var(--purple); color: var(--purple-light); font-size: 14px; padding: 12px 24px; border-radius: 999px; border: none; cursor: pointer; width: 100%; margin-top: 1rem; transition: background 0.15s ease; }
+.btn-buy:hover { background: var(--purple-dark); }
+
+/* ── TIMELINE ── */
+.timeline { display: flex; flex-direction: column; gap: 0; margin-top: 1rem; }
+.tl-row { display: flex; gap: 1rem; align-items: flex-start; padding: 1rem 0; border-bottom: 0.5px solid var(--border-light); }
+.tl-row:last-child { border-bottom: none; }
+.tl-time { font-size: 12px; font-weight: 500; color: var(--text-tertiary); min-width: 52px; padding-top: 2px; }
+.tl-product { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-bottom: 2px; }
+.tl-note { font-size: 12px; color: var(--text-secondary); }
+.tl-odd { font-size: 11px; color: var(--purple-text); font-style: italic; margin-top: 3px; }
+.tl-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--purple-border); flex-shrink: 0; margin-top: 5px; }
+
+/* ── DOES / DOESN'T ── */
+.does-row { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px; margin-top: 1rem; }
+.does-yes { background: var(--purple-light); border: 0.5px solid var(--purple-border); border-radius: 12px; padding: 1.25rem; }
+.does-no { background: var(--bg-secondary); border: 0.5px solid var(--border-light); border-radius: 12px; padding: 1.25rem; }
+.does-title { font-size: 13px; font-weight: 500; margin-bottom: 0.6rem; }
+.does-yes .does-title { color: var(--purple-dark); }
+.does-no .does-title { color: var(--text-tertiary); }
+.does-item { font-size: 13px; line-height: 1.7; display: flex; gap: 8px; align-items: flex-start; padding: 2px 0; }
+.does-yes .does-item { color: var(--purple); }
+.does-no .does-item { color: var(--text-tertiary); text-decoration: line-through; }
+.dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+.yes-dot { background: var(--purple-text); }
+.no-dot { background: #B4B2A9; }
+
+/* ── HONEST STRIP ── */
+.honest-strip { border-left: 3px solid var(--purple-text); padding: 1rem 1.25rem; background: var(--bg-secondary); border-radius: 0 10px 10px 0; }
+.honest-strip p { font-size: 13px; color: var(--text-secondary); }
+
+/* ── REVIEWS ── */
+.review-card { background: var(--bg-secondary); border-radius: 12px; padding: 1.25rem; margin-bottom: 10px; }
+.reviewer-name { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+.reviewer-tag { font-size: 11px; color: var(--text-tertiary); margin: 2px 0 0.5rem; }
+.review-text { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+.review-badge { font-size: 11px; background: var(--purple-light); color: var(--purple); padding: 2px 10px; border-radius: 999px; display: inline-block; margin-top: 0.5rem; }
+</style>
+
+<div style="padding: 0 1rem 2rem;">
+
+  <div style="padding: 1rem 0; border-bottom: 0.5px solid var(--border-light); margin-bottom: 0;">
+    <span style="font-size: 13px; color: var(--text-tertiary);">ODD Care Co. / shop (4 things) /</span>
+    <span style="font-size: 13px; color: var(--text-secondary);"> the whole routine</span>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="box-hero">
+      <div class="box-visual">
+        <div class="box-icon">01 FACE WASH</div>
+        <div style="width: 32px; height: 1px; background: var(--purple-border);"></div>
+        <div class="box-icon">02 BODY WASH</div>
+        <div style="width: 32px; height: 1px; background: var(--purple-border);"></div>
+        <div class="box-icon">03 AM CREAM</div>
+        <div style="width: 32px; height: 1px; background: var(--purple-border);"></div>
+        <div class="box-icon">04 PM CREAM</div>
+        <div style="margin-top: 4px;" class="box-label">the whole thing</div>
+      </div>
+      <div style="flex: 1;">
+        <div class="label">the full set · all 4 products</div>
+        <h1 style="margin: 0.4rem 0 0.3rem;">The Whole Routine</h1>
+        <p style="font-size: 13px; margin-bottom: 0.75rem;">Four products. Each one doing its specific job. Nobody slacking. Unlike every group project you've actually been in.</p>
+        <div style="margin-bottom: 0.75rem;">
+          <span class="pill pill-green">complete routine</span>
+          <span class="pill pill-active">AM + PM covered</span>
+          <span class="pill">best intro to skincare</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;">
+          <span class="price-strike">₹1,896</span>
+          <span class="price-big">₹1,499</span>
+          <span class="price-save">you save ₹397</span>
+        </div>
+        <p style="font-size: 12px; color: var(--text-tertiary); margin-top: 0.3rem;">free shipping · no subscription required · no "but have you tried our serum?"</p>
+        <button class="btn-buy">get the whole routine (₹1,499)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       MEMBER GRID
+       ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="label">meet the routine</div>
+    <p style="font-size: 13px;">Click any product to see what it actually brings to the table.</p>
+    <div class="member-grid" id="memberGrid">
+
+      <div class="member-card" onclick="selectMember(this)">
+        <div class="member-num">01 / 04 · AM or PM</div>
+        <div class="member-name">Clear First</div>
+        <div class="member-role">"the reliable one"</div>
+        <div class="member-actives">
+          <span class="active-tag">niacinamide 2%</span>
+          <span class="active-tag">salicylic acid</span>
+          <span class="active-tag">AHA+BHA+PHA</span>
+        </div>
+        <div class="member-detail">
+          <p>Cleans without stripping. Niacinamide + salicylic acid + triple-acid system means your pores get cleared, your skin gets exfoliated, and your microbiome stays intact. Rice ferment filtrate and prebiotic ProVit B5 handle that last part. Use it morning and night.</p>
+        </div>
+      </div>
+
+      <div class="member-card" onclick="selectMember(this)">
+        <div class="member-num">02 / 04 · AM or PM</div>
+        <div class="member-name">Foam Rinse</div>
+        <div class="member-role">"the underrated one"</div>
+        <div class="member-actives">
+          <span class="active-tag">niacinamide 4%</span>
+          <span class="active-tag">salicylic acid</span>
+          <span class="active-tag">AHA+BHA+PHA</span>
+        </div>
+        <div class="member-detail">
+          <p>Nobody thinks about actives in a body wash. We did. Niacinamide at 4% for oil control, salicylic acid to unclog body pores, and a triple-acid system for resurfacing. ProVit B5 keeps it hydrating. Your body has skin too. We felt strongly about this.</p>
+        </div>
+      </div>
+
+      <div class="member-card" onclick="selectMember(this)">
+        <div class="member-num">03 / 04 · morning only</div>
+        <div class="member-name">Dawn Shield</div>
+        <div class="member-role">"the one everyone ignores but shouldn't"</div>
+        <div class="member-actives">
+          <span class="active-tag">SPF 50+ PA++++</span>
+          <span class="active-tag">niacinamide</span>
+          <span class="active-tag">ceramides</span>
+        </div>
+        <div class="member-detail">
+          <p>SPF 50+ PA++++ because we're not doing anything less. Added niacinamide and ceramide complex so it doubles as a moisturiser. Sodium hyaluronate for hydration. The one product dermatologists universally agree on. No white cast. No grease. Please use it.</p>
+        </div>
+      </div>
+
+      <div class="member-card" onclick="selectMember(this)">
+        <div class="member-num">04 / 04 · night only</div>
+        <div class="member-name">Deep Dusk</div>
+        <div class="member-role">"the one doing the real work while you sleep"</div>
+        <div class="member-actives">
+          <span class="active-tag">marine bio-retinol</span>
+          <span class="active-tag">niacinamide 2%</span>
+          <span class="active-tag">shea butter</span>
+        </div>
+        <div class="member-detail">
+          <p>Marine bio-retinol from microalgae for cell turnover without the brutal purge. Niacinamide 2% for pigmentation. Shea butter to lock in moisture overnight. Your skin repairs itself at night — this gives it the materials to do that properly.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       TIMELINE
+       ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="label">your actual routine (timed)</div>
+    <p style="font-size: 13px;">The whole thing. Both ends of the day. Written for people who've never had a routine before.</p>
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="tl-dot"></div>
+        <div style="min-width: 60px;"><div class="tl-time">Morning</div><div style="font-size: 11px; color: var(--text-tertiary);">~90 sec</div></div>
+        <div>
+          <div class="tl-product">Clear First + Foam Rinse</div>
+          <div class="tl-note">In the shower. Both happening at once. You're already there.</div>
+          <div class="tl-odd">the facewash and body wash share your shower slot. efficient.</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot"></div>
+        <div style="min-width: 60px;"><div class="tl-time">After shower</div><div style="font-size: 11px; color: var(--text-tertiary);">~30 sec</div></div>
+        <div>
+          <div class="tl-product">Dawn Shield</div>
+          <div class="tl-note">On your face. Every morning. Including cloudy days. Including indoors near windows. We will not stop saying this.</div>
+          <div class="tl-odd">also acts as a moisturiser. one less step you weren't doing anyway.</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot"></div>
+        <div style="min-width: 60px;"><div class="tl-time">Night</div><div style="font-size: 11px; color: var(--text-tertiary);">~60 sec</div></div>
+        <div>
+          <div class="tl-product">Clear First + Deep Dusk</div>
+          <div class="tl-note">Wash off the day. Apply night cream. Go to sleep. The bio-retinol and niacinamide will handle the rest while you do nothing.</div>
+          <div class="tl-odd">this is the step most people skip. this is also the most important one.</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot" style="background: var(--purple-border);"></div>
+        <div style="min-width: 60px;"><div class="tl-time">Total</div><div style="font-size: 11px; color: var(--text-tertiary);">~3 min/day</div></div>
+        <div>
+          <div class="tl-product" style="color: var(--purple);">That's the routine.</div>
+          <div class="tl-note">3 minutes across an entire day. You spend more time than this deciding what to have for breakfast. Your skin is sorted.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       DOES / DOESN'T
+       ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="label">what this set does and doesn't do</div>
+    <div class="does-row">
+      <div class="does-yes">
+        <div class="does-title">the full set handles</div>
+        <div class="does-item"><span class="dot yes-dot"></span><span>Complete AM and PM routine — nothing missing</span></div>
+        <div class="does-item"><span class="dot yes-dot"></span><span>Hydration, barrier repair, SPF — the fundamentals</span></div>
+        <div class="does-item"><span class="dot yes-dot"></span><span>Gentle exfoliation — face and body</span></div>
+        <div class="does-item"><span class="dot yes-dot"></span><span>Pigmentation, texture, pores over time</span></div>
+        <div class="does-item"><span class="dot yes-dot"></span><span>Being your entire skincare shelf. Yes, really.</span></div>
+      </div>
+      <div class="does-no">
+        <div class="does-title">what it won't do</div>
+        <div class="does-item"><span class="dot no-dot"></span><span>Replace prescription treatment for active acne</span></div>
+        <div class="does-item"><span class="dot no-dot"></span><span>Work in a week — 4 to 6, minimum</span></div>
+        <div class="does-item"><span class="dot no-dot"></span><span>Fix sun damage you've already got (slow it, yes)</span></div>
+        <div class="does-item"><span class="dot no-dot"></span><span>Make us add a 5th product</span></div>
+      </div>
+    </div>
+    <div class="honest-strip" style="margin-top: 1rem;">
+      <p>If you've been using nothing, this will feel like a dramatic upgrade. If you have a 10-step routine, this will feel like a dramatic simplification. Both outcomes are fine with us.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       REVIEWS
+       ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="label">reviews (both kinds)</div>
+
+    <div class="review-card">
+      <div class="reviewer-name">Meera T., Pune</div>
+      <div class="reviewer-tag">gifted this to her boyfriend · verified purchase</div>
+      <div class="review-text">"He used bar soap on his face for 28 years. THREE WEEKS into this and his skin looks better than mine. I'm furious. Also I stole the facewash. 5 stars."</div>
+      <span class="review-badge">gifted, then immediately stolen</span>
+    </div>
+
+    <div class="review-card">
+      <div class="reviewer-name">Karan V., Hyderabad</div>
+      <div class="reviewer-tag">skincare enthusiast · bought out of curiosity</div>
+      <div class="review-text">"I have 40 products and I bought this to review it honestly. The formulation logic is sound — the morning and night splits are deliberate. Bio-retinol in the night cream, BHA in the facewash, SPF with ceramides in the AM cream. Someone thought this through."</div>
+      <span class="review-badge">the person who starts the recommendation chain</span>
+    </div>
+
+    <div class="review-card">
+      <div class="reviewer-name">Anonymous, somewhere in India</div>
+      <div class="reviewer-tag">verified purchase</div>
+      <div class="review-text">"I forgot to apply the night cream for 2 weeks straight and my skin still improved. Either the morning routine is doing a lot or I'm a medical anomaly. Keeping both options open."</div>
+      <span class="review-badge">we have thoughts but we'll stay quiet</span>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER CTA
+       ═══════════════════════════════════════════ -->
+  <div style="background: var(--purple-light); border-radius: 12px; padding: 1.5rem; text-align: center; margin-top: 1.5rem;">
+    <div class="label" style="color: var(--purple-text);">the whole routine, together</div>
+    <h2 style="color: var(--purple-dark); margin: 0.4rem 0 0.3rem;">₹1,499. Everything your skin needs.</h2>
+    <p style="color: var(--purple); font-size: 13px; margin-bottom: 1rem;">No follow-up emails asking if you want a serum. No subscription. No 14-step "progression." Just 4 products, one box, done.</p>
+    <button class="btn-buy" style="max-width: 280px; margin: 0 auto; display: block;">get The Whole Routine</button>
+    <p style="font-size: 12px; color: var(--purple-text); margin-top: 0.75rem;">free shipping · 30 day returns · still only 4 products</p>
+  </div>
+
+</div>
+
+<script>
+function selectMember(el) {
+  const wasSelected = el.classList.contains('selected');
+  document.querySelectorAll('.member-card').forEach(c => c.classList.remove('selected'));
+  if (!wasSelected) el.classList.add('selected');
+}
+</script>
