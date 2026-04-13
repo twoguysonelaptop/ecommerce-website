@@ -142,13 +142,188 @@ All 5 product description pages have been created as static HTML files in `produ
 
 ## Next Steps
 
-- [ ] Homepage design
+- [x] Homepage design
+- [x] Static product pages (HTML blueprints)
+- [x] Push homepage to WordPress
+- [x] Push all 5 product pages to WordPress
+- [x] Kadence theme + child theme installed and configured
+- [x] Manifesto page — static blueprint + WordPress page template created
+- [ ] Create "Why 4" WordPress page (Admin → Pages → Add New → Template: Manifesto → Slug: why-4)
+- [ ] Our Mission page — static blueprint exists, needs WordPress page creation (slug: our-mission)
+- [ ] Add Manifesto + Our Mission buttons to homepage footer (pending fix for page-break issue)
 - [ ] WooCommerce product setup and integration
-- [ ] Theme installation (Kadence + child theme)
 - [ ] Plugin installation (Razorpay payments, SEO, etc.)
 - [ ] Shipping configuration
 - [ ] Testing and launch
 
+## WordPress Integration — Status
+
+**Local environment:** Local by Flywheel — `http://odd-care-co.local/`
+**Theme:** Kadence (active)
+**Auth method:** WordPress REST API with `X-WP-Nonce` from `wpApiSettings.nonce`
+
+### Live Pages
+
+| Page | WordPress URL | Page ID |
+|------|--------------|---------|
+| Homepage | `http://odd-care-co.local/` | 26 |
+| Clear First (Facewash) | `http://odd-care-co.local/clear-first/` | 31 |
+| Foam Rinse (Body Wash) | `http://odd-care-co.local/foam-rinse/` | 33 |
+| Dawn Shield (AM Cream) | `http://odd-care-co.local/dawn-shield/` | 35 |
+| Deep Dusk (PM Cream) | `http://odd-care-co.local/deep-dusk/` | 37 |
+| The Whole Routine (Bundle) | `http://odd-care-co.local/the-whole-routine/` | 39 |
+
+All pages are published with Kadence full-width layout and no page title (meta: `_kad_post_title: hide`, `_kad_post_layout: fullwidth`, `_kad_post_vertical_padding: remove`).
+
+Homepage is set as the static front page in WordPress Settings → Reading.
+
+### How Pages Were Pushed
+
+All pages are pushed as raw HTML via the WordPress REST API (`POST /wp-json/wp/v2/pages`). Key technical details:
+
+- **Gutenberg block wrapper**: Content is wrapped in `<!-- wp:html -->...<!-- /wp:html -->` to bypass WordPress's `wpautop` filter (which would otherwise insert `<p>` tags inside `<style>` blocks and break CSS selectors).
+- **CSS variables**: `:root` CSS variable declarations are stripped before pushing. All `var(--xxx)` references are replaced with hard-coded hex values because variables defined inside a page's `<style>` tag don't propagate globally in Chrome. The full replacement map is in `window._createProductPage` (see Technical Notes below).
+- **Kadence padding**: A `<style>.entry-content-wrap{padding-top:0!important;padding-bottom:0!important}</style>` snippet is appended to every page to remove Kadence's default content padding.
+- **Homepage product card links**: All point to `/clear-first/`, `/foam-rinse/`, `/dawn-shield/`, `/deep-dusk/`, `/the-whole-routine/` (not `/product/...` WooCommerce-style URLs).
+
+### CSS Variable Replacement Map
+
+Used when pushing any page to WordPress (to avoid `:root` propagation issues):
+
+```
+--odd-black     → #000
+--odd-white     → #fff
+--odd-sage      → #9CAF88
+--odd-beige     → #F5F0EB
+--odd-dark      → #1a1a1a
+--odd-gray      → #555
+--odd-border    → #e5e5e5
+--text-primary  → #1a1a1a
+--text-secondary→ #555
+--text-tertiary → #888
+--bg-secondary  → #fafaf9
+--border-light  → #e5e5e5
+--warm          → #bfa98b      (Dawn Shield)
+--warm-light    → #f7f2eb
+--warm-border   → #e0d4c0
+--warm-text     → #6b5540
+--warm-dark     → #4a3828
+--night         → #0d0d0d      (Deep Dusk)
+--night-card    → #1a1a1a
+--night-border  → #2a2a2a
+--night-text    → #666
+--night-heading → #e0e0e0
+--algae         → #2d5a3a
+--algae-light   → #4a8a5a
+--algae-bg      → #0d1a10
+--algae-border  → #1a3320
+--purple        → #534AB7      (Bundle)
+--purple-light  → #EEEDFE
+--purple-border → #AFA9EC
+--purple-dark   → #3C3489
+--purple-text   → #7F77DD
+```
+
+## Manifesto Page — Status
+
+**Session date:** 2026-04-13
+
+The "Why 4" manifesto page explains the brand's core philosophy — why only 4 products, what was eliminated and why, and who the products are for.
+
+### Source
+Client provided reference at `odd_care_why4_manifesto.html` — plain content without design formatting.
+
+### Files Created
+
+| File | Purpose |
+|------|---------|
+| `product-pages/manifesto.html` | Static HTML blueprint (standalone, for preview/reference) |
+| `wp-content/themes/oddcareco-child/page-manifesto.php` | WordPress blank-canvas page template |
+
+### WordPress Page Template: "Manifesto"
+- **Template name:** Manifesto (selectable in Page Attributes sidebar)
+- **Blank canvas** — bypasses Kadence header/footer entirely; uses its own nav
+- Still calls `wp_head()` / `wp_footer()` so SEO plugins and analytics work
+- Nav links are dynamic WordPress URLs (`wc_get_page_permalink('shop')`, `home_url()`)
+- **To activate:** Admin → Pages → Add New → Title: `Why 4` → Template: `Manifesto` → Slug: `why-4` → Publish
+
+### Design Features
+- Sticky scroll-progress bar (sage green, 2px)
+- Sticky chapter strip with 6 tabs (intro / the problem / what we cut / the hard part / who it's for / the deal) — updates active state on scroll, clickable to jump
+- Fade-in animations on all sections (IntersectionObserver)
+- **Strike list:** 6 eliminated products strikethrough sequentially (180ms apart) on scroll into view
+- **Counter animation:** "17" counts up 0→17 when the formulation stat block enters view
+- **"Who it's for" list:** 4 paragraphs slide in with 130ms stagger
+- Full-bleed beige pull quote section breaks the column rhythm
+- Admin bar compatible (no z-index or fixed positioning conflicts)
+
+### Content Structure (5 parts)
+1. **Intro** — "The skincare industry has a vested interest in your confusion."
+2. **Part One** — Nobody actually needs 12 products (with industry stat callout)
+3. **Part Two** — Products eliminated + interactive strikethrough list → kept list
+4. **Part Three** — Multifunctional formulation is harder (17 iterations counter)
+5. **Part Four** — Who it's for + product colour row
+6. **Ending** — Why we'll never make a 5th product + dark callout
+7. **CTA** — "Get the group project — ₹1,499" + "See all 4 products"
+
+---
+
+## Session Log — 2026-04-13
+
+### What was done
+1. **Manifesto page built** — static blueprint (`product-pages/manifesto.html`) and WordPress blank-canvas template (`page-manifesto.php` in child theme). Content sourced from client reference file `odd_care_why4_manifesto.html`. All scroll animations, chapter strip, counter, and stagger effects implemented.
+
+2. **Homepage footer buttons attempted** — added `.footer-links` CSS and two ghost-style buttons ("Manifesto" → `/why-4`, "Our Mission" → `/our-mission`) to the live WordPress homepage (page ID 26) via a one-time PHP update script. Changes were **rolled back** after the page broke — to be reattempted in next session with a safer approach.
+
+3. **Child theme confirmed** — `oddcareco-child` is active on `odd-care-co.local`. Kadence parent theme installed. Child theme has `functions.php` (nav dropdown enhancement + product carousel) and `style.css` (brand variable overrides).
+
+### Pending from this session
+- Create the "Why 4" WordPress page and assign the Manifesto template
+- Investigate why the homepage footer buttons broke the page before re-adding them
+- Our Mission page (`product-pages/our-mission.html` exists) needs its own WordPress page and template
+
+---
+
 ## Reference Materials
 
 _Client-provided rough design references were used to build the product description pages. The shorter tabbed format was the final client-approved direction._
+
+---
+
+## Session Log — 2026-04-13 (Homepage Polish & Bug Fixes)
+
+All changes applied to live Local by Flywheel WordPress site. Files modified: `oddcareco-child/style.css`, `oddcareco-child/functions.php`, WordPress page ID 26 (homepage content via block editor API).
+
+### Changes Made
+
+1. **Header: removed brand name text** — "ODD Care Co." text next to logo hidden via `.site-title-wrap { display: none }` in child theme CSS. Logo-only.
+
+2. **Ticker bar: fixed contrast** — Non-highlighted items (no serum, no toner, etc.) were `#3a3a3a` on `#111111` background — near invisible. Changed to `#888888`. Product items remain sage green.
+
+3. **Hero copy update** — "We're not making more." → "For skincare. That's the full lineup." Scopes the claim to skincare only, leaves room for future product categories.
+
+4. **Products dropdown nav** — Consolidated individual product header links into a "PRODUCTS" dropdown. Created WordPress nav menu programmatically via PHP. Dropdown contains: Clear First, Foam Rinse, Dawn Shield, Deep Dusk, The Whole Routine — Bundle.
+
+5. **Premium dropdown design** — Dark luxury panel (`#0d0d0d`, sage top border). JS in `wp_footer` adds rich structure per item: product code (ODD-01 in sage), name (white), type + price (muted gray). Bundle item has sage left border + greenish tint. Slide-in animation, hover highlights.
+
+6. **Product section → auto-scroll carousel** — 2-column grid converted to full-bleed infinite auto-scrolling carousel (same style as header ticker). Cards are 300px wide, loop seamlessly via JS-cloned duplicates, animate at 36s/loop. Hovering pauses scroll.
+
+7. **Carousel/bundle spacing** — Added `margin-bottom: 3.5rem` to carousel wrap and `margin-top: 0.5rem` to `.bundle-row` to prevent them collapsing together.
+
+8. **Footer: Manifesto + Our Mission links** — Custom `.odd-footer` injected via `kadence_before_footer` hook. Dark `#0d0d0d` panel, brand name + tagline left, nav links right (sage hover). Resolves the previously failed footer button attempt.
+
+9. **Fixed `overflow: clip` on `.wp-site-blocks`** — WordPress block wrapper was clipping full-bleed elements. Overridden to `overflow: visible` in child theme CSS.
+
+### Bugs Fixed
+
+10. **Homepage broken — raw CSS rendered as text** — `<style>` and `</style>` tags were stripped from the page's Custom HTML block during a content edit. Detected via `mainContent` showing raw CSS. Fixed by re-wrapping the CSS block (boundary at first `<div>` ~char 12,783) via the WP block editor API.
+
+11. **Hero "4" overlapping all text** — `.hero::before` (position: absolute, z-index: 0) was painting over static children after `.hero > * { position: relative; z-index: 1 }` was lost in the style strip. Re-added as permanent override in child theme CSS.
+
+### Files Changed
+
+| File | What changed |
+|---|---|
+| `oddcareco-child/style.css` | Ticker, dropdown, carousel, footer, hero z-index, overflow fix |
+| `oddcareco-child/functions.php` | Dropdown JS enhancer, carousel builder JS, footer PHP hook |
+| WordPress page ID 26 | Hero copy, product grid CSS, `<style>` tag restoration |
