@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Mission — ODD Care Co.</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: #fff;
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
+}
+
+.om {
+  --sage: #7a9e7e;
+  --sage-light: #e8f0e9;
+  --beige: #f5f0e8;
+  --beige-dark: #ece6da;
+  --dark: #0f0f0f;
+  --border: #e5dfd6;
+  --muted: #5e5e5e;
+  --faint: #9e9e9e;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ── HERO ─────────────────────────────────── */
+.om-hero {
+  padding: 5rem 0 4.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.om-hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--sage);
+  margin-bottom: 2.5rem;
+}
+.om-hero-label::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--sage);
+}
+
+.om-hero-title {
+  font-size: clamp(2.75rem, 7vw, 4.25rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
+}
+.om-hero-title .accent {
+  color: var(--sage);
+}
+.om-hero-title .line2 {
+  display: block;
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 400;
+  color: var(--faint);
+  letter-spacing: -0.02em;
+  margin-top: 0.5rem;
+}
+
+.om-hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 460px;
+}
+.om-hero-sub strong {
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+/* ── SHARED SECTION ───────────────────────── */
+.om-section {
+  padding: 4.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.om-part-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--faint);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.om-part-label::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--faint);
+  flex-shrink: 0;
+}
+
+.om-section-title {
+  font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
+  max-width: 540px;
+}
+
+.om-body {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.9;
+  max-width: 580px;
+}
+.om-body p + p { margin-top: 1.25rem; }
+
+/* ── BIG STAT ─────────────────────────────── */
+.om-stat {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0;
+  margin: 3rem 0;
+  background: var(--beige);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.om-stat-num-col {
+  background: var(--sage);
+  padding: 2rem 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.om-stat-number {
+  font-size: 96px;
+  font-weight: 600;
+  line-height: 1;
+  color: #fff;
+  letter-spacing: -0.06em;
+}
+.om-stat-text {
+  padding: 2rem 2rem 2rem 2.25rem;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.85;
+  display: flex;
+  align-items: center;
+}
+
+/* ── AUDIENCE LIST ────────────────────────── */
+.om-audience {
+  margin: 2.5rem 0;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+}
+.om-audience-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.15rem 1.5rem;
+  gap: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.om-audience-row:last-child { border-bottom: none; }
+.om-audience-row:hover { background: var(--beige); }
+.om-audience-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+.om-audience-note {
+  font-size: 12px;
+  color: var(--faint);
+  font-style: italic;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.om-honest {
+  margin: 2rem 0 0;
+  padding: 1.5rem 1.75rem;
+  border-left: 3px solid var(--sage);
+  background: var(--beige);
+  border-radius: 0 14px 14px 0;
+}
+.om-honest p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.85;
+  font-style: italic;
+}
+
+/* ── DARK SECTION (Part 3) ────────────────── */
+.om-dark {
+  background: var(--dark);
+  margin: 0;
+  padding: 5rem 2.5rem;
+  border-radius: 20px;
+}
+.om-dark .om-part-label {
+  color: #444;
+}
+.om-dark .om-part-label::before { background: #333; }
+.om-dark .om-section-title { color: #e0e0e0; }
+.om-dark .om-body { color: #555; }
+.om-dark .om-body strong { color: #999; }
+
+.om-wealth-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 3rem 0 2.5rem;
+}
+.om-wealth-card {
+  background: #161616;
+  border: 1px solid #242424;
+  border-radius: 16px;
+  padding: 1.35rem;
+}
+.om-wealth-card-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--sage);
+  margin-bottom: 0.9rem;
+}
+.om-wealth-card-body {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.8;
+  margin-bottom: 0.75rem;
+}
+.om-wealth-card-note {
+  font-size: 11px;
+  color: #3a3a3a;
+  font-style: italic;
+}
+
+/* ── PULL QUOTE ───────────────────────────── */
+.om-pullquote {
+  padding: 5.5rem 0;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.om-pq-mark {
+  font-size: 56px;
+  line-height: 0.6;
+  color: var(--sage);
+  font-family: Georgia, serif;
+  margin-bottom: 2rem;
+  display: block;
+}
+.om-pq-text {
+  font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.025em;
+  color: #1a1a1a;
+  max-width: 540px;
+  margin: 0 auto 1.25rem;
+}
+.om-pq-attr {
+  font-size: 12px;
+  color: var(--faint);
+  font-style: italic;
+}
+
+/* ── FOUNDER ──────────────────────────────── */
+.om-founder-card {
+  background: var(--beige);
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin: 2rem 0;
+}
+.om-founder-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--beige-dark);
+}
+.om-founder-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--sage);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 500;
+}
+.om-founder-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin-bottom: 0.2rem;
+}
+.om-founder-role {
+  font-size: 12px;
+  color: var(--faint);
+  line-height: 1.5;
+}
+.om-founder-body {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.9;
+}
+.om-founder-body p + p { margin-top: 1rem; }
+
+/* ── COMMITMENTS ──────────────────────────── */
+.om-commit-header {
+  margin-bottom: 3rem;
+}
+.om-commit-header h2 {
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.5rem;
+  color: #1a1a1a;
+}
+.om-commit-header p {
+  font-size: 13px;
+  color: var(--faint);
+}
+
+.om-commit-item {
+  display: flex;
+  gap: 1.75rem;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.om-commit-item:last-child { border-bottom: none; }
+
+.om-commit-num {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sage);
+  min-width: 30px;
+  flex-shrink: 0;
+  padding-top: 3px;
+  letter-spacing: 0.03em;
+}
+.om-commit-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+.om-commit-body {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 0.5rem;
+}
+.om-commit-caveat {
+  font-size: 11px;
+  color: var(--faint);
+  font-style: italic;
+}
+
+/* ── ENDING ───────────────────────────────── */
+.om-ending {
+  padding: 5rem 0 4.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.om-ending-title {
+  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  color: #1a1a1a;
+  margin-bottom: 2.5rem;
+}
+.om-ending-title span {
+  color: var(--sage);
+}
+
+/* ── CTA ──────────────────────────────────── */
+.om-cta {
+  padding: 5rem 0;
+  text-align: center;
+}
+.om-cta-eyebrow {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--faint);
+  margin-bottom: 1.25rem;
+}
+.om-cta-title {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: #1a1a1a;
+  margin-bottom: 0.75rem;
+}
+.om-cta-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 2.25rem;
+}
+.om-cta-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.om-btn-primary {
+  display: inline-block;
+  background: #1a1a1a;
+  color: #f5f5f5;
+  font-size: 14px;
+  padding: 13px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.om-btn-primary:hover { opacity: 0.82; }
+.om-btn-secondary {
+  display: inline-block;
+  background: transparent;
+  color: var(--muted);
+  font-size: 14px;
+  padding: 13px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  transition: all 0.15s;
+}
+.om-btn-secondary:hover { border-color: #aaa; color: #1a1a1a; }
+.om-cta-fine {
+  font-size: 11px;
+  color: var(--faint);
+  margin-top: 1.75rem;
+  line-height: 2.2;
+  letter-spacing: 0.01em;
+}
+.om-cta-fine span::before {
+  content: ' · ';
+}
+.om-cta-fine span:first-child::before { content: ''; }
+
+/* ── RESPONSIVE ───────────────────────────── */
+@media (max-width: 600px) {
+  .om-hero-title { font-size: 2.5rem; }
+  .om-stat { grid-template-columns: 1fr; }
+  .om-stat-num-col { padding: 1.5rem; }
+  .om-stat-number { font-size: 72px; }
+  .om-wealth-grid { grid-template-columns: 1fr; }
+  .om-audience-row { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+  .om-audience-note { text-align: left; }
+  .om-founder-header { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<div class="om">
+
+  <!-- ── HERO ── -->
+  <div class="om-hero">
+    <div class="om-hero-label">Our Mission</div>
+    <h1 class="om-hero-title">
+      Making skincare<br>
+      <span class="accent">less of a thing.</span>
+      <span class="line2">And yes, also making the founder rich. Both.</span>
+    </h1>
+    <p class="om-hero-sub">
+      We'll get to the money part. First, the actual mission —
+      <strong>because a brand that buries its motives in wellness language is a brand you should probably distrust.</strong>
+    </p>
+  </div>
+
+  <!-- ── PART 1 ── -->
+  <div class="om-section">
+    <div class="om-part-label">Part one — the real reason</div>
+    <h2 class="om-section-title">Skincare should take less than 5 minutes and zero confusion.</h2>
+    <div class="om-body">
+      <p>At some point, skincare became a hobby. A personality type. A content category. An overwhelming system of steps, actives, layering rules, ingredient interactions, pH considerations, and a rotating cast of new products each claiming to be non-negotiable.</p>
+      <p>Most people don't want a skincare hobby. They want their skin to be fine. They want to wash their face, put some things on it, and go live their actual life. They don't want to spend 40 minutes researching whether niacinamide and vitamin C can be used together — they can, it's fine, the science settled this years ago, but skincare content keeps the debate alive because debate generates clicks.</p>
+      <p>ODD Care Co. exists for those people. Four products. A routine you can memorise in one read. Actives at doses that actually work. And nothing else, because nothing else was necessary.</p>
+    </div>
+
+    <div class="om-stat">
+      <div class="om-stat-num-col">
+        <div class="om-stat-number">4</div>
+      </div>
+      <div class="om-stat-text">
+        Products. Not 4 to start with and more coming. Not 4 hero products and 12 supporting ones. 4 products — that is the complete catalogue. We made peace with this. You should too.
+      </div>
+    </div>
+
+    <div class="om-body">
+      <p>The constraint isn't a gimmick. It's the whole philosophy made product. If we can't fit something into one of the four, it doesn't belong in the routine. We've held this line through every conversation about expanding. We're still holding it.</p>
+    </div>
+  </div>
+
+  <!-- ── PART 2 ── -->
+  <div class="om-section">
+    <div class="om-part-label">Part two — who we built this for</div>
+    <h2 class="om-section-title">The person who searched "basic skincare routine" and closed the tab.</h2>
+    <div class="om-body">
+      <p>There's a person out there — a lot of them, actually — who knows they should probably have a skincare routine, tried to figure out what that means, got three paragraphs into an article that mentioned "skin cycling" and "the moisture sandwich," and decided their skin was fine actually.</p>
+      <p>That person is our customer. Also their partner who hasn't changed their routine since college. Also the person with a 12-step routine who loves skincare but has a job now and simply doesn't have the time anymore.</p>
+    </div>
+
+    <div class="om-audience">
+      <div class="om-audience-row">
+        <span class="om-audience-name">The skincare beginner</span>
+        <span class="om-audience-note">4 products is a complete start. nothing missing.</span>
+      </div>
+      <div class="om-audience-row">
+        <span class="om-audience-name">The skincare avoider</span>
+        <span class="om-audience-note">3.5 minutes a day. we timed it.</span>
+      </div>
+      <div class="om-audience-row">
+        <span class="om-audience-name">The skincare obsessive, tired edition</span>
+        <span class="om-audience-note">the actives are actually good. you can check.</span>
+      </div>
+      <div class="om-audience-row">
+        <span class="om-audience-name">The person gifting to someone who uses shampoo on their face</span>
+        <span class="om-audience-note">the whole routine. ₹1,499. you're welcome.</span>
+      </div>
+    </div>
+
+    <div class="om-honest">
+      <p>We are not the brand for everyone. If you love skincare as a ritual, enjoy 14 products, and want a mist and an essence and a bi-weekly mask situation — there are hundreds of brands built exactly for you. We're not competing with them. We're the brand for the people they've been ignoring.</p>
+    </div>
+  </div>
+
+  <!-- ── PART 3 — DARK ── -->
+  <div class="om-dark">
+    <div class="om om-section" style="border:none; padding: 0;">
+      <div class="om-part-label">Part three — the part other brands delete</div>
+      <h2 class="om-section-title">Yes, we also want the founder to be embarrassingly rich.</h2>
+      <div class="om-body">
+        <p>Most brand mission statements end somewhere around "make the world better through skincare." We respect the instinct. We cannot write that sentence without feeling slightly dishonest.</p>
+        <p>So here's the full version: we want to make skincare genuinely easier for a large number of people, <strong>and we want that to generate enough commercial success that the people who built this can afford to live extremely well.</strong> Both things. Simultaneously. With no apology.</p>
+        <p>We don't think these goals are in conflict. In fact, the only way to achieve the first one at scale is to achieve the second one first — because a brand that can't sustain itself can't help anyone.</p>
+      </div>
+
+      <div class="om-wealth-grid">
+        <div class="om-wealth-card">
+          <div class="om-wealth-card-label">What "embarrassingly rich" means</div>
+          <div class="om-wealth-card-body">Financial independence. Not making decisions based on survival. Being able to bet on ideas that take time. Buying back time.</div>
+          <div class="om-wealth-card-note">not: a yacht named after a moisturiser. probably.</div>
+        </div>
+        <div class="om-wealth-card">
+          <div class="om-wealth-card-label">What it doesn't mean</div>
+          <div class="om-wealth-card-body">Charging more than the products are worth. Adding unnecessary products to increase cart value. Hiding ingredients. Making you feel bad about your skin to sell you more things.</div>
+          <div class="om-wealth-card-note">those are the rules we set for ourselves.</div>
+        </div>
+        <div class="om-wealth-card">
+          <div class="om-wealth-card-label">How we plan to get there</div>
+          <div class="om-wealth-card-body">Make products genuinely good enough that people who know skincare recommend them to people who don't. Repeat. Don't add a 5th product just because it would help revenue.</div>
+          <div class="om-wealth-card-note">the plan is simple. execution is the whole thing.</div>
+        </div>
+        <div class="om-wealth-card">
+          <div class="om-wealth-card-label">Why we're telling you this</div>
+          <div class="om-wealth-card-body">Because every other brand is telling you they exist to fix your skin out of the goodness of their hearts — and we find that unconvincing. We exist because we want this to work. For you and for us.</div>
+          <div class="om-wealth-card-note">mutual interest is still interest.</div>
+        </div>
+      </div>
+
+      <div class="om-body">
+        <p>The honest version of every brand's mission is some combination of: "we saw a problem, we think we can solve it better than what exists, and we'd like to make money doing it." We just wrote it down. This is not cynicism. This is what building a company actually is.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PULL QUOTE ── -->
+  <div class="om-pullquote">
+    <span class="om-pq-mark">&ldquo;</span>
+    <p class="om-pq-text">We want your skin to be fine and we want to be wealthy. These are our two missions. They are in the correct order and we are pursuing both.</p>
+    <p class="om-pq-attr">— ODD Care Co., unedited first draft that somehow stayed</p>
+  </div>
+
+  <!-- ── PART 4 — FOUNDER ── -->
+  <div class="om-section">
+    <div class="om-part-label">Part four — the founder, briefly</div>
+    <div class="om-founder-card">
+      <div class="om-founder-header">
+        <div class="om-founder-avatar">O</div>
+        <div>
+          <div class="om-founder-name">The Founder</div>
+          <div class="om-founder-role">started ODD Care Co. because they were tired of both skincare complexity and dishonest brand mission statements</div>
+        </div>
+      </div>
+      <div class="om-founder-body">
+        <p>I have a fairly short patience for things that are more complicated than they need to be. Skincare was one of those things. I kept trying to find a routine that covered the basics — actually worked, used real actives at real concentrations, didn't require an evening seminar to understand — and kept ending up with 8 products and a drawer full of things I'd bought because someone online said they were essential.</p>
+        <p>The skincare I wanted didn't exist in the form I wanted it. Four products. Multifunctional. Clear about what's in them and why. Not trying to sell me a fifth thing at checkout. So I made it.</p>
+        <p>The wealth part is real too. I'd like ODD Care Co. to be successful enough that I can spend the rest of my working life building things I believe in, without the pressure of financial instability narrowing my options. I think that's a reasonable thing to want. I also think pretending I don't want it while still trying to sell you something would be a worse version of honesty.</p>
+        <p>So: I want your skin to be in better condition with less effort. And I'd like to be well-compensated for having figured out how to do that. Both. Genuinely.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PART 5 — COMMITMENTS ── -->
+  <div class="om-section">
+    <div class="om-part-label">Part five — the actual commitments</div>
+    <div class="om-commit-header">
+      <h2>Things we'll do. In writing. On the internet.</h2>
+      <p>Because a mission without specifics is just feelings.</p>
+    </div>
+
+    <div class="om-commit-item">
+      <div class="om-commit-num">01</div>
+      <div>
+        <div class="om-commit-title">Never add a product to sell more product</div>
+        <div class="om-commit-body">If we ever add a 5th product it will be because we found something genuinely not covered by the existing four and can prove it. We will explain exactly why, publicly, before we launch it.</div>
+        <div class="om-commit-caveat">we've had this internal debate 4 times. the answer has been no every time.</div>
+      </div>
+    </div>
+
+    <div class="om-commit-item">
+      <div class="om-commit-num">02</div>
+      <div>
+        <div class="om-commit-title">List every active at its actual concentration</div>
+        <div class="om-commit-body">No "contains niacinamide" without telling you it's at 2%, not 0.1%. The concentration is the whole point. We will not use ingredients decoratively for label appeal.</div>
+        <div class="om-commit-caveat">this is harder than it sounds. we did it anyway.</div>
+      </div>
+    </div>
+
+    <div class="om-commit-item">
+      <div class="om-commit-num">03</div>
+      <div>
+        <div class="om-commit-title">Keep unflattering reviews on the site</div>
+        <div class="om-commit-body">If you gave us 2 stars because the product didn't work for you, that review stays. The anonymous review saying we didn't fix their acne in a week is still on the facewash page. It will stay there.</div>
+        <div class="om-commit-caveat">we will also respond to it, probably.</div>
+      </div>
+    </div>
+
+    <div class="om-commit-item">
+      <div class="om-commit-num">04</div>
+      <div>
+        <div class="om-commit-title">Tell you when a product isn't right for you</div>
+        <div class="om-commit-body">Pregnant? We'll tell you to skip the night cream. On tretinoin? We'll tell you to go slow with the facewash. Severe KP? We'll tell you to also see a dermatologist. We'd rather lose a sale than give bad advice.</div>
+        <div class="om-commit-caveat">we are not dermatologists. we will keep saying this.</div>
+      </div>
+    </div>
+
+    <div class="om-commit-item">
+      <div class="om-commit-num">05</div>
+      <div>
+        <div class="om-commit-title">Not pretend the money doesn't matter</div>
+        <div class="om-commit-body">We are a company. We need revenue to exist. We want to be profitable. We want the founder to be financially comfortable. We will continue to say this out loud instead of hiding it behind a story about changing the world through moisturiser.</div>
+        <div class="om-commit-caveat">the world doesn't need changing through moisturiser. it needs a simpler routine.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ENDING ── -->
+  <div class="om-ending">
+    <h2 class="om-ending-title">
+      That's the mission.<br>
+      All of it. <span>Written down.</span>
+    </h2>
+    <div class="om-body">
+      <p>Make skincare easier for people who find it overwhelming. Make products good enough that people who know skincare recommend them to people who don't. Build a company that can sustain itself and make its founders financially free.</p>
+      <p>And somewhere in there — maybe — also make a small dent in the idea that a brand has to either be a wellness sermon or a sales machine. That you can be honest about wanting to make money and still make something genuinely useful.</p>
+      <p>Four products. One honest routine. One mildly unhinged mission page. That's ODD Care Co.</p>
+    </div>
+  </div>
+
+  <!-- ── CTA ── -->
+  <div class="om-cta">
+    <div class="om-cta-eyebrow">if you're still here</div>
+    <h2 class="om-cta-title">You get it. Let's get your skin sorted.</h2>
+    <p class="om-cta-sub">4 products. 3.5 minutes a day. Nothing hidden.</p>
+    <div class="om-cta-btns">
+      <a href="/shop" class="om-btn-primary">Get The Whole Routine — ₹1,499</a>
+      <a href="/shop" class="om-btn-secondary">Shop individual products</a>
+    </div>
+    <div class="om-cta-fine">
+      <span>free shipping</span>
+      <span>30 day returns</span>
+      <span>founder still wants to be rich</span>
+      <span>your skin will be fine</span>
+    </div>
+  </div>
+
+</div><!-- /.om -->
+
+</body>
+</html>
