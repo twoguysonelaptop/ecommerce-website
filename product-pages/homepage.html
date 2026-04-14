@@ -51,6 +51,40 @@ body {
 .ticker-sep { color: #2a2a2a; padding: 0; }
 @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+/* ── HEADER / NAV ───────────────────────── */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 2rem;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.site-logo {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--dark);
+  text-decoration: none;
+}
+.site-logo span { font-weight: 400; color: var(--muted); }
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.header-icons a {
+  color: var(--dark);
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+}
+.header-icons a:hover { color: var(--sage-dim); }
+.header-icons svg { width: 22px; height: 22px; }
+
 /* ── HERO ────────────────────────────────── */
 .hero {
   padding: 7rem 1.5rem 6rem;
@@ -678,6 +712,19 @@ body {
     <span class="ticker-item">3.5 min/day</span><span class="ticker-item">·</span>
   </div>
 </div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="/" class="site-logo">ODD <span>Care Co.</span></a>
+  <div class="header-icons">
+    <a href="/my-account" aria-label="Account">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+    </a>
+    <a href="/cart" aria-label="Cart">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    </a>
+  </div>
+</header>
 
 <!-- HERO -->
 <div class="hero">

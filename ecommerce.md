@@ -150,7 +150,9 @@ All 5 product description pages have been created as static HTML files in `produ
 - [x] Manifesto page — static blueprint + WordPress page template created
 - [ ] Create "Why 4" WordPress page (Admin → Pages → Add New → Template: Manifesto → Slug: why-4)
 - [ ] Our Mission page — static blueprint exists, needs WordPress page creation (slug: our-mission)
-- [ ] Add Manifesto + Our Mission buttons to homepage footer (pending fix for page-break issue)
+- [x] Add Manifesto + Our Mission buttons to homepage footer
+- [x] Header icons (cart + account) added to Kadence header
+- [x] My Account page — styled, branded, WooCommerce registration enabled
 - [ ] WooCommerce product setup and integration
 - [ ] Plugin installation (Razorpay payments, SEO, etc.)
 - [ ] Shipping configuration
@@ -172,6 +174,7 @@ All 5 product description pages have been created as static HTML files in `produ
 | Dawn Shield (AM Cream) | `http://odd-care-co.local/dawn-shield/` | 35 |
 | Deep Dusk (PM Cream) | `http://odd-care-co.local/deep-dusk/` | 37 |
 | The Whole Routine (Bundle) | `http://odd-care-co.local/the-whole-routine/` | 39 |
+| My Account | `http://odd-care-co.local/my-account/` | 9 |
 
 All pages are published with Kadence full-width layout and no page title (meta: `_kad_post_title: hide`, `_kad_post_layout: fullwidth`, `_kad_post_vertical_padding: remove`).
 
@@ -372,3 +375,49 @@ The bundle page now uses sage green values for `--purple` variables:
 --purple-dark   → #5A6B4A  (was #3C3489)
 --purple-text   → #7A9168  (was #7F77DD)
 ```
+
+---
+
+## Session Log — 2026-04-14 (Header Icons, My Account Page & Bug Fixes)
+
+All changes applied to live Local by Flywheel WordPress site. Files modified: `oddcareco-child/style.css`, `oddcareco-child/functions.php`, WordPress page ID 26 (homepage), WordPress page ID 9 (My Account).
+
+### Changes Made
+
+1. **Header icons (cart + account)** — Removed "Cart" and "Checkout" text links from the primary navigation menu. Added SVG account (person) and cart (shopping bag) icons to the Kadence header via the HTML widget slot. Icons are placed in `main_right` alongside the nav. Implemented as a one-time `set_theme_mod()` setup in `functions.php` with `odd_header_icons_v2` flag to prevent re-execution.
+
+2. **My Account page — full brand styling** — Styled the WooCommerce My Account page (page ID 9) to match the ODD Care Co brand:
+   - Single-column layout (overriding Kadence's default sidebar layout)
+   - Horizontal nav tabs on beige background with sage-green active pill
+   - Custom dashboard greeting: "YOUR ACCOUNT" eyebrow + "Hey, {name}." + subtitle
+   - Hidden default WooCommerce greeting paragraphs and Kadence avatar
+   - Removed "Downloads" nav item (physical products only)
+   - Styled forms, inputs, order tables, address cards, and info/notice boxes
+   - Login/register form with split layout, sage-green submit buttons
+   - Responsive breakpoint at 768px
+   - Page meta: fullwidth layout, hidden title, removed vertical padding
+   - Enabled WooCommerce registration on My Account page (`woocommerce_enable_myaccount_registration = yes`)
+
+3. **Homepage script fix** — Raw `faqToggle` JavaScript function was rendering as visible text above the footer. The `<script>` tags had been stripped during a previous content update. Fixed by re-wrapping the bare JS in `<script>` tags via REST API update.
+
+4. **Footer color transition fix** — White background was bleeding between the dark "The whole group" CTA section and the dark footer. Fixed with:
+   - `.home .entry.content-bg { background: transparent !important }` — removed white article wrapper background
+   - `.footer-cta { padding-bottom: 0; margin-bottom: 0 }` — eliminated spacing gap
+   - `.odd-footer { margin-top: 0; border-top: none }` — seamless transition
+   - `.site-footer`, `.site-bottom-footer-wrap` — forced `#0d0d0d` background on Kadence copyright footer
+
+### Files Changed
+
+| File | What changed |
+|---|---|
+| `oddcareco-child/functions.php` | Header icon setup (`set_theme_mod`), removed Downloads nav, custom dashboard greeting, hidden default WooCommerce greeting |
+| `oddcareco-child/style.css` | Full My Account page styling (~200 lines), footer transition fixes, Kadence copyright footer dark theme |
+| WordPress page ID 26 | Re-wrapped bare `faqToggle` JS in `<script>` tags |
+| WordPress page ID 9 | Set fullwidth layout, hidden title, removed padding meta |
+| `product-pages/homepage.html` | Added sticky header with account/cart SVG icons |
+
+### Technical Notes
+
+- **Kadence Header Builder**: The Customizer JS API (`wp.customize().set()`) was unreliable for persisting header layout changes. PHP `set_theme_mod()` in `functions.php` with a one-time flag is the reliable approach.
+- **Kadence Cart widget**: Collapses to 0×0px when WooCommerce has no products (`header-cart-is-empty-true` class). Both account and cart icons are placed in the HTML widget instead.
+- **WordPress script stripping**: `<script>` tags inside `<!-- wp:html -->` blocks can be stripped during content updates. Always verify scripts are intact after REST API pushes.
