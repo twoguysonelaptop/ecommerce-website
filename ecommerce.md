@@ -421,3 +421,54 @@ All changes applied to live Local by Flywheel WordPress site. Files modified: `o
 - **Kadence Header Builder**: The Customizer JS API (`wp.customize().set()`) was unreliable for persisting header layout changes. PHP `set_theme_mod()` in `functions.php` with a one-time flag is the reliable approach.
 - **Kadence Cart widget**: Collapses to 0×0px when WooCommerce has no products (`header-cart-is-empty-true` class). Both account and cart icons are placed in the HTML widget instead.
 - **WordPress script stripping**: `<script>` tags inside `<!-- wp:html -->` blocks can be stripped during content updates. Always verify scripts are intact after REST API pushes.
+
+---
+
+## Session Log — 2026-04-15 (Footer Transition & Dark Page Contrast Fixes)
+
+All changes applied to live Local by Flywheel WordPress site. File modified: `oddcareco-child/style.css`.
+
+### Changes Made
+
+1. **Homepage footer transition fix** — The transition between the footer CTA section, the ODD footer, and the Kadence copyright footer was rough with visible seams and color mismatches.
+   - Unified `.footer-cta` background from `#1a1a1a` to `#0d0d0d` to match the footer sections
+   - Added `padding-bottom: 4rem` to `.footer-cta` (was `0`) for breathing room before the brand footer
+   - Removed side padding on `.home .entry-content-wrap` to fix beige bleed on edges
+   - Replaced hard border dividers with subtle `rgba(255,255,255,0.05)` separators
+
+2. **Homepage footer CTA text contrast** — Text in the dark footer CTA section was nearly invisible. Brightened all text colors:
+   - `.footer-eyebrow`: `#444` → `#888`
+   - `.footer-sub`: `#555` → `#aaa`
+   - `.footer-fine`: `#333` → `#666`
+   - `.btn-ghost-dark`: `#888/#333` → `#bbb/#555`
+
+3. **ODD footer + Kadence footer text contrast** — Footer nav and copyright text were too dark:
+   - `.odd-footer-tagline`: `#444` → `#888`
+   - `.odd-footer-nav a`: `#555` → `#999`
+   - `.site-footer .footer-html`: `#333` → `#666`
+   - `.site-footer .footer-html a`: `#444` → `#777`
+
+4. **Deep Dusk page (page ID 37) — full contrast overhaul** — The entire dark-themed page (`#0d0d0d` background) had text that was nearly unreadable. Added ~40 scoped `.page-id-37` overrides in child theme CSS:
+   - Hero: labels, breadcrumb, stars, rating, price note, active tags all brightened
+   - Tabs: inactive `#444` → `#777`, hover → `#aaa`, active → `#ddd`
+   - Card/body text: `#666` → `#999`, callout spans `#888` → `#bbb`
+   - GenZ strip: labels `#444` → `#777`, text `#888` → `#aaa`
+   - Does/Doesn't grid: items and dots brightened for readability
+   - Timeline: circle text, week labels, descriptions all brightened
+   - Ingredients: intro, tldr, detail text, concentration all brightened
+   - Reviews: tags, text, badges all brightened
+   - Footer CTA: label and subtitle text brightened
+   - Catch-all attribute selectors for inline `style="color: #333/444/555"` elements
+
+5. **Tab scrollbar hidden (all product pages)** — The `.tabs` horizontal scrollbar was visible on product pages. Hidden via `scrollbar-width: none` (Firefox), `-ms-overflow-style: none` (IE/Edge), and `::-webkit-scrollbar { display: none }` (Chrome/Safari). Scroll functionality preserved.
+
+### Files Changed
+
+| File | What changed |
+|---|---|
+| `oddcareco-child/style.css` | Footer transition fix, footer CTA/footer text contrast, Deep Dusk full contrast overhaul (~40 rules), tab scrollbar hidden |
+
+### Technical Notes
+
+- **Inline style overrides**: Deep Dusk page content was pushed via REST API with hardcoded inline color values. Child theme CSS uses `.page-id-37` scoping with `!important` to override. Attribute selectors (`[style*="color: #333"]`) catch remaining inline styles.
+- **Tab scrollbar**: The `.tabs` element uses `overflow-x: auto` for mobile scrolling. Scrollbar is hidden purely cosmetically — scroll still works via touch/trackpad.
