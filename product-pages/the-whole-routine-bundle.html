@@ -2,13 +2,18 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; background: #fff; color: #1a1a1a; }
+header.site-header .custom-logo { max-height: 80px !important; width: auto !important; }
+#inner-wrap { background: #F5F0EB; border-radius: 32px 32px 0 0; box-shadow: 0 -2px 24px rgba(0,0,0,0.06); position: relative; }
 :root {
   --odd-black:#000;--odd-white:#fff;--odd-sage:#9CAF88;--odd-beige:#F5F0EB;
   --odd-dark:#1a1a1a;--odd-gray:#555;--odd-border:#e5e5e5;
   --text-primary:#1a1a1a;--text-secondary:#555;--text-tertiary:#888;
   --bg-secondary:#fafaf9;--border-light:#e5e5e5;
-  --purple:#534AB7;--purple-light:#EEEDFE;--purple-border:#AFA9EC;--purple-dark:#3C3489;--purple-text:#7F77DD;
+  --purple:#6B7F5A;--purple-light:#F0F4ED;--purple-border:#B8C8AD;--purple-dark:#5A6B4A;--purple-text:#7A9168;
 }
+.breadcrumb { max-width: 1000px; margin: 0 auto 1.5rem; }
+.breadcrumb span { font-size: 13px; }
+.hero-band { background: var(--odd-beige); padding: 2rem 2.5rem 3rem; }
 h1 { font-size: 22px; font-weight: 500; color: var(--text-primary); line-height: 1.3; }
 h2 { font-size: 18px; font-weight: 500; color: var(--text-primary); }
 h3 { font-size: 15px; font-weight: 500; color: var(--text-primary); }
@@ -37,7 +42,7 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
 .member-detail p { font-size: 12px; color: var(--purple); line-height: 1.6; }
 
 /* ── BOX HERO ── */
-.box-hero { background: var(--bg-secondary); border-radius: 12px; border: 0.5px solid var(--border-light); padding: 1.5rem; display: flex; gap: 1.5rem; align-items: flex-start; }
+.box-hero { display: flex; gap: 1.5rem; align-items: flex-start; }
 .box-visual { width: 110px; height: 140px; background: var(--purple-light); border-radius: 12px; border: 0.5px solid var(--purple-border); display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; gap: 6px; }
 .box-icon { font-size: 11px; color: var(--purple-text); font-weight: 500; }
 .box-label { font-size: 9px; color: var(--purple-border); text-transform: uppercase; letter-spacing: 0.08em; }
@@ -72,8 +77,11 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
 .no-dot { background: #B4B2A9; }
 
 /* ── HONEST STRIP ── */
-.honest-strip { border-left: 3px solid var(--purple-text); padding: 1rem 1.25rem; background: var(--bg-secondary); border-radius: 0 10px 10px 0; }
+.honest-strip { padding: 1.5rem 0 0; margin-top: 1.5rem; border-top: 1px solid var(--border-light); }
 .honest-strip p { font-size: 13px; color: var(--text-secondary); }
+
+/* ── FOOTER CTA ── */
+.footer-cta { background: var(--odd-beige); padding: 3rem 2.5rem 4rem; text-align: center; border-radius: 32px 32px 0 0; box-shadow: 0 -2px 24px rgba(0,0,0,0.04); position: relative; margin-top: 3rem; }
 
 /* ── REVIEWS ── */
 .review-card { background: var(--bg-secondary); border-radius: 12px; padding: 1.25rem; margin-bottom: 10px; }
@@ -83,17 +91,18 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
 .review-badge { font-size: 11px; background: var(--purple-light); color: var(--purple); padding: 2px 10px; border-radius: 999px; display: inline-block; margin-top: 0.5rem; }
 </style>
 
-<div style="padding: 0 1rem 2rem;">
+<div>
 
-  <div style="padding: 1rem 0; border-bottom: 0.5px solid var(--border-light); margin-bottom: 0;">
-    <span style="font-size: 13px; color: var(--text-tertiary);">ODD Care Co. / shop (4 things) /</span>
-    <span style="font-size: 13px; color: var(--text-secondary);"> the whole routine</span>
+<div class="hero-band">
+  <div class="breadcrumb">
+    <span style="color: var(--text-tertiary);">ODD Care Co. / shop (4 things) / </span>
+    <span style="color: var(--text-secondary);">the whole routine</span>
   </div>
 
   <!-- ═══════════════════════════════════════════
        HERO
        ═══════════════════════════════════════════ -->
-  <div class="section">
+  <div style="max-width: 1000px; margin: 0 auto;">
     <div class="box-hero">
       <div class="box-visual">
         <div class="box-icon">01 FACE WASH</div>
@@ -124,6 +133,9 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
       </div>
     </div>
   </div>
+</div>
+
+<div style="padding: 0 2.5rem; max-width: 1000px; margin: 0 auto;">
 
   <!-- ═══════════════════════════════════════════
        MEMBER GRID
@@ -259,7 +271,7 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
         <div class="does-item"><span class="dot no-dot"></span><span>Make us add a 5th product</span></div>
       </div>
     </div>
-    <div class="honest-strip" style="margin-top: 1rem;">
+    <div class="honest-strip">
       <p>If you've been using nothing, this will feel like a dramatic upgrade. If you have a 10-step routine, this will feel like a dramatic simplification. Both outcomes are fine with us.</p>
     </div>
   </div>
@@ -293,16 +305,20 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
 
   </div>
 
-  <!-- ═══════════════════════════════════════════
-       FOOTER CTA
-       ═══════════════════════════════════════════ -->
-  <div style="background: var(--purple-light); border-radius: 12px; padding: 1.5rem; text-align: center; margin-top: 1.5rem;">
-    <div class="label" style="color: var(--purple-text);">the whole routine, together</div>
-    <h2 style="color: var(--purple-dark); margin: 0.4rem 0 0.3rem;">₹1,499. Everything your skin needs.</h2>
-    <p style="color: var(--purple); font-size: 13px; margin-bottom: 1rem;">No follow-up emails asking if you want a serum. No subscription. No 14-step "progression." Just 4 products, one box, done.</p>
-    <button class="btn-buy" style="max-width: 280px; margin: 0 auto; display: block;">get The Whole Routine</button>
-    <p style="font-size: 12px; color: var(--purple-text); margin-top: 0.75rem;">free shipping · 30 day returns · still only 4 products</p>
   </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER CTA
+     ═══════════════════════════════════════════ -->
+<div class="footer-cta">
+  <div class="label" style="color: var(--purple-text); margin-bottom: 0.5rem;">the whole routine, together</div>
+  <h2 style="color: var(--purple-dark); margin-bottom: 0.5rem;">₹1,499. Everything your skin needs.</h2>
+  <p style="color: var(--purple); font-size: 13px; margin-bottom: 1.5rem; max-width: 360px; margin-left: auto; margin-right: auto;">No follow-up emails asking if you want a serum. No subscription. No 14-step "progression." Just 4 products, one box, done.</p>
+  <button class="btn-buy" style="max-width: 280px; margin: 0 auto; display: block;">get The Whole Routine</button>
+  <p style="font-size: 12px; color: var(--purple-text); margin-top: 0.75rem;">free shipping · 30 day returns · still only 4 products</p>
+</div>
 
 </div>
 

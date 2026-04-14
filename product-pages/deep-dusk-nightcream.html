@@ -1,7 +1,9 @@
 
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; background: #fff; color: #1a1a1a; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; background: #fff; color: #e0e0e0; }
+header.site-header .custom-logo { max-height: 80px !important; width: auto !important; }
+#inner-wrap { background: #0d0d0d; border-radius: 32px 32px 0 0; box-shadow: 0 -2px 24px rgba(0,0,0,0.3); position: relative; }
 :root {
   --odd-black:#000;--odd-white:#fff;--odd-sage:#9CAF88;--odd-beige:#F5F0EB;
   --odd-dark:#1a1a1a;--odd-gray:#555;--odd-border:#e5e5e5;
@@ -10,133 +12,141 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans
   --night:#0d0d0d;--night-card:#1a1a1a;--night-border:#2a2a2a;--night-text:#666;--night-heading:#e0e0e0;
   --algae:#2d5a3a;--algae-light:#4a8a5a;--algae-bg:#0d1a10;--algae-border:#1a3320;
 }
-h1 { font-size: 22px; font-weight: 500; line-height: 1.3; }
-h2 { font-size: 18px; font-weight: 500; }
+h1 { font-size: 32px; font-weight: 600; color: var(--night-heading); line-height: 1.15; letter-spacing: -0.01em; }
+h2 { font-size: 20px; font-weight: 500; }
 h3 { font-size: 15px; font-weight: 500; }
 p { font-size: 14px; line-height: 1.7; }
-.label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-tertiary); margin-bottom: 0.4rem; }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+.breadcrumb { max-width: 1000px; margin: 0 auto 1.5rem; }
+.breadcrumb span { font-size: 13px; }
+
+/* ── HERO ── */
+.hero-band { background: var(--night); padding: 2rem 2.5rem 3rem; border-bottom: 0.5px solid #222; }
+.hero-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; max-width: 1000px; margin: 0 auto; align-items: center; }
+.product-image { width: 100%; aspect-ratio: 3/4; max-height: 440px; background: linear-gradient(160deg, #1a1a1a 0%, #111 50%, #080808 100%); border-radius: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; position: relative; overflow: hidden; border: 1px solid #2a2a2a; }
+.product-image::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(45,90,58,0.12) 0%, transparent 60%); pointer-events: none; }
+.img-num { font-size: 38px; font-weight: 300; color: rgba(255,255,255,0.12); letter-spacing: 0.04em; position: relative; }
+.img-line { width: 40px; height: 1px; background: rgba(255,255,255,0.06); position: relative; }
+.img-type { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.1); position: relative; }
+.hero-info { display: flex; flex-direction: column; gap: 0.6rem; }
+.rating-row { display: flex; align-items: center; gap: 8px; }
+.stars { font-size: 14px; letter-spacing: 1px; color: #555; }
+.rating-text { font-size: 12px; color: #555; }
+.active-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0.15rem 0; }
+.active-tag { font-size: 11px; padding: 4px 12px; border-radius: 999px; background: var(--night-card); color: var(--night-text); border: 1px solid var(--night-border); }
+.price-row { display: flex; align-items: baseline; gap: 10px; margin-top: 0.2rem; }
+.price { font-size: 26px; font-weight: 600; color: var(--night-heading); }
+.price-note { font-size: 12px; color: #555; }
+.btn-add { background: var(--night-heading); color: #111; font-size: 14px; padding: 14px 24px; border-radius: 999px; border: none; cursor: pointer; width: 100%; font-weight: 500; transition: all 0.2s ease; margin-top: 0.25rem; }
+.btn-add:hover { background: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(255,255,255,0.1); }
 
 /* ── TABS ── */
-.tabs { display: flex; border-bottom: 0.5px solid #2a2a2a; margin-bottom: 1.5rem; overflow-x: auto; background: #111; }
-.tab { font-size: 13px; padding: 10px 16px; cursor: pointer; border-bottom: 2px solid transparent; color: #555; white-space: nowrap; margin-bottom: -0.5px; flex-shrink: 0; }
-.tab.active { color: #ccc; border-bottom-color: #666; font-weight: 500; }
+.tab-wrap { padding: 0 2.5rem; max-width: 1000px; margin: 0 auto; background: #111; }
+.tabs { display: flex; border-bottom: 1px solid #2a2a2a; margin-bottom: 2rem; overflow-x: auto; gap: 2px; background: #111; }
+.tab { font-size: 13px; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid transparent; color: #444; white-space: nowrap; margin-bottom: -1px; flex-shrink: 0; transition: color 0.15s ease; }
+.tab:hover { color: #777; }
+.tab.active { color: #ccc; border-bottom-color: #555; font-weight: 500; }
 .tab-content { display: none; }
 .tab-content.active { display: block; }
 
-/* ── HERO ── */
-.hero-band { background: var(--night); padding: 2rem 1rem; border-bottom: 0.5px solid #222; }
-.hero-inner { display: flex; gap: 1.25rem; align-items: flex-start; }
-.product-swatch { width: 90px; height: 118px; background: #000; border-radius: 10px; border: 0.5px solid var(--night-border); flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
-.swatch-num { font-size: 11px; font-weight: 500; color: #444; letter-spacing: 0.06em; }
-.swatch-line { width: 22px; height: 1.5px; background: var(--night-border); border-radius: 1px; }
-.rating-row { display: flex; align-items: center; gap: 8px; margin: 0.35rem 0; }
-.stars { font-size: 13px; letter-spacing: 1px; color: #555; }
-.rating-text { font-size: 12px; color: #555; }
-.price-row { display: flex; align-items: baseline; gap: 8px; margin: 0.6rem 0 0.75rem; }
-.price { font-size: 20px; font-weight: 500; color: var(--night-heading); }
-.price-note { font-size: 12px; color: #555; }
-.btn-add { background: var(--night-heading); color: #111; font-size: 13px; padding: 10px 20px; border-radius: 999px; border: none; cursor: pointer; width: 100%; font-weight: 500; transition: background 0.15s ease; }
-.btn-add:hover { background: #fff; }
-.active-tag { font-size: 11px; padding: 2px 9px; border-radius: 999px; background: var(--night-card); color: var(--night-text); border: 0.5px solid var(--night-border); display: inline-block; margin: 0 3px 4px 0; }
-
 /* ── DARK CARDS ── */
-.dark-card { background: var(--night-card); border: 0.5px solid var(--night-border); border-radius: 12px; padding: 1.25rem; margin-bottom: 10px; }
-.dark-card h3 { color: #ccc; margin-bottom: 0.4rem; }
-.dark-card p { color: var(--night-text); font-size: 13px; line-height: 1.7; }
+.dark-card { background: var(--night-card); border: 1px solid var(--night-border); border-radius: 14px; padding: 1.5rem 1.75rem; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+.dark-card h3 { color: #ccc; margin-bottom: 0.5rem; font-size: 15px; }
+.dark-card p { color: var(--night-text); font-size: 14px; line-height: 1.75; }
 
 /* ── ALGAE CALLOUT ── */
-.callout-algae { background: var(--algae-bg); border: 0.5px solid var(--algae-border); border-radius: 12px; padding: 1.5rem; margin: 1.25rem 0; border-left: 3px solid var(--algae); }
-.callout-algae-title { font-size: 14px; font-weight: 500; color: #7ab88a; margin-bottom: 0.5rem; }
-.callout-algae p { font-size: 13px; color: #4a7a56; line-height: 1.7; }
-.callout-algae span { color: var(--algae); }
+.callout-algae { background: var(--night-card); border: 1px solid var(--night-border); border-radius: 14px; padding: 1.75rem 2rem; margin: 1.5rem 0; border-left: 3px solid #333; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+.callout-algae-title { font-size: 15px; font-weight: 500; color: #ccc; margin-bottom: 0.6rem; }
+.callout-algae p { font-size: 14px; color: var(--night-text); line-height: 1.75; }
+.callout-algae span { color: #888; }
 
 /* ── GENZ STRIP ── */
-.genz-strip { background: var(--night-card); border-radius: 12px; padding: 1.5rem; margin: 1.25rem 0; }
-.genz-title { font-size: 15px; font-weight: 500; color: var(--night-heading); margin-bottom: 0.75rem; letter-spacing: -0.01em; }
-.genz-items { display: flex; flex-direction: column; gap: 8px; }
-.genz-item { display: flex; gap: 12px; align-items: flex-start; }
-.genz-label { font-size: 12px; color: #444; min-width: 110px; flex-shrink: 0; padding-top: 1px; }
-.genz-text { font-size: 13px; color: #888; line-height: 1.5; }
+.genz-strip { background: var(--night-card); border: 1px solid var(--night-border); border-radius: 14px; padding: 1.75rem; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+.genz-title { font-size: 16px; font-weight: 500; color: var(--night-heading); margin-bottom: 1rem; letter-spacing: -0.01em; }
+.genz-items { display: flex; flex-direction: column; gap: 12px; }
+.genz-item { display: flex; gap: 14px; align-items: flex-start; }
+.genz-label { font-size: 12px; color: #444; min-width: 110px; flex-shrink: 0; padding-top: 2px; text-transform: uppercase; letter-spacing: 0.04em; }
+.genz-text { font-size: 14px; color: #888; line-height: 1.6; }
 .genz-text strong { color: #ccc; font-weight: 500; }
 
 /* ── DOES / DOESN'T ── */
-.does-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px; margin-top: 1rem; }
-.does-yes { background: var(--night-card); border: 0.5px solid var(--night-border); border-radius: 12px; padding: 1.25rem; }
-.does-no { background: #141414; border: 0.5px solid #1e1e1e; border-radius: 12px; padding: 1.25rem; }
-.does-title { font-size: 13px; font-weight: 500; margin-bottom: 0.6rem; }
+.does-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 1.25rem; }
+.does-yes { background: var(--night-card); border: 1px solid var(--night-border); border-radius: 14px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+.does-no { background: #141414; border: 1px solid #1e1e1e; border-radius: 14px; padding: 1.5rem; }
+.does-title { font-size: 14px; font-weight: 600; margin-bottom: 0.75rem; text-transform: lowercase; }
 .does-yes .does-title { color: #999; }
 .does-no .does-title { color: #333; }
-.does-item { font-size: 13px; line-height: 1.65; display: flex; gap: 8px; align-items: flex-start; padding: 2px 0; }
+.does-item { font-size: 13px; line-height: 1.7; display: flex; gap: 10px; align-items: flex-start; padding: 3px 0; }
 .does-yes .does-item { color: var(--night-text); }
 .does-no .does-item { color: var(--night-border); text-decoration: line-through; }
-.dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+.dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
 .yes-dot { background: #444; }
 .no-dot { background: #222; }
 
-/* ── HONEST STRIP (dark) ── */
-.honest-strip-dark { border-left: 3px solid #333; padding: 1rem 1.25rem; background: #161616; border-radius: 0 10px 10px 0; margin-top: 1rem; }
-.honest-strip-dark p { font-size: 13px; color: #555; }
+.honest-strip-dark { padding: 1.5rem 0 0; margin-top: 1.5rem; border-top: 1px solid #2a2a2a; }
+.honest-strip-dark p { font-size: 14px; color: #555; line-height: 1.75; }
 
 /* ── TIMELINE ── */
-.timeline-section { padding: 1.5rem 0; }
-.tl-item { display: flex; gap: 1rem; margin-bottom: 1.25rem; align-items: flex-start; }
+.timeline-section { padding: 1rem 0; }
+.tl-item { display: flex; gap: 1.25rem; margin-bottom: 1.5rem; align-items: flex-start; }
 .tl-marker { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-.tl-circle { width: 28px; height: 28px; border-radius: 50%; background: var(--night-card); border: 0.5px solid var(--night-border); display: flex; align-items: center; justify-content: center; }
+.tl-circle { width: 32px; height: 32px; border-radius: 50%; background: var(--night-card); border: 1px solid var(--night-border); display: flex; align-items: center; justify-content: center; }
 .tl-circle-text { font-size: 10px; font-weight: 500; color: #555; }
-.tl-line { width: 0.5px; height: 28px; background: #1e1e1e; margin-top: 4px; }
-.tl-content { padding-top: 4px; }
-.tl-week { font-size: 12px; font-weight: 500; color: #666; margin-bottom: 3px; }
-.tl-what { font-size: 13px; color: #888; line-height: 1.5; }
+.tl-line { width: 1px; height: 28px; background: #1e1e1e; margin-top: 4px; }
+.tl-content { padding-top: 5px; }
+.tl-week { font-size: 13px; font-weight: 500; color: #666; margin-bottom: 4px; }
+.tl-what { font-size: 14px; color: #888; line-height: 1.6; }
 .tl-what strong { color: #bbb; font-weight: 500; }
 
 /* ── INGREDIENTS ── */
-.ing-row { border-bottom: 0.5px solid #1e1e1e; padding: 1rem 0; cursor: pointer; }
+.ing-intro { font-size: 14px; color: #555; margin-bottom: 1.5rem; }
+.ing-row { border-bottom: 1px solid #1e1e1e; padding: 1.25rem 0.5rem; cursor: pointer; transition: background 0.15s ease; border-radius: 8px; margin: 0 -0.5rem; }
+.ing-row:hover { background: rgba(45,90,58,0.06); }
 .ing-row:last-child { border-bottom: none; }
-.ing-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
-.ing-name { font-size: 14px; font-weight: 500; color: #ccc; }
-.ing-badge { font-size: 11px; padding: 2px 10px; border-radius: 999px; flex-shrink: 0; }
-.badge-hero { background: #1a2a1e; color: var(--algae-light); border: 0.5px solid #2a3a2e; }
-.badge-support { background: #1a1a1a; color: #444; border: 0.5px solid #222; }
-.ing-tldr { font-size: 12px; color: #444; margin-top: 3px; }
-.ing-detail { display: none; margin-top: 0.75rem; padding: 0.75rem; background: var(--algae-bg); border-radius: 8px; border: 0.5px solid var(--algae-border); }
+.ing-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.ing-name { font-size: 15px; font-weight: 500; color: #ccc; }
+.ing-badge { font-size: 11px; padding: 3px 12px; border-radius: 999px; flex-shrink: 0; font-weight: 500; }
+.badge-hero { background: var(--night-card); color: #888; border: 1px solid var(--night-border); }
+.badge-support { background: #1a1a1a; color: #444; border: 1px solid #222; }
+.ing-tldr { font-size: 12px; color: #444; margin-top: 4px; }
+.ing-detail { display: none; margin-top: 0.75rem; padding: 1rem 1.25rem; background: var(--night-card); border-radius: 10px; border: 1px solid var(--night-border); }
 .ing-detail.open { display: block; }
-.ing-detail p { font-size: 13px; color: #4a7a56; line-height: 1.6; }
-.ing-conc { font-size: 11px; color: var(--algae); margin-top: 0.4rem; font-style: italic; }
+.ing-detail p { font-size: 13px; color: #888; line-height: 1.7; }
+.ing-conc { font-size: 11px; color: #555; margin-top: 0.5rem; font-style: italic; }
 
 /* ── REVIEWS ── */
-.review-card { background: var(--night-card); border-radius: 12px; padding: 1.1rem; margin-bottom: 10px; border: 0.5px solid #222; }
-.reviewer-name { font-size: 13px; font-weight: 500; color: #ccc; }
-.reviewer-tag { font-size: 11px; color: #444; margin: 2px 0 0.5rem; }
-.review-text { font-size: 13px; color: var(--night-text); line-height: 1.6; }
-.review-badge { font-size: 11px; padding: 2px 10px; border-radius: 999px; display: inline-block; margin-top: 0.5rem; background: #111; color: #555; border: 0.5px solid #222; }
+.review-card { background: var(--night-card); border: 1px solid #222; border-radius: 14px; padding: 1.5rem; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+.reviewer-name { font-size: 14px; font-weight: 500; color: #ccc; }
+.reviewer-tag { font-size: 11px; color: #444; margin: 3px 0 0.6rem; }
+.review-text { font-size: 14px; color: var(--night-text); line-height: 1.7; }
+.review-badge { font-size: 11px; padding: 3px 12px; border-radius: 999px; display: inline-block; margin-top: 0.6rem; background: #111; color: #555; border: 1px solid #222; font-weight: 500; }
+
+.footer-cta { background: #111; padding: 3rem 2.5rem 4rem; text-align: center; border-radius: 32px 32px 0 0; box-shadow: 0 -2px 24px rgba(0,0,0,0.4); position: relative; margin-top: 3rem; }
 </style>
 
 <div style="background: var(--night);">
 
-<div style="padding: 0.9rem 1rem; border-bottom: 0.5px solid #1e1e1e; background: var(--night);">
-  <span style="font-size: 13px; color: #333;">ODD Care Co. / shop (4 things) / </span>
-  <span style="font-size: 13px; color: #555;">deep dusk — PM cream</span>
-</div>
-
-<!-- ═══════════════════════════════════════════
-     HERO
-     ═══════════════════════════════════════════ -->
 <div class="hero-band">
+  <div class="breadcrumb">
+    <span style="color: #333;">ODD Care Co. / shop (4 things) / </span>
+    <span style="color: #555;">deep dusk — PM cream</span>
+  </div>
   <div class="hero-inner">
-    <div class="product-swatch">
-      <span class="swatch-num">04 / 04</span>
-      <div class="swatch-line"></div>
-      <span style="font-size: 9px; color: #333; text-transform: uppercase; letter-spacing: 0.08em;">PM cream</span>
+    <div class="product-image">
+      <span class="img-num">04 / 04</span>
+      <div class="img-line"></div>
+      <span class="img-type">PM cream · 75g</span>
     </div>
-    <div style="flex: 1;">
+    <div class="hero-info">
       <div class="label" style="color: #444;">product 04 of 04 · pump · PM only</div>
-      <h1 style="color: var(--night-heading); margin: 0.3rem 0 0.25rem;">Deep Dusk</h1>
-      <p style="font-size: 13px; color: var(--night-text); margin-bottom: 0.6rem;">Your skin's busiest hours are the ones you're not awake for. This is what works then.</p>
+      <h1>Deep Dusk</h1>
+      <p style="font-size: 15px; color: var(--night-text); line-height: 1.6;">Your skin's busiest hours are the ones you're not awake for. This is what works then.</p>
       <div class="rating-row">
         <span class="stars">★★★★★</span>
         <span class="rating-text">4.8 · 241 reviews · the one people understand last and love most</span>
       </div>
-      <div style="margin: 0.5rem 0;">
+      <div class="active-tags">
         <span class="active-tag">marine bio-retinol</span>
         <span class="active-tag">niacinamide 2%</span>
         <span class="active-tag">shea butter</span>
@@ -150,10 +160,7 @@ p { font-size: 14px; line-height: 1.7; }
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════
-     TABBED CONTENT
-     ═══════════════════════════════════════════ -->
-<div class="tabs" style="padding: 0 1rem;">
+<div class="tabs" style="padding: 0 2.5rem; max-width: 1000px; margin: 0 auto;">
   <div class="tab active" onclick="switchTab('story')">the retinol problem we solved</div>
   <div class="tab" onclick="switchTab('genz')">why you actually need this</div>
   <div class="tab" onclick="switchTab('does')">what it does</div>
@@ -162,121 +169,52 @@ p { font-size: 14px; line-height: 1.7; }
   <div class="tab" onclick="switchTab('honest')">the honest part</div>
 </div>
 
-<div style="padding: 0 1rem; background: #111;">
+<div class="tab-wrap">
 
-  <!-- ── TAB: THE RETINOL STORY ── -->
   <div id="tab-story" class="tab-content active">
-
-    <div style="padding: 1.25rem 0 0.5rem;">
-      <p style="color: #555; font-size: 14px; line-height: 1.8;">Retinol is the most evidence-backed anti-aging ingredient in skincare. Dermatologists recommend it broadly. And yet most people who try it stop after two weeks.</p>
-    </div>
-
+    <p style="color: #555; font-size: 15px; line-height: 1.8; margin-bottom: 1.5rem;">Retinol is the most evidence-backed anti-aging ingredient in skincare. Dermatologists recommend it broadly. And yet most people who try it stop after two weeks.</p>
     <div class="dark-card">
       <h3>Why people quit retinol</h3>
       <p>The retinol purge is real. Peeling, redness, sensitivity, dryness that lasts weeks. Synthetic retinol binds aggressively to skin receptors and causes dramatic cell turnover. Effective, yes. Comfortable, no. People who've tried it and quit describe the same two weeks: flaking skin, tight feeling, everything stings.</p>
     </div>
-
     <div class="callout-algae">
       <div class="callout-algae-title">What marine bio-retinol from microalgae actually is</div>
       <p>Certain marine microalgae species naturally produce retinol-equivalent compounds as part of their cellular repair mechanisms. <span>These compounds are encapsulated in lipid structures that closely mirror skin cell membranes, allowing gradual, controlled release rather than the immediate receptor flood of synthetic retinol.</span> The result is the same cellular outcome — accelerated cell turnover, collagen signalling, pigmentation reduction — with significantly reduced irritation. Not zero irritation. Significantly reduced.</p>
     </div>
-
     <div class="dark-card" style="margin-top: 0;">
       <h3>Why we chose this over synthetic retinol</h3>
       <p>We considered synthetic retinol at very low concentrations. We chose marine bio-retinol for three reasons. First: the natural lipid encapsulation is genuinely superior for controlled delivery. Second: the brightening and barrier repair properties of the algae extract are additive — they come alongside the retinol activity, not just from it. Third: marine microalgae is rapidly renewable, requires no arable land, and is harvested without petrochemical processing.</p>
     </div>
-
-    <div style="display: flex; align-items: flex-start; gap: 12px; background: var(--night-card); border-radius: 12px; padding: 1.25rem; margin-top: 0;">
-      <div style="font-size: 36px; font-weight: 500; color: #2a2a2a; line-height: 1; flex-shrink: 0; letter-spacing: -0.03em;">2x</div>
-      <p style="font-size: 13px; color: #555; line-height: 1.7; padding-top: 4px;">People who quit synthetic retinol due to irritation and switched to bio-marine formulations reported continuation rates twice as high at the 8-week mark. The most effective ingredient is the one you don't stop using.</p>
+    <div style="display: flex; align-items: flex-start; gap: 16px; background: var(--night-card); border: 1px solid var(--night-border); border-radius: 14px; padding: 1.5rem 1.75rem; margin-top: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">
+      <div style="font-size: 40px; font-weight: 500; color: #2a2a2a; line-height: 1; flex-shrink: 0; letter-spacing: -0.03em;">2x</div>
+      <p style="font-size: 14px; color: #555; line-height: 1.75; padding-top: 6px;">People who quit synthetic retinol due to irritation and switched to bio-marine formulations reported continuation rates twice as high at the 8-week mark. The most effective ingredient is the one you don't stop using.</p>
     </div>
-
   </div>
 
-  <!-- ── TAB: WHY YOU NEED THIS ── -->
   <div id="tab-genz" class="tab-content">
-
-    <div style="padding: 1.25rem 0 0;">
-      <p style="color: #555; font-size: 14px; line-height: 1.8; margin-bottom: 1.25rem;">"Night cream" sounds like something from a pink tub that smells like roses. We know. Here's why this is the product you actually can't skip.</p>
-    </div>
-
+    <p style="color: #555; font-size: 15px; line-height: 1.8; margin-bottom: 1.5rem;">"Night cream" sounds like something from a pink tub that smells like roses. We know. Here's why this is the product you actually can't skip.</p>
     <div class="genz-strip">
       <div class="genz-title">What it's actually doing while you sleep</div>
       <div class="genz-items">
-        <div class="genz-item">
-          <div class="genz-label">skin repair</div>
-          <div class="genz-text">Your skin's cell turnover rate is <strong>3x higher at night</strong> than during the day. This is when damaged cells get replaced. The marine bio-retinol accelerates that process. You're giving it better materials to work with.</div>
-        </div>
-        <div class="genz-item">
-          <div class="genz-label">pigmentation</div>
-          <div class="genz-text">Niacinamide at 2% works on melanin transfer — <strong>the mechanism behind dark spots, post-acne marks, and uneven tone</strong>. It's working on the cause of pigmentation while you sleep, after a day of sun exposure.</div>
-        </div>
-        <div class="genz-item">
-          <div class="genz-label">moisture lock</div>
-          <div class="genz-text">Shea butter creates an occlusive barrier that <strong>locks in moisture overnight without clogging pores</strong>. Rich in vitamins A, E, and essential fatty acids. By morning your skin is softer, not drier.</div>
-        </div>
-        <div class="genz-item">
-          <div class="genz-label">brightness</div>
-          <div class="genz-text">The algae extract has natural brightening compounds alongside the retinol activity. The niacinamide helps even skin tone. The combination means you don't just have <strong>healthier skin — you have skin that looks alive</strong> instead of dull.</div>
-        </div>
+        <div class="genz-item"><div class="genz-label">skin repair</div><div class="genz-text">Your skin's cell turnover rate is <strong>3x higher at night</strong> than during the day. This is when damaged cells get replaced. The marine bio-retinol accelerates that process. You're giving it better materials to work with.</div></div>
+        <div class="genz-item"><div class="genz-label">pigmentation</div><div class="genz-text">Niacinamide at 2% works on melanin transfer — <strong>the mechanism behind dark spots, post-acne marks, and uneven tone</strong>. It's working on the cause of pigmentation while you sleep, after a day of sun exposure.</div></div>
+        <div class="genz-item"><div class="genz-label">moisture lock</div><div class="genz-text">Shea butter creates an occlusive barrier that <strong>locks in moisture overnight without clogging pores</strong>. Rich in vitamins A, E, and essential fatty acids. By morning your skin is softer, not drier.</div></div>
+        <div class="genz-item"><div class="genz-label">brightness</div><div class="genz-text">The algae extract has natural brightening compounds alongside the retinol activity. The niacinamide helps even skin tone. The combination means you don't just have <strong>healthier skin — you have skin that looks alive</strong> instead of dull.</div></div>
       </div>
     </div>
-
-    <div style="background: #0d0d0d; border: 0.5px solid #1e1e1e; border-radius: 12px; padding: 1.25rem; margin-top: 1rem;">
-      <p style="color: #555; font-size: 13px; line-height: 1.7;">The night cream is the step people skip because it sounds unnecessary. It's the step that makes everything else in the routine work better. The facewash preps the skin for it. The sunscreen protects the results during the day. Skip this one and the other three are doing half the work they could.</p>
+    <div style="background: #0d0d0d; border: 1px solid #1e1e1e; border-radius: 14px; padding: 1.5rem 1.75rem; margin-top: 1.5rem;">
+      <p style="color: #555; font-size: 14px; line-height: 1.75;">The night cream is the step people skip because it sounds unnecessary. It's the step that makes everything else in the routine work better. The facewash preps the skin for it. The sunscreen protects the results during the day. Skip this one and the other three are doing half the work they could.</p>
     </div>
-
   </div>
 
-  <!-- ── TAB: WHAT IT DOES ── -->
   <div id="tab-does" class="tab-content">
-
     <div class="timeline-section">
-      <div class="label" style="color: #444; padding-top: 0.5rem;">what happens week by week</div>
-
-      <div style="margin-top: 1rem;">
-        <div class="tl-item">
-          <div class="tl-marker">
-            <div class="tl-circle"><span class="tl-circle-text">W1</span></div>
-            <div class="tl-line"></div>
-          </div>
-          <div class="tl-content">
-            <div class="tl-week">Week 1–2</div>
-            <div class="tl-what">Skin adjusting. You might notice <strong>slight dryness or initial sensitivity</strong> — the bio-retinol is gentler than synthetic but cell turnover is accelerating. Normal and temporary.</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-marker">
-            <div class="tl-circle"><span class="tl-circle-text">W3</span></div>
-            <div class="tl-line"></div>
-          </div>
-          <div class="tl-content">
-            <div class="tl-week">Week 3–4</div>
-            <div class="tl-what"><strong>Texture begins to smooth.</strong> Skin feels softer in the morning. Post-acne marks start to fade at their edges. Most people notice their skin looks less tired.</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-marker">
-            <div class="tl-circle"><span class="tl-circle-text">W6</span></div>
-            <div class="tl-line"></div>
-          </div>
-          <div class="tl-content">
-            <div class="tl-week">Week 5–8</div>
-            <div class="tl-what">Niacinamide showing up now — <strong>visible improvement in hyperpigmentation</strong> and dark spots. Skin tone evening out. Barrier noticeably stronger from the shea butter — less reactive to weather and pollution.</div>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-marker">
-            <div class="tl-circle"><span class="tl-circle-text">12+</span></div>
-          </div>
-          <div class="tl-content">
-            <div class="tl-week">Week 12 onwards</div>
-            <div class="tl-what">The long game. <strong>Cumulative bio-retinol benefits</strong> — skin has more bounce, fine lines soften, texture is significantly refined. The people who've used this for 6+ months look at their skin from a year ago and don't recognise it.</div>
-          </div>
-        </div>
-      </div>
+      <div class="label" style="color: #444; margin-bottom: 1rem;">what happens week by week</div>
+      <div class="tl-item"><div class="tl-marker"><div class="tl-circle"><span class="tl-circle-text">W1</span></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-week">Week 1–2</div><div class="tl-what">Skin adjusting. You might notice <strong>slight dryness or initial sensitivity</strong> — the bio-retinol is gentler than synthetic but cell turnover is accelerating. Normal and temporary.</div></div></div>
+      <div class="tl-item"><div class="tl-marker"><div class="tl-circle"><span class="tl-circle-text">W3</span></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-week">Week 3–4</div><div class="tl-what"><strong>Texture begins to smooth.</strong> Skin feels softer in the morning. Post-acne marks start to fade at their edges. Most people notice their skin looks less tired.</div></div></div>
+      <div class="tl-item"><div class="tl-marker"><div class="tl-circle"><span class="tl-circle-text">W6</span></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-week">Week 5–8</div><div class="tl-what">Niacinamide showing up now — <strong>visible improvement in hyperpigmentation</strong> and dark spots. Skin tone evening out. Barrier noticeably stronger from the shea butter — less reactive to weather and pollution.</div></div></div>
+      <div class="tl-item"><div class="tl-marker"><div class="tl-circle"><span class="tl-circle-text">12+</span></div></div><div class="tl-content"><div class="tl-week">Week 12 onwards</div><div class="tl-what">The long game. <strong>Cumulative bio-retinol benefits</strong> — skin has more bounce, fine lines soften, texture is significantly refined. The people who've used this for 6+ months look at their skin from a year ago and don't recognise it.</div></div></div>
     </div>
-
     <div class="does-grid">
       <div class="does-yes">
         <div class="does-title">what it does</div>
@@ -294,131 +232,70 @@ p { font-size: 14px; line-height: 1.7; }
         <div class="does-item"><span class="dot no-dot"></span><span>Fix active breakouts — that's the facewash's job</span></div>
       </div>
     </div>
-
-    <div class="honest-strip-dark" style="margin-top: 1rem;">
+    <div class="honest-strip-dark">
       <p>The night cream's results are undermined if you skip sunscreen. Retinol increases sun sensitivity. New skin cells are more vulnerable. Using this without SPF in the morning is running a bath with the drain open.</p>
     </div>
-
   </div>
 
-  <!-- ── TAB: INGREDIENTS ── -->
   <div id="tab-ingredients" class="tab-content">
-    <p style="font-size: 13px; color: #555; margin-bottom: 1.25rem; padding-top: 0.25rem;">Three key actives. Each doing a specific job while you sleep. Tap to learn more.</p>
-
+    <p class="ing-intro">Three key actives. Each doing a specific job while you sleep. Tap to learn more.</p>
     <div class="ing-row" onclick="toggleIng(this)">
-      <div class="ing-header">
-        <div>
-          <div class="ing-name">Marine Bio-Retinol from Microalgae</div>
-          <div class="ing-tldr">Retinol. From the ocean. Less irritating. Equally effective.</div>
-        </div>
-        <span class="ing-badge badge-hero">hero</span>
-      </div>
-      <div class="ing-detail">
-        <p>Derived from marine microalgae species that naturally synthesise retinol-equivalent compounds as part of their cellular repair mechanisms. The compounds are delivered in naturally-occurring algae lipid vesicles that mimic skin cell membrane structure. This lipid encapsulation is what makes the difference — the retinol activity releases gradually as the vesicles integrate with skin cells, rather than flooding receptors immediately the way synthetic retinol does. Comparable results on cell turnover, texture improvement, and collagen signalling. Irritation scores significantly lower throughout.</p>
-        <div class="ing-conc">Standardised to retinol-equivalent activity. Natural encapsulation — not a stripped isolate.</div>
-      </div>
+      <div class="ing-header"><div><div class="ing-name">Marine Bio-Retinol from Microalgae</div><div class="ing-tldr">Retinol. From the ocean. Less irritating. Equally effective.</div></div><span class="ing-badge badge-hero">hero</span></div>
+      <div class="ing-detail"><p>Derived from marine microalgae species that naturally synthesise retinol-equivalent compounds as part of their cellular repair mechanisms. The compounds are delivered in naturally-occurring algae lipid vesicles that mimic skin cell membrane structure. This lipid encapsulation is what makes the difference — the retinol activity releases gradually as the vesicles integrate with skin cells, rather than flooding receptors immediately the way synthetic retinol does. Comparable results on cell turnover, texture improvement, and collagen signalling. Irritation scores significantly lower throughout.</p><div class="ing-conc">Standardised to retinol-equivalent activity. Natural encapsulation — not a stripped isolate.</div></div>
     </div>
-
     <div class="ing-row" onclick="toggleIng(this)">
-      <div class="ing-header">
-        <div>
-          <div class="ing-name">Niacinamide 2%</div>
-          <div class="ing-tldr">The anti-pigmentation and barrier support workhorse.</div>
-        </div>
-        <span class="ing-badge badge-hero">hero</span>
-      </div>
-      <div class="ing-detail">
-        <p>Vitamin B3 at 2% — the same concentration as the facewash, working in a leave-on format overnight. Inhibits melanin transfer to reduce hyperpigmentation, dark spots, and uneven skin tone. Strengthens the skin barrier so the retinol can work without compromising skin integrity. Regulates sebum overnight so you wake up balanced, not oily. In a leave-on night format, 2% is doing significantly more work than the same concentration in a rinse-off — contact time is everything.</p>
-        <div class="ing-conc">2% in a leave-on format — all night exposure means this concentration is doing serious work.</div>
-      </div>
+      <div class="ing-header"><div><div class="ing-name">Niacinamide 2%</div><div class="ing-tldr">The anti-pigmentation and barrier support workhorse.</div></div><span class="ing-badge badge-hero">hero</span></div>
+      <div class="ing-detail"><p>Vitamin B3 at 2% — the same concentration as the facewash, working in a leave-on format overnight. Inhibits melanin transfer to reduce hyperpigmentation, dark spots, and uneven skin tone. Strengthens the skin barrier so the retinol can work without compromising skin integrity. Regulates sebum overnight so you wake up balanced, not oily. In a leave-on night format, 2% is doing significantly more work than the same concentration in a rinse-off — contact time is everything.</p><div class="ing-conc">2% in a leave-on format — all night exposure means this concentration is doing serious work.</div></div>
     </div>
-
     <div class="ing-row" onclick="toggleIng(this)">
-      <div class="ing-header">
-        <div>
-          <div class="ing-name">Shea Butter</div>
-          <div class="ing-tldr">The overnight moisture seal. Rich without being heavy.</div>
-        </div>
-        <span class="ing-badge badge-hero">hero</span>
-      </div>
-      <div class="ing-detail">
-        <p>Refined shea butter creates an occlusive layer that locks in moisture while you sleep without clogging pores. Rich in vitamins A and E — both antioxidants that complement the bio-retinol's cell renewal work. The essential fatty acids in shea butter actively repair the skin barrier, which is why consistent users report their skin becomes less reactive over time. It's also what gives Deep Dusk its texture — absorbs within a minute, no heavy or greasy residue. You're not sleeping in a face mask. You're sleeping in better skin.</p>
-        <div class="ing-conc">Refined for comedogenicity. Rich barrier repair without the heaviness.</div>
-      </div>
+      <div class="ing-header"><div><div class="ing-name">Shea Butter</div><div class="ing-tldr">The overnight moisture seal. Rich without being heavy.</div></div><span class="ing-badge badge-hero">hero</span></div>
+      <div class="ing-detail"><p>Refined shea butter creates an occlusive layer that locks in moisture while you sleep without clogging pores. Rich in vitamins A and E — both antioxidants that complement the bio-retinol's cell renewal work. The essential fatty acids in shea butter actively repair the skin barrier, which is why consistent users report their skin becomes less reactive over time. It's also what gives Deep Dusk its texture — absorbs within a minute, no heavy or greasy residue. You're not sleeping in a face mask. You're sleeping in better skin.</p><div class="ing-conc">Refined for comedogenicity. Rich barrier repair without the heaviness.</div></div>
     </div>
-
   </div>
 
-  <!-- ── TAB: REVIEWS ── -->
   <div id="tab-reviews" class="tab-content">
-    <p style="font-size: 13px; color: #444; margin-bottom: 1.25rem; padding-top: 0.25rem;">The product people understand last. The reviews that start appearing around week 8.</p>
-
+    <p class="ing-intro" style="color: #444;">The product people understand last. The reviews that start appearing around week 8.</p>
     <div class="review-card">
       <div class="reviewer-name">Ishaan T., Mumbai</div>
       <div class="reviewer-tag">23 years old · verified purchase</div>
       <div class="review-text">"My girlfriend put this on my face while I was half asleep and told me to use it every night. I did it for two months mostly out of inertia. Ran into a friend who asked what I was doing differently. I said nothing. 5 stars I guess."</div>
       <span class="review-badge">passive compliance, active results</span>
     </div>
-
     <div class="review-card">
       <div class="reviewer-name">Divya R., Hyderabad</div>
       <div class="reviewer-tag">post-acne hyperpigmentation · used for 10 weeks</div>
       <div class="review-text">"I've had post-acne marks for three years. Tried vitamin C, tried kojic acid creams. Ten weeks of this and my skin tone is visibly more even. The niacinamide + bio-retinol combination is doing something the individual ingredients never did alone."</div>
       <span class="review-badge">the combination that clicked</span>
     </div>
-
     <div class="review-card">
       <div class="reviewer-name">Arjun K., Delhi</div>
       <div class="reviewer-tag">bought the whole routine · 25 years old</div>
       <div class="review-text">"I was sceptical about the night cream specifically. It's the most 'aunt product' of the four. Used it anyway because it came in the box. At week 6 I noticed my skin looked different in the morning. Not dramatically different. Just... better rested and less like a surface that bad things happen to."</div>
       <span class="review-badge">"less like a surface that bad things happen to"</span>
     </div>
-
     <div class="review-card">
       <div class="reviewer-name">Priya S., Bangalore</div>
       <div class="reviewer-tag">verified purchase</div>
       <div class="review-text">"Skipped the night cream for two weeks when I ran out. My skin got noticeably worse. Ordered two backups." <span style="font-size: 12px; font-style: italic; color: #333;">— Brand: This is the night cream review arc. Everyone goes through it.</span></div>
     </div>
-
   </div>
 
-  <!-- ── TAB: THE HONEST PART ── -->
   <div id="tab-honest" class="tab-content">
-    <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 0.25rem;">
-
-      <div class="dark-card">
-        <h3>Can you use this if you've never used retinol before?</h3>
-        <p>Yes — and marine bio-retinol is a better starting point than synthetic retinol for first-timers. Start every other night for the first two weeks. If your skin tolerates it with no sensitivity, move to every night. If you experience slight dryness in the first week, that's normal adaptation. Don't stop.</p>
-      </div>
-
-      <div class="dark-card">
-        <h3>The sunscreen dependency — we'll say it clearly</h3>
-        <p>Retinol — even bio-marine retinol — increases photosensitivity. The newer skin cells being produced are more vulnerable to UV damage. Using this without SPF 50+ during the day means you are actively undoing some of what Deep Dusk accomplished overnight. Products 03 and 04 are in a relationship. Both need to be present for either to work properly.</p>
-      </div>
-
-      <div class="dark-card">
-        <h3>Who should be cautious</h3>
-        <p>Pregnant or breastfeeding: avoid retinol in all forms, bio-marine included. If you have rosacea: start very slowly, every third night, and monitor. Active eczema or compromised barrier: heal the barrier first, introduce this after. When in doubt, ask a dermatologist. We're a night cream, not medical advice.</p>
-      </div>
-
-      <div class="dark-card">
-        <h3>Why we called it a night cream and not a "youth serum"</h3>
-        <p>Because it's a night cream. It goes on at night. It's a cream. Marketing names for skincare products have gotten so detached from what things actually are that we found it exhausting. This is the night cream. It does more than most products with dramatically more exciting names. The name is the least interesting thing about it.</p>
-      </div>
-
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      <div class="dark-card"><h3>Can you use this if you've never used retinol before?</h3><p>Yes — and marine bio-retinol is a better starting point than synthetic retinol for first-timers. Start every other night for the first two weeks. If your skin tolerates it with no sensitivity, move to every night. If you experience slight dryness in the first week, that's normal adaptation. Don't stop.</p></div>
+      <div class="dark-card"><h3>The sunscreen dependency — we'll say it clearly</h3><p>Retinol — even bio-marine retinol — increases photosensitivity. The newer skin cells being produced are more vulnerable to UV damage. Using this without SPF 50+ during the day means you are actively undoing some of what Deep Dusk accomplished overnight. Products 03 and 04 are in a relationship. Both need to be present for either to work properly.</p></div>
+      <div class="dark-card"><h3>Who should be cautious</h3><p>Pregnant or breastfeeding: avoid retinol in all forms, bio-marine included. If you have rosacea: start very slowly, every third night, and monitor. Active eczema or compromised barrier: heal the barrier first, introduce this after. When in doubt, ask a dermatologist. We're a night cream, not medical advice.</p></div>
+      <div class="dark-card"><h3>Why we called it a night cream and not a "youth serum"</h3><p>Because it's a night cream. It goes on at night. It's a cream. Marketing names for skincare products have gotten so detached from what things actually are that we found it exhausting. This is the night cream. It does more than most products with dramatically more exciting names. The name is the least interesting thing about it.</p></div>
     </div>
   </div>
 
 </div>
 
-<!-- ═══════════════════════════════════════════
-     FOOTER CTA
-     ═══════════════════════════════════════════ -->
-<div style="background: #080808; padding: 1.5rem; text-align: center; border-top: 0.5px solid #1a1a1a;">
+<div class="footer-cta">
   <div class="label" style="color: #333; margin-bottom: 0.5rem;">product 04 of 04 · the one that works while you sleep</div>
-  <h2 style="color: #ccc; margin-bottom: 0.4rem; font-size: 20px; letter-spacing: -0.02em;">The step that makes<br>the other three worth it.</h2>
-  <p style="font-size: 13px; color: #444; margin-bottom: 1.25rem; max-width: 320px; margin-left: auto; margin-right: auto;">Marine bio-retinol. Niacinamide 2%. Shea butter. All night. Every night.</p>
-  <button class="btn-add" style="max-width: 260px; margin: 0 auto; display: block;">add deep dusk — ₹549</button>
+  <h2 style="color: #ccc; margin-bottom: 0.5rem; letter-spacing: -0.02em;">The step that makes<br>the other three worth it.</h2>
+  <p style="font-size: 13px; color: #444; margin-bottom: 1.5rem; max-width: 360px; margin-left: auto; margin-right: auto;">Marine bio-retinol. Niacinamide 2%. Shea butter. All night. Every night.</p>
+  <button class="btn-add" style="max-width: 280px; margin: 0 auto; display: block;">add deep dusk — ₹549</button>
   <p style="font-size: 11px; color: #333; margin-top: 0.75rem;">or get all 4 in The Whole Routine — ₹1,499</p>
 </div>
 

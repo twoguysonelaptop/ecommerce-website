@@ -2,6 +2,8 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; background: #fff; color: #1a1a1a; }
+header.site-header .custom-logo { max-height: 80px !important; width: auto !important; }
+#inner-wrap { background: #f7f2eb; border-radius: 32px 32px 0 0; box-shadow: 0 -2px 24px rgba(0,0,0,0.06); position: relative; }
 :root {
   --odd-black:#000;--odd-white:#fff;--odd-sage:#9CAF88;--odd-beige:#F5F0EB;
   --odd-dark:#1a1a1a;--odd-gray:#555;--odd-border:#e5e5e5;
@@ -9,133 +11,140 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans
   --bg-secondary:#fafaf9;--border-light:#e5e5e5;
   --warm:#bfa98b;--warm-light:#f7f2eb;--warm-border:#e0d4c0;--warm-text:#6b5540;--warm-dark:#4a3828;
 }
-h1 { font-size: 22px; font-weight: 500; color: var(--text-primary); line-height: 1.3; }
-h2 { font-size: 18px; font-weight: 500; color: var(--text-primary); }
+h1 { font-size: 32px; font-weight: 600; color: var(--warm-dark); line-height: 1.15; letter-spacing: -0.01em; }
+h2 { font-size: 20px; font-weight: 500; color: var(--text-primary); }
 h3 { font-size: 15px; font-weight: 500; color: var(--text-primary); }
 p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
-.label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-tertiary); margin-bottom: 0.4rem; }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #8a7060; }
+
+.breadcrumb { max-width: 1000px; margin: 0 auto 1.5rem; }
+.breadcrumb span { font-size: 13px; }
+
+/* ── HERO ── */
+.hero-band { background: var(--warm-light); padding: 2rem 2.5rem 3rem; border-bottom: 0.5px solid var(--warm-border); }
+.hero-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; max-width: 1000px; margin: 0 auto; align-items: center; }
+.product-image { width: 100%; aspect-ratio: 3/4; max-height: 440px; background: linear-gradient(160deg, #d4c4ad 0%, #c4ad90 50%, #bfa98b 100%); border-radius: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; position: relative; overflow: hidden; border: 1px solid rgba(191,169,139,0.3); }
+.product-image::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.2) 0%, transparent 60%); pointer-events: none; }
+.img-num { font-size: 38px; font-weight: 300; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; position: relative; }
+.img-line { width: 40px; height: 1px; background: rgba(255,255,255,0.25); position: relative; }
+.img-type { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.4); position: relative; }
+.hero-info { display: flex; flex-direction: column; gap: 0.6rem; }
+.rating-row { display: flex; align-items: center; gap: 8px; }
+.stars { font-size: 14px; letter-spacing: 1px; color: var(--warm); }
+.rating-text { font-size: 12px; color: #8a7060; }
+.active-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0.15rem 0; }
+.active-tag { font-size: 11px; padding: 4px 12px; border-radius: 999px; background: rgba(191,169,139,0.12); color: var(--warm-text); border: 1px solid rgba(191,169,139,0.25); }
+.price-row { display: flex; align-items: baseline; gap: 10px; margin-top: 0.2rem; }
+.price { font-size: 26px; font-weight: 600; color: var(--warm-dark); }
+.price-note { font-size: 12px; color: #8a7060; }
+.btn-add { background: var(--warm-dark); color: var(--warm-light); font-size: 14px; padding: 14px 24px; border-radius: 999px; border: none; cursor: pointer; width: 100%; transition: all 0.2s ease; font-weight: 500; margin-top: 0.25rem; }
+.btn-add:hover { background: var(--odd-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 
 /* ── TABS ── */
-.tabs { display: flex; border-bottom: 0.5px solid var(--border-light); margin-bottom: 1.5rem; overflow-x: auto; }
-.tab { font-size: 13px; padding: 8px 16px; cursor: pointer; border-bottom: 2px solid transparent; color: var(--text-secondary); white-space: nowrap; margin-bottom: -0.5px; flex-shrink: 0; }
+.tab-wrap { padding: 0 2.5rem; max-width: 1000px; margin: 0 auto; }
+.tabs { display: flex; border-bottom: 1px solid var(--border-light); margin-bottom: 2rem; overflow-x: auto; gap: 2px; }
+.tab { font-size: 13px; padding: 12px 18px; cursor: pointer; border-bottom: 2px solid transparent; color: var(--text-tertiary); white-space: nowrap; margin-bottom: -1px; flex-shrink: 0; transition: color 0.15s ease; }
+.tab:hover { color: var(--text-secondary); }
 .tab.active { color: var(--warm-text); border-bottom-color: var(--warm); font-weight: 500; }
 .tab-content { display: none; }
 .tab-content.active { display: block; }
 
-/* ── HERO ── */
-.hero-band { background: var(--warm-light); padding: 2rem 1rem; border-bottom: 0.5px solid var(--warm-border); }
-.hero-inner { display: flex; gap: 1.25rem; align-items: flex-start; }
-.product-swatch { width: 90px; height: 118px; background: var(--warm); border-radius: 10px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
-.swatch-num { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.8); letter-spacing: 0.06em; }
-.swatch-line { width: 22px; height: 1.5px; background: rgba(255,255,255,0.4); border-radius: 1px; }
-.rating-row { display: flex; align-items: center; gap: 8px; margin: 0.35rem 0; }
-.stars { font-size: 13px; letter-spacing: 1px; color: var(--warm); }
-.rating-text { font-size: 12px; color: #8a7060; }
-.price-row { display: flex; align-items: baseline; gap: 8px; margin: 0.6rem 0 0.75rem; }
-.price { font-size: 20px; font-weight: 500; color: var(--warm-dark); }
-.price-note { font-size: 12px; color: #8a7060; }
-.btn-add { background: var(--warm-dark); color: var(--warm-light); font-size: 13px; padding: 10px 20px; border-radius: 999px; border: none; cursor: pointer; width: 100%; transition: background 0.15s ease; }
-.btn-add:hover { background: var(--odd-dark); }
-.active-tag { font-size: 11px; padding: 2px 9px; border-radius: 999px; background: rgba(191,169,139,0.15); color: var(--warm-text); border: 0.5px solid rgba(191,169,139,0.3); display: inline-block; margin: 0 3px 4px 0; }
-
 /* ── EXCUSES ── */
-.excuse-list { display: flex; flex-direction: column; gap: 10px; margin-top: 1rem; }
-.excuse-item { border-radius: 10px; overflow: hidden; cursor: pointer; border: 0.5px solid var(--border-light); }
-.excuse-q { display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 1rem; background: var(--bg-secondary); }
+.excuse-list { display: flex; flex-direction: column; gap: 12px; margin-top: 1rem; }
+.excuse-item { border-radius: 14px; overflow: hidden; cursor: pointer; border: 1px solid var(--border-light); box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: border-color 0.15s ease; }
+.excuse-item:hover { border-color: rgba(191,169,139,0.4); }
+.excuse-q { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; background: var(--bg-secondary); }
 .excuse-q-text { font-size: 14px; font-weight: 500; color: var(--text-primary); }
-.excuse-badge { font-size: 11px; padding: 2px 10px; border-radius: 999px; background: var(--warm-light); color: #8a7060; border: 0.5px solid rgba(191,169,139,0.3); white-space: nowrap; margin-left: 8px; }
-.excuse-a { display: none; padding: 1rem; background: var(--odd-white); border-top: 0.5px solid var(--border-light); }
+.excuse-badge { font-size: 11px; padding: 3px 12px; border-radius: 999px; background: var(--warm-light); color: #8a7060; border: 1px solid rgba(191,169,139,0.25); white-space: nowrap; margin-left: 10px; font-weight: 500; }
+.excuse-a { display: none; padding: 1.25rem; background: var(--odd-white); border-top: 1px solid var(--border-light); }
 .excuse-a.open { display: block; }
-.excuse-a p { font-size: 13px; color: var(--text-secondary); line-height: 1.65; }
-.excuse-a .verdict { font-size: 12px; color: var(--warm-text); font-style: italic; margin-top: 0.5rem; background: var(--warm-light); padding: 6px 10px; border-radius: 6px; }
+.excuse-a p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+.excuse-a .verdict { font-size: 12px; color: var(--warm-text); font-style: italic; margin-top: 0.6rem; background: var(--warm-light); padding: 8px 12px; border-radius: 8px; }
 
 /* ── SPF EXPLAINER ── */
-.spf-explainer { background: var(--bg-secondary); border-radius: 12px; padding: 1.25rem; margin-top: 1rem; }
-.spf-row { display: flex; gap: 12px; margin-top: 0.75rem; }
-.spf-box { flex: 1; text-align: center; padding: 0.75rem 0.5rem; border-radius: 8px; background: var(--odd-white); border: 0.5px solid var(--border-light); }
+.spf-explainer { background: var(--bg-secondary); border-radius: 14px; padding: 1.5rem; margin-top: 0.5rem; border: 1px solid var(--border-light); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.spf-row { display: flex; gap: 14px; margin-top: 0.75rem; }
+.spf-box { flex: 1; text-align: center; padding: 1rem 0.5rem; border-radius: 10px; background: var(--odd-white); border: 1px solid var(--border-light); }
 .spf-box.highlight { background: var(--warm); border-color: var(--warm); }
 .spf-box.highlight .spf-val { color: #fff; }
 .spf-box.highlight .spf-label { color: rgba(255,255,255,0.75); }
-.spf-val { font-size: 16px; font-weight: 500; color: var(--text-primary); }
-.spf-label { font-size: 10px; color: var(--text-tertiary); margin-top: 2px; }
-.spf-note { font-size: 12px; color: var(--text-tertiary); margin-top: 0.75rem; }
+.spf-val { font-size: 18px; font-weight: 500; color: var(--text-primary); }
+.spf-label { font-size: 10px; color: var(--text-tertiary); margin-top: 3px; }
+.spf-note { font-size: 13px; color: var(--text-tertiary); margin-top: 1rem; line-height: 1.6; }
 
 /* ── DOES / DOESN'T ── */
-.does-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px; margin-top: 1rem; }
-.does-yes { background: var(--warm-light); border: 0.5px solid var(--warm-border); border-radius: 12px; padding: 1.25rem; }
-.does-no { background: var(--bg-secondary); border: 0.5px solid var(--border-light); border-radius: 12px; padding: 1.25rem; }
-.does-title { font-size: 13px; font-weight: 500; margin-bottom: 0.6rem; }
+.does-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 1.25rem; }
+.does-yes { background: var(--warm-light); border: 1px solid var(--warm-border); border-radius: 14px; padding: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.does-no { background: var(--bg-secondary); border: 1px solid var(--border-light); border-radius: 14px; padding: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.does-title { font-size: 14px; font-weight: 600; margin-bottom: 0.75rem; text-transform: lowercase; }
 .does-yes .does-title { color: var(--warm-dark); }
 .does-no .does-title { color: var(--text-tertiary); }
-.does-item { font-size: 13px; line-height: 1.65; display: flex; gap: 8px; align-items: flex-start; padding: 2px 0; }
+.does-item { font-size: 13px; line-height: 1.7; display: flex; gap: 10px; align-items: flex-start; padding: 3px 0; }
 .does-yes .does-item { color: var(--warm-text); }
 .does-no .does-item { color: var(--text-tertiary); text-decoration: line-through; }
-.dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+.dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
 .yes-dot { background: var(--warm); }
 .no-dot { background: #ccc; }
 
-/* ── HONEST STRIP ── */
-.honest-strip { border-left: 3px solid var(--warm); padding: 1rem 1.25rem; background: var(--warm-light); border-radius: 0 10px 10px 0; margin-top: 1rem; }
-.honest-strip p { font-size: 13px; color: var(--warm-text); }
+.honest-strip { padding: 1.5rem 0 0; margin-top: 1.5rem; border-top: 1px solid var(--warm-border); }
+.honest-strip p { font-size: 14px; color: var(--warm-text); line-height: 1.75; }
 
-/* ── INDIA STRIP ── */
-.india-strip { background: var(--odd-dark); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.25rem 0; }
-.india-strip p { color: #888; font-size: 13px; line-height: 1.7; }
+.india-strip { background: var(--odd-dark); border-radius: 14px; padding: 1.75rem 2rem; margin: 1.5rem 0; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+.india-strip p { color: #888; font-size: 14px; line-height: 1.75; }
 .india-strip strong { color: #e0e0e0; font-weight: 500; }
 
-/* ── INGREDIENTS ── */
-.ing-row { border-bottom: 0.5px solid var(--border-light); padding: 1rem 0; cursor: pointer; }
+.ing-intro { font-size: 14px; color: var(--text-secondary); margin-bottom: 1.5rem; }
+.ing-row { border-bottom: 1px solid var(--border-light); padding: 1.25rem 0.5rem; cursor: pointer; transition: background 0.15s ease; border-radius: 8px; margin: 0 -0.5rem; }
+.ing-row:hover { background: rgba(191,169,139,0.06); }
 .ing-row:last-child { border-bottom: none; }
-.ing-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
-.ing-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
-.ing-badge { font-size: 11px; padding: 2px 10px; border-radius: 999px; flex-shrink: 0; }
+.ing-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.ing-name { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+.ing-badge { font-size: 11px; padding: 3px 12px; border-radius: 999px; flex-shrink: 0; font-weight: 500; }
 .badge-hero { background: rgba(191,169,139,0.15); color: var(--warm-text); }
 .badge-support { background: #E1F5EE; color: #0F6E56; }
-.badge-base { background: var(--bg-secondary); color: var(--text-tertiary); }
-.ing-tldr { font-size: 12px; color: var(--text-tertiary); margin-top: 3px; }
-.ing-detail { display: none; margin-top: 0.75rem; padding: 0.75rem; background: var(--warm-light); border-radius: 8px; }
+.badge-base { background: var(--bg-secondary); color: var(--text-tertiary); border: 1px solid var(--border-light); }
+.ing-tldr { font-size: 12px; color: var(--text-tertiary); margin-top: 4px; }
+.ing-detail { display: none; margin-top: 0.75rem; padding: 1rem 1.25rem; background: var(--warm-light); border-radius: 10px; border: 1px solid var(--warm-border); }
 .ing-detail.open { display: block; }
-.ing-detail p { font-size: 13px; color: var(--warm-text); line-height: 1.6; }
-.ing-conc { font-size: 11px; color: #8a7060; margin-top: 0.4rem; font-style: italic; }
+.ing-detail p { font-size: 13px; color: var(--warm-text); line-height: 1.7; }
+.ing-conc { font-size: 11px; color: #8a7060; margin-top: 0.5rem; font-style: italic; }
 
-/* ── REVIEWS ── */
-.review-card { background: var(--bg-secondary); border-radius: 12px; padding: 1.1rem; margin-bottom: 10px; }
-.reviewer-name { font-size: 13px; font-weight: 500; color: var(--text-primary); }
-.reviewer-tag { font-size: 11px; color: var(--text-tertiary); margin: 2px 0 0.5rem; }
-.review-text { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
-.review-badge { font-size: 11px; padding: 2px 10px; border-radius: 999px; display: inline-block; margin-top: 0.5rem; background: var(--warm-light); color: var(--warm-text); }
+.review-card { background: var(--bg-secondary); border: 1px solid var(--border-light); border-radius: 14px; padding: 1.5rem; margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.reviewer-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+.reviewer-tag { font-size: 11px; color: var(--text-tertiary); margin: 3px 0 0.6rem; }
+.review-text { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+.review-badge { font-size: 11px; padding: 3px 12px; border-radius: 999px; display: inline-block; margin-top: 0.6rem; background: var(--warm-light); color: var(--warm-text); font-weight: 500; }
 
-/* ── HONEST CARDS ── */
-.honest-card { background: var(--odd-white); border: 0.5px solid var(--border-light); border-radius: 12px; padding: 1.25rem; margin-bottom: 10px; }
-.honest-card h3 { margin-bottom: 0.4rem; }
+.honest-cards { display: flex; flex-direction: column; gap: 14px; }
+.honest-card { background: var(--odd-white); border: 1px solid var(--border-light); border-radius: 14px; padding: 1.5rem 1.75rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: border-color 0.15s ease; }
+.honest-card:hover { border-color: rgba(191,169,139,0.4); }
+.honest-card h3 { margin-bottom: 0.5rem; font-size: 15px; }
+
+.footer-cta { background: var(--warm-light); padding: 3rem 2.5rem 4rem; text-align: center; border-radius: 32px 32px 0 0; box-shadow: 0 -2px 24px rgba(0,0,0,0.04); position: relative; margin-top: 3rem; }
 </style>
 
 <div>
 
-<div style="padding: 0.9rem 1rem; border-bottom: 0.5px solid var(--border-light);">
-  <span style="font-size: 13px; color: var(--text-tertiary);">ODD Care Co. / shop (4 things) / </span>
-  <span style="font-size: 13px; color: #8a7060;">dawn shield — AM cream</span>
-</div>
-
-<!-- ═══════════════════════════════════════════
-     HERO
-     ═══════════════════════════════════════════ -->
 <div class="hero-band">
+  <div class="breadcrumb">
+    <span style="color: var(--text-tertiary);">ODD Care Co. / shop (4 things) / </span>
+    <span style="color: #8a7060;">dawn shield — AM cream</span>
+  </div>
   <div class="hero-inner">
-    <div class="product-swatch">
-      <span class="swatch-num">03 / 04</span>
-      <div class="swatch-line"></div>
-      <span style="font-size: 9px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.08em;">AM cream</span>
+    <div class="product-image">
+      <span class="img-num">03 / 04</span>
+      <div class="img-line"></div>
+      <span class="img-type">AM cream · 75g</span>
     </div>
-    <div style="flex: 1;">
-      <div class="label" style="color: #8a7060;">product 03 of 04 · pump · morning only</div>
-      <h1 style="color: var(--warm-dark); margin: 0.3rem 0 0.25rem;">Dawn Shield</h1>
-      <p style="font-size: 13px; color: var(--warm-text); margin-bottom: 0.6rem;">SPF 50+ PA++++. Moisturiser. Actives. One pump. No more excuses.</p>
+    <div class="hero-info">
+      <div class="label">product 03 of 04 · pump · morning only</div>
+      <h1>Dawn Shield</h1>
+      <p style="font-size: 15px; color: var(--warm-text); line-height: 1.6;">SPF 50+ PA++++. Moisturiser. Actives. One pump. No more excuses.</p>
       <div class="rating-row">
         <span class="stars">★★★★★</span>
         <span class="rating-text">4.9 · 318 reviews · the one dermatologists agree on</span>
       </div>
-      <div style="margin: 0.5rem 0;">
+      <div class="active-tags">
         <span class="active-tag">SPF 50+ PA++++</span>
         <span class="active-tag">niacinamide</span>
         <span class="active-tag">ceramide complex</span>
@@ -150,10 +159,7 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════
-     TABBED CONTENT
-     ═══════════════════════════════════════════ -->
-<div style="padding: 0 1rem;">
+<div class="tab-wrap">
 
   <div class="tabs">
     <div class="tab active" onclick="switchTab('excuses')">your excuses, addressed</div>
@@ -163,101 +169,46 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
     <div class="tab" onclick="switchTab('honest')">the honest part</div>
   </div>
 
-  <!-- ── TAB: EXCUSES ── -->
   <div id="tab-excuses" class="tab-content active">
-    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 1.25rem;">We've heard all of them. Every single one. Here's each excuse and what's actually going on.</p>
-
+    <p class="ing-intro">We've heard all of them. Every single one. Here's each excuse and what's actually going on.</p>
     <div class="excuse-list">
-
       <div class="excuse-item" onclick="toggleExcuse(this)">
-        <div class="excuse-q">
-          <span class="excuse-q-text">"I'm Indian, my skin is already dark, I don't need SPF."</span>
-          <span class="excuse-badge">most common</span>
-        </div>
-        <div class="excuse-a">
-          <p>Melanin provides some natural protection — roughly SPF 13 equivalent for deeper skin tones. That's not nothing, but it's not remotely sufficient for Indian sun exposure. The UV index in most Indian cities sits between 8 and 11 for most of the year. That's "very high" to "extreme."</p>
-          <p style="margin-top: 0.5rem;">More importantly: darker skin tones are actually more prone to hyperpigmentation from UV damage — the melanin that protects you can also overproduce in response to sun exposure. The dark spots and uneven tone people try to treat with serums? Often caused by skipping SPF in the first place.</p>
-          <div class="verdict">SPF isn't a fair-skin thing. UV radiation does not check your complexion.</div>
-        </div>
+        <div class="excuse-q"><span class="excuse-q-text">"I'm Indian, my skin is already dark, I don't need SPF."</span><span class="excuse-badge">most common</span></div>
+        <div class="excuse-a"><p>Melanin provides some natural protection — roughly SPF 13 equivalent for deeper skin tones. That's not nothing, but it's not remotely sufficient for Indian sun exposure. The UV index in most Indian cities sits between 8 and 11 for most of the year. That's "very high" to "extreme."</p><p style="margin-top: 0.5rem;">More importantly: darker skin tones are actually more prone to hyperpigmentation from UV damage — the melanin that protects you can also overproduce in response to sun exposure. The dark spots and uneven tone people try to treat with serums? Often caused by skipping SPF in the first place.</p><div class="verdict">SPF isn't a fair-skin thing. UV radiation does not check your complexion.</div></div>
       </div>
-
       <div class="excuse-item" onclick="toggleExcuse(this)">
-        <div class="excuse-q">
-          <span class="excuse-q-text">"It makes my face look white / ashy."</span>
-          <span class="excuse-badge">valid concern, old problem</span>
-        </div>
-        <div class="excuse-a">
-          <p>White cast comes from mineral UV filters sitting on the skin surface and reflecting light. Older sunscreens leaned heavily on these because they're cheaper.</p>
-          <p style="margin-top: 0.5rem;">Dawn Shield uses a hybrid filter system — chemical filters that absorb UV, with a smaller mineral component for the PA++++ UVA rating. No visible white cast, tested across Indian skin tones. If you've avoided sunscreen because of this, this specific formulation was made for you.</p>
-          <div class="verdict">That problem was always a formulation problem. This one doesn't have it.</div>
-        </div>
+        <div class="excuse-q"><span class="excuse-q-text">"It makes my face look white / ashy."</span><span class="excuse-badge">valid concern, old problem</span></div>
+        <div class="excuse-a"><p>White cast comes from mineral UV filters sitting on the skin surface and reflecting light. Older sunscreens leaned heavily on these because they're cheaper.</p><p style="margin-top: 0.5rem;">Dawn Shield uses a hybrid filter system — chemical filters that absorb UV, with a smaller mineral component for the PA++++ UVA rating. No visible white cast, tested across Indian skin tones. If you've avoided sunscreen because of this, this specific formulation was made for you.</p><div class="verdict">That problem was always a formulation problem. This one doesn't have it.</div></div>
       </div>
-
       <div class="excuse-item" onclick="toggleExcuse(this)">
-        <div class="excuse-q">
-          <span class="excuse-q-text">"It feels greasy and clogs my pores."</span>
-          <span class="excuse-badge">also a formulation issue</span>
-        </div>
-        <div class="excuse-a">
-          <p>This was true of almost every Indian sunscreen until recently. Thick, occlusive bases designed to sit on the skin, not sink in.</p>
-          <p style="margin-top: 0.5rem;">The base here is lightweight, non-comedogenic, and tested for oily and combination skin — the skin types most common in humid Indian climates. Absorbs in under 60 seconds. The niacinamide actively regulates sebum. So it's doing the opposite of making your skin greasier.</p>
-          <div class="verdict">Apply. Blend fully. Give it 60 seconds. The grease feeling disappears.</div>
-        </div>
+        <div class="excuse-q"><span class="excuse-q-text">"It feels greasy and clogs my pores."</span><span class="excuse-badge">also a formulation issue</span></div>
+        <div class="excuse-a"><p>This was true of almost every Indian sunscreen until recently. Thick, occlusive bases designed to sit on the skin, not sink in.</p><p style="margin-top: 0.5rem;">The base here is lightweight, non-comedogenic, and tested for oily and combination skin — the skin types most common in humid Indian climates. Absorbs in under 60 seconds. The niacinamide actively regulates sebum. So it's doing the opposite of making your skin greasier.</p><div class="verdict">Apply. Blend fully. Give it 60 seconds. The grease feeling disappears.</div></div>
       </div>
-
       <div class="excuse-item" onclick="toggleExcuse(this)">
-        <div class="excuse-q">
-          <span class="excuse-q-text">"I'm indoors all day. I don't need it."</span>
-          <span class="excuse-badge">surprisingly wrong</span>
-        </div>
-        <div class="excuse-a">
-          <p>UVB rays (that burn) are largely blocked by glass. UVA rays (that age and cause pigmentation) are not. If you sit near a window — office, car, home — UVA is reaching your skin. Consistently. Every day.</p>
-          <p style="margin-top: 0.5rem;">The PA++++ rating specifically refers to UVA protection — the highest rating on the Japanese PA scale, the most rigorous UVA grading system in Asian skincare. This was specifically chosen for people who think "I'm inside, I'm fine."</p>
-          <div class="verdict">The PA++++ is for you, specifically, sitting next to that window.</div>
-        </div>
+        <div class="excuse-q"><span class="excuse-q-text">"I'm indoors all day. I don't need it."</span><span class="excuse-badge">surprisingly wrong</span></div>
+        <div class="excuse-a"><p>UVB rays (that burn) are largely blocked by glass. UVA rays (that age and cause pigmentation) are not. If you sit near a window — office, car, home — UVA is reaching your skin. Consistently. Every day.</p><p style="margin-top: 0.5rem;">The PA++++ rating specifically refers to UVA protection — the highest rating on the Japanese PA scale, the most rigorous UVA grading system in Asian skincare. This was specifically chosen for people who think "I'm inside, I'm fine."</p><div class="verdict">The PA++++ is for you, specifically, sitting next to that window.</div></div>
       </div>
-
       <div class="excuse-item" onclick="toggleExcuse(this)">
-        <div class="excuse-q">
-          <span class="excuse-q-text">"I forget / don't have time in the morning."</span>
-          <span class="excuse-badge">honest, we respect it</span>
-        </div>
-        <div class="excuse-a">
-          <p>This is the only excuse we genuinely respect because it's a habit problem, not a misconception. So we made Dawn Shield the last step of the morning routine. Wash face → dress → one pump of this → leave.</p>
-          <p style="margin-top: 0.5rem;">We also made it hydrating enough that you don't need a separate moisturiser first. The ceramide complex and sodium hyaluronate handle that. One less thing to remember. Put it next to your keys.</p>
-          <div class="verdict">Put it next to your keys. Wherever you look before leaving. That's the whole system.</div>
-        </div>
+        <div class="excuse-q"><span class="excuse-q-text">"I forget / don't have time in the morning."</span><span class="excuse-badge">honest, we respect it</span></div>
+        <div class="excuse-a"><p>This is the only excuse we genuinely respect because it's a habit problem, not a misconception. So we made Dawn Shield the last step of the morning routine. Wash face → dress → one pump of this → leave.</p><p style="margin-top: 0.5rem;">We also made it hydrating enough that you don't need a separate moisturiser first. The ceramide complex and sodium hyaluronate handle that. One less thing to remember. Put it next to your keys.</p><div class="verdict">Put it next to your keys. Wherever you look before leaving. That's the whole system.</div></div>
       </div>
-
     </div>
-
     <div class="india-strip" style="margin-top: 1.5rem;">
       <p><strong>A note about India specifically.</strong> The average UV index in Mumbai, Delhi, Bangalore, and Chennai is between 9 and 12 for most of the year. A UV index above 8 is classified as "very high" by WHO — meaning unprotected skin can be damaged in less than 15 minutes of exposure. India is one of the highest UV exposure countries in the world. This product exists because we were tired of watching people skip the one step dermatologists agree on most unanimously.</p>
     </div>
   </div>
 
-  <!-- ── TAB: WHAT IT DOES ── -->
   <div id="tab-does" class="tab-content">
     <div class="spf-explainer">
-      <p style="font-size: 13px; color: var(--text-secondary);">What SPF 50+ PA++++ actually means, briefly.</p>
+      <p style="font-size: 14px; color: var(--text-secondary);">What SPF 50+ PA++++ actually means, briefly.</p>
       <div class="spf-row">
-        <div class="spf-box">
-          <div class="spf-val">SPF 30</div>
-          <div class="spf-label">blocks 97% UVB</div>
-        </div>
-        <div class="spf-box highlight">
-          <div class="spf-val">SPF 50+</div>
-          <div class="spf-label">blocks 98%+ UVB</div>
-        </div>
-        <div class="spf-box">
-          <div class="spf-val">SPF 100</div>
-          <div class="spf-label">blocks 99% UVB</div>
-        </div>
+        <div class="spf-box"><div class="spf-val">SPF 30</div><div class="spf-label">blocks 97% UVB</div></div>
+        <div class="spf-box highlight"><div class="spf-val">SPF 50+</div><div class="spf-label">blocks 98%+ UVB</div></div>
+        <div class="spf-box"><div class="spf-val">SPF 100</div><div class="spf-label">blocks 99% UVB</div></div>
       </div>
       <p class="spf-note">The jump from 30 to 50 is meaningful. The jump from 50 to 100 is marginal. We chose 50+. PA++++ means maximum UVA protection on the Japanese scale — the most rigorous UVA grading system in use.</p>
     </div>
-
-    <div class="does-grid" style="margin-top: 1.25rem;">
+    <div class="does-grid" style="margin-top: 1.75rem;">
       <div class="does-yes">
         <div class="does-title">what it does</div>
         <div class="does-item"><span class="dot yes-dot"></span><span>Blocks 98%+ UVB — prevents burning and long-term sun damage</span></div>
@@ -279,107 +230,50 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
     </div>
   </div>
 
-  <!-- ── TAB: INGREDIENTS ── -->
   <div id="tab-ingredients" class="tab-content">
-    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 1.25rem;">Five things doing five jobs. Tap any ingredient to see what it's doing and why.</p>
-
+    <p class="ing-intro">Five things doing five jobs. Tap any ingredient to see what it's doing and why.</p>
     <div class="ing-row" onclick="toggleIng(this)">
-      <div class="ing-header">
-        <div>
-          <div class="ing-name">UV Filter System</div>
-          <div class="ing-tldr">The actual sunscreen part of sunscreen. SPF 50+ PA++++.</div>
-        </div>
-        <span class="ing-badge badge-hero">hero</span>
-      </div>
-      <div class="ing-detail">
-        <p>A hybrid filter system — chemical filters that absorb UV and convert it to heat, with a mineral component for the PA++++ UVA rating. The chemical filters are photostable, meaning they don't degrade in sunlight — your protection stays consistent throughout the day. We used this combination because it achieves SPF 50+ PA++++ without the heavy base or white cast most Indian sunscreens rely on. Broad-spectrum protection that actually works on Indian skin tones.</p>
-        <div class="ing-conc">Calibrated for SPF 50+ at two-finger-length application. Don't underapply.</div>
-      </div>
+      <div class="ing-header"><div><div class="ing-name">UV Filter System</div><div class="ing-tldr">The actual sunscreen part of sunscreen. SPF 50+ PA++++.</div></div><span class="ing-badge badge-hero">hero</span></div>
+      <div class="ing-detail"><p>A hybrid filter system — chemical filters that absorb UV and convert it to heat, with a mineral component for the PA++++ UVA rating. The chemical filters are photostable, meaning they don't degrade in sunlight — your protection stays consistent throughout the day. We used this combination because it achieves SPF 50+ PA++++ without the heavy base or white cast most Indian sunscreens rely on. Broad-spectrum protection that actually works on Indian skin tones.</p><div class="ing-conc">Calibrated for SPF 50+ at two-finger-length application. Don't underapply.</div></div>
     </div>
-
     <div class="ing-row" onclick="toggleIng(this)">
-      <div class="ing-header">
-        <div>
-          <div class="ing-name">Niacinamide</div>
-          <div class="ing-tldr">Not decorative. It's actually doing something in here.</div>
-        </div>
-        <span class="ing-badge badge-hero">hero</span>
-      </div>
-      <div class="ing-detail">
-        <p>Vitamin B3 — the same one from the facewash, now in your AM cream. Regulates sebum so the sunscreen doesn't make your skin oilier. Helps with post-inflammatory hyperpigmentation — which is often worsened by the UV exposure this product is also blocking. Brightens skin tone over time. Strengthens the barrier so the UV filters have a healthier surface to work on. Multiple jobs, one ingredient, every morning.</p>
-        <div class="ing-conc">Effective range — no irritation risk at this level.</div>
-      </div>
+      <div class="ing-header"><div><div class="ing-name">Niacinamide</div><div class="ing-tldr">Not decorative. It's actually doing something in here.</div></div><span class="ing-badge badge-hero">hero</span></div>
+      <div class="ing-detail"><p>Vitamin B3 — the same one from the facewash, now in your AM cream. Regulates sebum so the sunscreen doesn't make your skin oilier. Helps with post-inflammatory hyperpigmentation — which is often worsened by the UV exposure this product is also blocking. Brightens skin tone over time. Strengthens the barrier so the UV filters have a healthier surface to work on. Multiple jobs, one ingredient, every morning.</p><div class="ing-conc">Effective range — no irritation risk at this level.</div></div>
     </div>
-
     <div class="ing-row" onclick="toggleIng(this)">
-      <div class="ing-header">
-        <div>
-          <div class="ing-name">Ceramide Complex</div>
-          <div class="ing-tldr">The barrier repair system. Your skin's daily damage gets fixed here.</div>
-        </div>
-        <span class="ing-badge badge-hero">hero</span>
-      </div>
-      <div class="ing-detail">
-        <p>Ceramides make up about 50% of your skin's natural barrier. Daily life — cleansing, pollution, sun exposure — depletes them. This ceramide complex replenishes what was lost and strengthens the barrier for the day ahead. A stronger barrier means better moisture retention, less sensitivity, and a healthier surface for the UV filters to sit on. It's also why Dawn Shield works as a moisturiser, not just sunscreen. One product, two jobs.</p>
-        <div class="ing-conc">Multi-ceramide complex — actual barrier function, not a trace amount on the label.</div>
-      </div>
+      <div class="ing-header"><div><div class="ing-name">Ceramide Complex</div><div class="ing-tldr">The barrier repair system. Your skin's daily damage gets fixed here.</div></div><span class="ing-badge badge-hero">hero</span></div>
+      <div class="ing-detail"><p>Ceramides make up about 50% of your skin's natural barrier. Daily life — cleansing, pollution, sun exposure — depletes them. This ceramide complex replenishes what was lost and strengthens the barrier for the day ahead. A stronger barrier means better moisture retention, less sensitivity, and a healthier surface for the UV filters to sit on. It's also why Dawn Shield works as a moisturiser, not just sunscreen. One product, two jobs.</p><div class="ing-conc">Multi-ceramide complex — actual barrier function, not a trace amount on the label.</div></div>
     </div>
-
     <div class="ing-row" onclick="toggleIng(this)">
-      <div class="ing-header">
-        <div>
-          <div class="ing-name">Sodium Hyaluronate</div>
-          <div class="ing-tldr">Why you don't need a separate moisturiser under this in summer.</div>
-        </div>
-        <span class="ing-badge badge-support">supporting</span>
-      </div>
-      <div class="ing-detail">
-        <p>Low molecular weight sodium hyaluronate — the form that actually penetrates the upper skin layers rather than just sitting on the surface. Holds up to 1000x its weight in water. We added this so Dawn Shield doubles as hydration — specifically for Indian summers where a heavy moisturiser under SPF feels suffocating. In winter or for dry skin, a light moisturiser first is still fine. For most people, most of the year, this is enough.</p>
-        <div class="ing-conc">Low molecular weight variant — it actually absorbs instead of just coating.</div>
-      </div>
+      <div class="ing-header"><div><div class="ing-name">Sodium Hyaluronate</div><div class="ing-tldr">Why you don't need a separate moisturiser under this in summer.</div></div><span class="ing-badge badge-support">supporting</span></div>
+      <div class="ing-detail"><p>Low molecular weight sodium hyaluronate — the form that actually penetrates the upper skin layers rather than just sitting on the surface. Holds up to 1000x its weight in water. We added this so Dawn Shield doubles as hydration — specifically for Indian summers where a heavy moisturiser under SPF feels suffocating. In winter or for dry skin, a light moisturiser first is still fine. For most people, most of the year, this is enough.</p><div class="ing-conc">Low molecular weight variant — it actually absorbs instead of just coating.</div></div>
     </div>
-
     <div class="ing-row" onclick="toggleIng(this)">
-      <div class="ing-header">
-        <div>
-          <div class="ing-name">PROVIMC B5</div>
-          <div class="ing-tldr">Microbiome support. Your morning routine shouldn't disrupt your skin's ecosystem.</div>
-        </div>
-        <span class="ing-badge badge-support">supporting</span>
-      </div>
-      <div class="ing-detail">
-        <p>A provitamin B5 complex that supports the skin's microbiome — the ecosystem of beneficial microorganisms on your skin's surface. Most sunscreens ignore the microbiome entirely. Since Dawn Shield sits on your face all day, we made sure it supports the ecosystem rather than suffocating it. Draws moisture into the skin and strengthens the barrier alongside the ceramide complex. Two ingredients doing complementary barrier work.</p>
-        <div class="ing-conc">Microbiome-supportive formulation — because this product is on your face all day.</div>
-      </div>
+      <div class="ing-header"><div><div class="ing-name">PROVIMC B5</div><div class="ing-tldr">Microbiome support. Your morning routine shouldn't disrupt your skin's ecosystem.</div></div><span class="ing-badge badge-support">supporting</span></div>
+      <div class="ing-detail"><p>A provitamin B5 complex that supports the skin's microbiome — the ecosystem of beneficial microorganisms on your skin's surface. Most sunscreens ignore the microbiome entirely. Since Dawn Shield sits on your face all day, we made sure it supports the ecosystem rather than suffocating it. Draws moisture into the skin and strengthens the barrier alongside the ceramide complex. Two ingredients doing complementary barrier work.</p><div class="ing-conc">Microbiome-supportive formulation — because this product is on your face all day.</div></div>
     </div>
-
   </div>
 
-  <!-- ── TAB: REVIEWS ── -->
   <div id="tab-reviews" class="tab-content">
-    <p style="font-size: 13px; color: var(--text-tertiary); margin-bottom: 1.25rem;">Our highest-rated product. Also the one with the most opinionated reviews. Both things make sense.</p>
-
+    <p class="ing-intro" style="color: var(--text-tertiary);">Our highest-rated product. Also the one with the most opinionated reviews. Both things make sense.</p>
     <div class="review-card">
       <div class="reviewer-name">Shreya P., Chennai</div>
       <div class="reviewer-tag">skincare enthusiast · verified purchase</div>
       <div class="review-text">"I've been recommending Korean SPFs because Indian options were behind. This is the first Indian sunscreen I've switched to. PA++++ with a hybrid filter system and no white cast on darker skin — someone finally did the work. Sending this to everyone I know."</div>
       <span class="review-badge">the recommendation that starts others</span>
     </div>
-
     <div class="review-card">
       <div class="reviewer-name">Rohit K., Delhi</div>
       <div class="reviewer-tag">used zero sunscreen before this · verified purchase</div>
       <div class="review-text">"My wife said 'just try this one' for the third year running. I tried it because the tube was small and I figured it would be over quickly. Three months later I'm on my second one and my face looks different. I don't know what PA++++ means but I think it's working."</div>
       <span class="review-badge">converts happen</span>
     </div>
-
     <div class="review-card">
       <div class="reviewer-name">Ananya S., Bangalore</div>
       <div class="reviewer-tag">oily skin · previous sunscreen avoider</div>
       <div class="review-text">"Every other sunscreen made me look like a glazed donut by 11am. This one doesn't. I don't understand why it took this long for someone to make a non-greasy SPF for Indian climate but here we are. 5 stars."</div>
       <span class="review-badge">the glazed donut problem, solved</span>
     </div>
-
     <div class="review-card">
       <div class="reviewer-name">Vikram N., Mumbai</div>
       <div class="reviewer-tag">verified purchase</div>
@@ -387,43 +281,34 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
     </div>
   </div>
 
-  <!-- ── TAB: THE HONEST PART ── -->
   <div id="tab-honest" class="tab-content">
-    <div style="display: flex; flex-direction: column; gap: 10px;">
-
+    <div class="honest-cards">
       <div class="honest-card">
         <h3>Why SPF 50+ and not SPF 30?</h3>
-        <p style="margin-top: 0.4rem;">SPF 30 is technically sufficient in controlled conditions with correct application. In real-world India — where most people apply 40–60% of the recommended amount, reapplication doesn't happen, and UV indices are consistently very high — SPF 50+ gives you enough buffer that even suboptimal application provides meaningful protection. It's not overcautious. It's realistic about how people actually use sunscreen.</p>
+        <p>SPF 30 is technically sufficient in controlled conditions with correct application. In real-world India — where most people apply 40–60% of the recommended amount, reapplication doesn't happen, and UV indices are consistently very high — SPF 50+ gives you enough buffer that even suboptimal application provides meaningful protection. It's not overcautious. It's realistic about how people actually use sunscreen.</p>
       </div>
-
       <div class="honest-card">
         <h3>The chemical vs. mineral debate</h3>
-        <p style="margin-top: 0.4rem;">Mineral filters (zinc oxide, titanium dioxide) are gentler for very sensitive skin. Chemical filters have no white cast and feel lighter. We chose a hybrid system that skews chemical because the white cast from full-mineral SPF is the biggest reason people skip sunscreen on Indian skin tones. If you have very reactive skin or are pregnant, full-mineral is the better choice. This one is for everyone else.</p>
+        <p>Mineral filters (zinc oxide, titanium dioxide) are gentler for very sensitive skin. Chemical filters have no white cast and feel lighter. We chose a hybrid system that skews chemical because the white cast from full-mineral SPF is the biggest reason people skip sunscreen on Indian skin tones. If you have very reactive skin or are pregnant, full-mineral is the better choice. This one is for everyone else.</p>
       </div>
-
       <div class="honest-card">
         <h3>You need to reapply. We'll say it.</h3>
-        <p style="margin-top: 0.4rem;">If you're outdoors: every 2 hours. If you're indoors all day: morning application is fine. We know reapplication is the step everyone skips. We also know that one application of SPF 50+ in the morning, even without reapplication, is dramatically better than zero sunscreen. Start with the morning habit. The reapplication habit comes second.</p>
+        <p>If you're outdoors: every 2 hours. If you're indoors all day: morning application is fine. We know reapplication is the step everyone skips. We also know that one application of SPF 50+ in the morning, even without reapplication, is dramatically better than zero sunscreen. Start with the morning habit. The reapplication habit comes second.</p>
       </div>
-
       <div class="honest-card">
         <h3>Who should be careful with this</h3>
-        <p style="margin-top: 0.4rem;">If you're pregnant: some chemical UV filters have limited safety data in pregnancy. Full-mineral SPF is the recommended choice. If you have rosacea or extremely reactive skin: the chemical filters can occasionally cause flushing. Patch test first. If you're already on prescription retinoids: this product is even more essential — retinoids increase sun sensitivity significantly.</p>
+        <p>If you're pregnant: some chemical UV filters have limited safety data in pregnancy. Full-mineral SPF is the recommended choice. If you have rosacea or extremely reactive skin: the chemical filters can occasionally cause flushing. Patch test first. If you're already on prescription retinoids: this product is even more essential — retinoids increase sun sensitivity significantly.</p>
       </div>
-
     </div>
   </div>
 
 </div>
 
-<!-- ═══════════════════════════════════════════
-     FOOTER CTA
-     ═══════════════════════════════════════════ -->
-<div style="background: var(--warm-light); padding: 1.5rem; text-align: center; border-top: 0.5px solid var(--warm-border);">
-  <div class="label" style="color: #8a7060; margin-bottom: 0.5rem;">product 03 of 04</div>
-  <h2 style="color: var(--warm-dark); margin-bottom: 0.4rem;">The most important ₹399<br>you'll spend on your skin.</h2>
-  <p style="font-size: 13px; color: var(--warm-text); margin-bottom: 1.25rem; max-width: 340px; margin-left: auto; margin-right: auto;">SPF 50+ PA++++. Ceramides. Niacinamide. No white cast. No excuses left.</p>
-  <button class="btn-add" style="max-width: 260px; margin: 0 auto; display: block;">add dawn shield — ₹399</button>
+<div class="footer-cta">
+  <div class="label" style="margin-bottom: 0.5rem;">product 03 of 04</div>
+  <h2 style="color: var(--warm-dark); margin-bottom: 0.5rem;">The most important ₹399<br>you'll spend on your skin.</h2>
+  <p style="font-size: 13px; color: var(--warm-text); margin-bottom: 1.5rem; max-width: 360px; margin-left: auto; margin-right: auto;">SPF 50+ PA++++. Ceramides. Niacinamide. No white cast. No excuses left.</p>
+  <button class="btn-add" style="max-width: 280px; margin: 0 auto; display: block;">add dawn shield — ₹399</button>
   <p style="font-size: 11px; color: #8a7060; margin-top: 0.75rem;">or get all 4 in The Whole Routine — ₹1,499</p>
 </div>
 

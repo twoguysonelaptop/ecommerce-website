@@ -2,133 +2,155 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; background: #fff; color: #1a1a1a; }
+header.site-header .custom-logo { max-height: 80px !important; width: auto !important; }
+#inner-wrap { background: #F5F0EB; border-radius: 32px 32px 0 0; box-shadow: 0 -2px 24px rgba(0,0,0,0.06); position: relative; }
 :root {
   --odd-black:#000;--odd-white:#fff;--odd-sage:#9CAF88;--odd-beige:#F5F0EB;
   --odd-dark:#1a1a1a;--odd-gray:#555;--odd-border:#e5e5e5;
   --text-primary:#1a1a1a;--text-secondary:#555;--text-tertiary:#888;
   --bg-secondary:#fafaf9;--border-light:#e5e5e5;
 }
-h1 { font-size: 22px; font-weight: 500; color: var(--text-primary); line-height: 1.3; }
-h2 { font-size: 18px; font-weight: 500; color: var(--text-primary); }
+.page-wrap { max-width: 1000px; margin: 0 auto; }
+h1 { font-size: 32px; font-weight: 600; color: var(--text-primary); line-height: 1.15; letter-spacing: -0.01em; }
+h2 { font-size: 20px; font-weight: 500; color: var(--text-primary); }
 h3 { font-size: 15px; font-weight: 500; color: var(--text-primary); }
 p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
-.label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-tertiary); margin-bottom: 0.4rem; }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-tertiary); }
+
+/* ── HERO ── */
+.hero-band { background: var(--odd-beige); padding: 2rem 2.5rem 3rem; border-bottom: 0.5px solid #e2ddd7; }
+.breadcrumb { max-width: 1000px; margin: 0 auto 1.5rem; }
+.breadcrumb span { font-size: 13px; }
+.hero-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; max-width: 1000px; margin: 0 auto; align-items: center; }
+.product-image { width: 100%; aspect-ratio: 3/4; max-height: 440px; background: linear-gradient(160deg, #d4dbc8 0%, #b5c4a4 50%, #9CAF88 100%); border-radius: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; position: relative; overflow: hidden; border: 1px solid rgba(156,175,136,0.2); }
+.product-image::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.18) 0%, transparent 60%); pointer-events: none; }
+.img-num { font-size: 38px; font-weight: 300; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; position: relative; }
+.img-line { width: 40px; height: 1px; background: rgba(255,255,255,0.2); position: relative; }
+.img-type { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.4); position: relative; }
+.hero-info { display: flex; flex-direction: column; gap: 0.6rem; }
+.rating-row { display: flex; align-items: center; gap: 8px; }
+.stars { font-size: 14px; letter-spacing: 1px; color: var(--odd-sage); }
+.rating-text { font-size: 12px; color: var(--text-tertiary); }
+.active-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0.15rem 0; }
+.active-tag { font-size: 11px; padding: 4px 12px; border-radius: 999px; background: rgba(156,175,136,0.12); color: #6b7f5a; border: 1px solid rgba(156,175,136,0.25); }
+.price-row { display: flex; align-items: baseline; gap: 10px; margin-top: 0.2rem; }
+.price { font-size: 26px; font-weight: 600; color: var(--text-primary); }
+.price-note { font-size: 12px; color: var(--text-tertiary); }
+.btn-add { background: var(--odd-dark); color: var(--odd-beige); font-size: 14px; padding: 14px 24px; border-radius: 999px; border: none; cursor: pointer; width: 100%; transition: all 0.2s ease; font-weight: 500; letter-spacing: 0.01em; margin-top: 0.25rem; }
+.btn-add:hover { background: var(--odd-black); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 
 /* ── TABS ── */
-.tabs { display: flex; border-bottom: 0.5px solid var(--border-light); margin-bottom: 1.5rem; overflow-x: auto; }
-.tab { font-size: 13px; padding: 8px 16px; cursor: pointer; border-bottom: 2px solid transparent; color: var(--text-secondary); white-space: nowrap; margin-bottom: -0.5px; flex-shrink: 0; }
-.tab.active { color: var(--odd-gray); border-bottom-color: var(--odd-sage); font-weight: 500; }
+.tab-wrap { padding: 0 2.5rem; max-width: 1000px; margin: 0 auto; }
+.tabs { display: flex; border-bottom: 1px solid var(--border-light); margin-bottom: 2rem; overflow-x: auto; gap: 2px; }
+.tab { font-size: 13px; padding: 12px 18px; cursor: pointer; border-bottom: 2px solid transparent; color: var(--text-tertiary); white-space: nowrap; margin-bottom: -1px; flex-shrink: 0; transition: color 0.15s ease; }
+.tab:hover { color: var(--text-secondary); }
+.tab.active { color: var(--text-primary); border-bottom-color: var(--odd-sage); font-weight: 500; }
 .tab-content { display: none; }
 .tab-content.active { display: block; }
 
-/* ── HERO ── */
-.hero-band { background: var(--odd-beige); padding: 2rem 1rem; border-bottom: 0.5px solid #e2ddd7; }
-.hero-inner { display: flex; gap: 1.25rem; align-items: flex-start; }
-.product-swatch { width: 90px; height: 118px; background: #c4ccb8; border-radius: 10px; border: 0.5px solid #b0b8a4; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
-.swatch-num { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.8); letter-spacing: 0.06em; }
-.swatch-line { width: 22px; height: 1.5px; background: rgba(255,255,255,0.4); border-radius: 1px; }
-.rating-row { display: flex; align-items: center; gap: 8px; margin: 0.35rem 0; }
-.stars { font-size: 13px; letter-spacing: 1px; color: var(--odd-sage); }
-.rating-text { font-size: 12px; color: var(--text-tertiary); }
-.price-row { display: flex; align-items: baseline; gap: 8px; margin: 0.6rem 0 0.75rem; }
-.price { font-size: 20px; font-weight: 500; color: var(--text-primary); }
-.price-note { font-size: 12px; color: var(--text-tertiary); }
-.btn-add { background: var(--odd-dark); color: var(--odd-beige); font-size: 13px; padding: 10px 20px; border-radius: 999px; border: none; cursor: pointer; width: 100%; transition: background 0.15s ease; }
-.btn-add:hover { background: var(--odd-black); }
-.active-tag { font-size: 11px; padding: 2px 9px; border-radius: 999px; background: rgba(156,175,136,0.15); color: #6b7f5a; border: 0.5px solid rgba(156,175,136,0.3); display: inline-block; margin: 0 3px 4px 0; }
+/* ── SECTION INTRO ── */
+.section-intro { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem; }
 
 /* ── REVELATION ── */
-.revelation-strip { background: var(--odd-white); border: 0.5px solid var(--border-light); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; }
-.revelation-title { font-size: 15px; font-weight: 500; color: var(--text-primary); margin-bottom: 0.4rem; }
-.revelation-body { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+.revelation-strip { background: var(--odd-white); border: 1px solid var(--border-light); border-radius: 14px; padding: 1.5rem 1.75rem; margin-bottom: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.revelation-title { font-size: 16px; font-weight: 500; color: var(--text-primary); margin-bottom: 0.5rem; }
+.revelation-body { font-size: 14px; color: var(--text-secondary); line-height: 1.75; }
 
 /* ── CALLOUT ── */
-.callout-bold { background: var(--odd-dark); border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.25rem 0; }
-.callout-bold p { font-size: 14px; color: #ccc; line-height: 1.7; }
+.callout-bold { background: var(--odd-dark); border-radius: 14px; padding: 1.75rem 2rem; margin: 1.5rem 0; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+.callout-bold p { font-size: 15px; color: #ccc; line-height: 1.75; }
 .callout-bold span { color: #666; }
 
 /* ── DOES / DOESN'T ── */
-.does-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px; margin-top: 1rem; }
-.does-yes { background: var(--odd-beige); border: 0.5px solid #e2ddd7; border-radius: 12px; padding: 1.25rem; }
-.does-no { background: var(--bg-secondary); border: 0.5px solid var(--border-light); border-radius: 12px; padding: 1.25rem; }
-.does-title { font-size: 13px; font-weight: 500; margin-bottom: 0.6rem; }
+.does-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 1.25rem; }
+.does-yes { background: var(--odd-beige); border: 1px solid #e2ddd7; border-radius: 14px; padding: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.does-no { background: var(--bg-secondary); border: 1px solid var(--border-light); border-radius: 14px; padding: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.does-title { font-size: 14px; font-weight: 600; margin-bottom: 0.75rem; text-transform: lowercase; }
 .does-yes .does-title { color: var(--odd-dark); }
 .does-no .does-title { color: var(--text-tertiary); }
-.does-item { font-size: 13px; line-height: 1.65; display: flex; gap: 8px; align-items: flex-start; padding: 2px 0; }
+.does-item { font-size: 13px; line-height: 1.7; display: flex; gap: 10px; align-items: flex-start; padding: 3px 0; }
 .does-yes .does-item { color: var(--text-secondary); }
 .does-no .does-item { color: var(--text-tertiary); text-decoration: line-through; }
-.dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+.dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
 .yes-dot { background: var(--odd-sage); }
 .no-dot { background: #ccc; }
 
 /* ── HONEST STRIP ── */
-.honest-strip { border-left: 3px solid var(--odd-sage); padding: 1rem 1.25rem; background: var(--odd-beige); border-radius: 0 10px 10px 0; margin-top: 1rem; }
-.honest-strip p { font-size: 13px; color: var(--text-secondary); }
+.honest-strip { padding: 1.5rem 0 0; margin-top: 1.5rem; border-top: 1px solid var(--border-light); }
+.honest-strip p { font-size: 14px; color: var(--text-secondary); line-height: 1.75; }
 
 /* ── COMPARISON ── */
-.comparison-row { display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; }
-.comp-item { display: flex; gap: 0; border-radius: 10px; overflow: hidden; border: 0.5px solid var(--border-light); }
-.comp-them { flex: 1; padding: 0.75rem 1rem; background: var(--bg-secondary); }
-.comp-us { flex: 1; padding: 0.75rem 1rem; background: var(--odd-beige); }
-.comp-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-tertiary); margin-bottom: 0.3rem; }
+.section-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-tertiary); margin-bottom: 0.75rem; font-weight: 500; }
+.comparison-row { display: flex; flex-direction: column; gap: 10px; }
+.comp-item { display: flex; gap: 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-light); box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.comp-them { flex: 1; padding: 1rem 1.25rem; background: var(--bg-secondary); }
+.comp-us { flex: 1; padding: 1rem 1.25rem; background: var(--odd-beige); }
+.comp-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-tertiary); margin-bottom: 0.35rem; }
 .comp-us .comp-label { color: #6b7f5a; }
-.comp-text { font-size: 13px; color: var(--text-secondary); }
+.comp-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
 .comp-us .comp-text { color: var(--odd-dark); font-weight: 500; }
-.comp-divider { width: 0.5px; background: var(--border-light); flex-shrink: 0; }
+.comp-divider { width: 1px; background: var(--border-light); flex-shrink: 0; }
 
 /* ── INGREDIENTS ── */
-.ing-row { border-bottom: 0.5px solid var(--border-light); padding: 1rem 0; cursor: pointer; }
+.ing-intro { font-size: 14px; color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6; }
+.ing-row { border-bottom: 1px solid var(--border-light); padding: 1.25rem 0.5rem; cursor: pointer; transition: background 0.15s ease; border-radius: 8px; margin: 0 -0.5rem; }
+.ing-row:hover { background: rgba(156,175,136,0.05); }
 .ing-row:last-child { border-bottom: none; }
-.ing-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
-.ing-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
-.ing-badge { font-size: 11px; padding: 2px 10px; border-radius: 999px; flex-shrink: 0; }
+.ing-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.ing-name { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+.ing-badge { font-size: 11px; padding: 3px 12px; border-radius: 999px; flex-shrink: 0; font-weight: 500; }
 .badge-hero { background: rgba(156,175,136,0.15); color: #6b7f5a; }
 .badge-support { background: #E1F5EE; color: #0F6E56; }
-.badge-base { background: var(--bg-secondary); color: var(--text-tertiary); }
-.ing-tldr { font-size: 12px; color: var(--text-tertiary); margin-top: 3px; }
-.ing-detail { display: none; margin-top: 0.75rem; padding: 0.75rem; background: var(--odd-beige); border-radius: 8px; }
+.badge-base { background: var(--bg-secondary); color: var(--text-tertiary); border: 1px solid var(--border-light); }
+.ing-tldr { font-size: 12px; color: var(--text-tertiary); margin-top: 4px; }
+.ing-detail { display: none; margin-top: 0.75rem; padding: 1rem 1.25rem; background: var(--odd-beige); border-radius: 10px; border: 1px solid #e2ddd7; }
 .ing-detail.open { display: block; }
-.ing-detail p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
-.ing-conc { font-size: 11px; color: var(--text-tertiary); margin-top: 0.4rem; font-style: italic; }
+.ing-detail p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+.ing-conc { font-size: 11px; color: var(--text-tertiary); margin-top: 0.5rem; font-style: italic; }
 
 /* ── REVIEWS ── */
-.review-card { background: var(--bg-secondary); border-radius: 12px; padding: 1.1rem; margin-bottom: 10px; }
-.reviewer-name { font-size: 13px; font-weight: 500; color: var(--text-primary); }
-.reviewer-tag { font-size: 11px; color: var(--text-tertiary); margin: 2px 0 0.5rem; }
-.review-text { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
-.review-badge { font-size: 11px; padding: 2px 10px; border-radius: 999px; display: inline-block; margin-top: 0.5rem; background: rgba(156,175,136,0.15); color: #6b7f5a; }
+.reviews-intro { font-size: 14px; color: var(--text-tertiary); margin-bottom: 1.5rem; }
+.review-card { background: var(--bg-secondary); border: 1px solid var(--border-light); border-radius: 14px; padding: 1.5rem; margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.reviewer-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+.reviewer-tag { font-size: 11px; color: var(--text-tertiary); margin: 3px 0 0.6rem; }
+.review-text { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+.review-badge { font-size: 11px; padding: 3px 12px; border-radius: 999px; display: inline-block; margin-top: 0.6rem; background: rgba(156,175,136,0.12); color: #6b7f5a; font-weight: 500; }
 
 /* ── HONEST CARDS ── */
-.honest-card { background: var(--odd-white); border: 0.5px solid var(--border-light); border-radius: 12px; padding: 1.25rem; margin-bottom: 10px; }
-.honest-card h3 { margin-bottom: 0.4rem; }
+.honest-cards { display: flex; flex-direction: column; gap: 14px; }
+.honest-card { background: var(--odd-white); border: 1px solid var(--border-light); border-radius: 14px; padding: 1.5rem 1.75rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); transition: border-color 0.15s ease; }
+.honest-card:hover { border-color: rgba(156,175,136,0.4); }
+.honest-card h3 { margin-bottom: 0.5rem; font-size: 15px; }
+
+/* ── FOOTER CTA ── */
+.footer-cta { background: var(--odd-beige); padding: 3rem 2.5rem 4rem; text-align: center; border-radius: 32px 32px 0 0; box-shadow: 0 -2px 24px rgba(0,0,0,0.04); position: relative; margin-top: 3rem; }
 </style>
 
 <div>
-
-<div style="padding: 0.9rem 1rem; border-bottom: 0.5px solid var(--border-light);">
-  <span style="font-size: 13px; color: var(--text-tertiary);">ODD Care Co. / shop (4 things) / </span>
-  <span style="font-size: 13px; color: var(--text-secondary);">clear first — facewash</span>
-</div>
 
 <!-- ═══════════════════════════════════════════
      HERO
      ═══════════════════════════════════════════ -->
 <div class="hero-band">
+  <div class="breadcrumb">
+    <span style="color: var(--text-tertiary);">ODD Care Co. / shop (4 things) / </span>
+    <span style="color: var(--text-secondary);">clear first — facewash</span>
+  </div>
   <div class="hero-inner">
-    <div class="product-swatch">
-      <span class="swatch-num">01 / 04</span>
-      <div class="swatch-line"></div>
-      <span style="font-size: 9px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.08em;">facewash</span>
+    <div class="product-image">
+      <span class="img-num">01 / 04</span>
+      <div class="img-line"></div>
+      <span class="img-type">facewash · 100ml</span>
     </div>
-    <div style="flex: 1;">
+    <div class="hero-info">
       <div class="label">product 01 of 04 · tube · AM or PM</div>
-      <h1 style="margin: 0.3rem 0 0.25rem;">Clear First</h1>
-      <p style="font-size: 13px; color: #777; margin-bottom: 0.6rem;">A facewash with 8 actives. Including a triple-acid system, rice ferment, and a physical exfoliator. In a tube.</p>
+      <h1>Clear First</h1>
+      <p style="font-size: 15px; color: #777; line-height: 1.6;">A facewash with 8 actives. Including a triple-acid system, rice ferment, and a physical exfoliator. In a tube.</p>
       <div class="rating-row">
         <span class="stars">★★★★★</span>
         <span class="rating-text">4.7 · 196 reviews · the one that starts the routine</span>
       </div>
-      <div style="margin: 0.5rem 0;">
+      <div class="active-tags">
         <span class="active-tag">niacinamide 2%</span>
         <span class="active-tag">salicylic acid 0.5%</span>
         <span class="active-tag">AHA+BHA+PHA</span>
@@ -146,7 +168,7 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
 <!-- ═══════════════════════════════════════════
      TABBED CONTENT
      ═══════════════════════════════════════════ -->
-<div style="padding: 0 1rem;">
+<div class="tab-wrap">
 
   <div class="tabs">
     <div class="tab active" onclick="switchTab('wait')">wait, all this in a facewash?</div>
@@ -168,9 +190,9 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
       <p>Your face is 2% of your body's skin. <span>It's also the 2% that gets the most sun, the most pollution, the most attention, and the most neglect disguised as care. We built a facewash that actually does something during the 60 seconds it's on your face. Eight actives. All at concentrations that work. No filler pretending to be ingredients.</span></p>
     </div>
 
-    <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin: 1.25rem 0;">Clear First has niacinamide at 2% for pore control and barrier support. Salicylic acid at 0.5% to clean inside the pore. Lactic acid at 0.5% for surface exfoliation. A triple-acid system (AHA+BHA+PHA) for layered resurfacing. Sodium hyaluronate at 0.1% so it doesn't strip you dry. Rice ferment filtrate for microbiome support. Prebiotic ProVit B5 for barrier strength. Orange peel exfoliator for gentle physical texture work. All in a daily face wash.</p>
+    <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin: 1.5rem 0;">Clear First has niacinamide at 2% for pore control and barrier support. Salicylic acid at 0.5% to clean inside the pore. Lactic acid at 0.5% for surface exfoliation. A triple-acid system (AHA+BHA+PHA) for layered resurfacing. Sodium hyaluronate at 0.1% so it doesn't strip you dry. Rice ferment filtrate for microbiome support. Prebiotic ProVit B5 for barrier strength. Orange peel exfoliator for gentle physical texture work. All in a daily face wash.</p>
 
-    <div class="honest-strip" style="margin-top: 1.25rem;">
+    <div class="honest-strip">
       <p>It's also just a good facewash. Lathers well. Rinses clean. Doesn't leave your face feeling tight or dry. The actives are doing real work, but the base formula is what makes it something you actually want to use twice a day.</p>
     </div>
 
@@ -179,7 +201,7 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
   <!-- ── TAB: WHAT IT DOES ── -->
   <div id="tab-does" class="tab-content">
 
-    <div class="label" style="margin-bottom: 0.75rem;">vs. a standard facewash</div>
+    <div class="section-label">vs. a standard facewash</div>
     <div class="comparison-row">
       <div class="comp-item">
         <div class="comp-them">
@@ -227,7 +249,7 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
       </div>
     </div>
 
-    <div class="does-grid" style="margin-top: 1.25rem;">
+    <div class="does-grid" style="margin-top: 1.75rem;">
       <div class="does-yes">
         <div class="does-title">what it does</div>
         <div class="does-item"><span class="dot yes-dot"></span><span>Unclogs pores from inside — salicylic acid doing the real work</span></div>
@@ -253,7 +275,7 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
 
   <!-- ── TAB: INGREDIENTS ── -->
   <div id="tab-ingredients" class="tab-content">
-    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 1.25rem;">Eight things doing eight jobs. No filler claiming to be actives. Tap each one.</p>
+    <p class="ing-intro">Eight things doing eight jobs. No filler claiming to be actives. Tap each one.</p>
 
     <div class="ing-row" onclick="toggleIng(this)">
       <div class="ing-header">
@@ -357,7 +379,7 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
 
   <!-- ── TAB: REVIEWS ── -->
   <div id="tab-reviews" class="tab-content">
-    <p style="font-size: 13px; color: var(--text-tertiary); margin-bottom: 1.25rem;">The first product most people try. The one that makes them buy the rest.</p>
+    <p class="reviews-intro">The first product most people try. The one that makes them buy the rest.</p>
 
     <div class="review-card">
       <div class="reviewer-name">Aditya M., Mumbai</div>
@@ -389,26 +411,26 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
 
   <!-- ── TAB: THE HONEST PART ── -->
   <div id="tab-honest" class="tab-content">
-    <div style="display: flex; flex-direction: column; gap: 10px;">
+    <div class="honest-cards">
 
       <div class="honest-card">
         <h3>Why a tube and not a pump?</h3>
-        <p style="margin-top: 0.4rem;">The body wash has a foaming pump because body skin needs volume coverage. Your face needs a pea-sized amount. A tube gives you better control over how much you dispense and travels better. It also means no air exposure between uses — the actives stay stable longer. The packaging follows the product, not the other way around.</p>
+        <p>The body wash has a foaming pump because body skin needs volume coverage. Your face needs a pea-sized amount. A tube gives you better control over how much you dispense and travels better. It also means no air exposure between uses — the actives stay stable longer. The packaging follows the product, not the other way around.</p>
       </div>
 
       <div class="honest-card">
         <h3>Can I use this on my body?</h3>
-        <p style="margin-top: 0.4rem;">You can, but it's not efficient. The surfactant system is gentler than the body wash because face skin is thinner and more reactive. The actives are at lower concentrations for the same reason. We make a body wash (Foam Rinse) designed specifically for body skin. Use each where it belongs.</p>
+        <p>You can, but it's not efficient. The surfactant system is gentler than the body wash because face skin is thinner and more reactive. The actives are at lower concentrations for the same reason. We make a body wash (Foam Rinse) designed specifically for body skin. Use each where it belongs.</p>
       </div>
 
       <div class="honest-card">
         <h3>Is it fragrance-free?</h3>
-        <p style="margin-top: 0.4rem;">Yes. The facewash is completely fragrance-free. Face skin is the most sensitive area, and the product sits on it twice a day. We didn't see a reason to add fragrance here. The body wash has a light scent because body skin tolerates it and people won't use an unscented body wash. Different decisions for different products.</p>
+        <p>Yes. The facewash is completely fragrance-free. Face skin is the most sensitive area, and the product sits on it twice a day. We didn't see a reason to add fragrance here. The body wash has a light scent because body skin tolerates it and people won't use an unscented body wash. Different decisions for different products.</p>
       </div>
 
       <div class="honest-card">
         <h3>100ml — how long does it last?</h3>
-        <p style="margin-top: 0.4rem;">A pea-sized amount per wash. Used twice daily, most people get 8–10 weeks. At ₹499, that's around ₹7–9 per day. For 8 actives at real concentrations. There are single-ingredient serums that cost more per week.</p>
+        <p>A pea-sized amount per wash. Used twice daily, most people get 8–10 weeks. At ₹499, that's around ₹7–9 per day. For 8 actives at real concentrations. There are single-ingredient serums that cost more per week.</p>
       </div>
 
     </div>
@@ -419,11 +441,11 @@ p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
 <!-- ═══════════════════════════════════════════
      FOOTER CTA
      ═══════════════════════════════════════════ -->
-<div style="background: var(--odd-beige); padding: 1.5rem; text-align: center; border-top: 0.5px solid #e2ddd7;">
+<div class="footer-cta">
   <div class="label" style="margin-bottom: 0.5rem;">product 01 of 04</div>
-  <h2 style="margin-bottom: 0.4rem;">Your face was getting<br>a surface clean.<br>Now it gets an actual routine.</h2>
-  <p style="font-size: 13px; color: #777; margin-bottom: 1.25rem; max-width: 320px; margin-left: auto; margin-right: auto;">Niacinamide 2%, salicylic acid 0.5%, AHA+BHA+PHA, rice ferment, and more. In a facewash. Yes really.</p>
-  <button class="btn-add" style="max-width: 240px; margin: 0 auto; display: block;">add clear first — ₹499</button>
+  <h2 style="margin-bottom: 0.5rem;">Your face was getting<br>a surface clean.<br>Now it gets an actual routine.</h2>
+  <p style="font-size: 13px; color: #777; margin-bottom: 1.5rem; max-width: 360px; margin-left: auto; margin-right: auto;">Niacinamide 2%, salicylic acid 0.5%, AHA+BHA+PHA, rice ferment, and more. In a facewash. Yes really.</p>
+  <button class="btn-add" style="max-width: 280px; margin: 0 auto; display: block;">add clear first — ₹499</button>
   <p style="font-size: 11px; color: var(--text-tertiary); margin-top: 0.75rem;">or get all 4 in The Whole Routine — ₹1,499</p>
 </div>
 

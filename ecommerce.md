@@ -327,3 +327,48 @@ All changes applied to live Local by Flywheel WordPress site. Files modified: `o
 | `oddcareco-child/style.css` | Ticker, dropdown, carousel, footer, hero z-index, overflow fix |
 | `oddcareco-child/functions.php` | Dropdown JS enhancer, carousel builder JS, footer PHP hook |
 | WordPress page ID 26 | Hero copy, product grid CSS, `<style>` tag restoration |
+
+---
+
+## Session Log — 2026-04-14 (Product Page Formatting & Bundle Redesign)
+
+All changes applied to live Local by Flywheel WordPress site via temporary PHP updater script (`odd-update-page.php`, deleted after each push). Source HTML blueprints live in `product-pages/`.
+
+### Changes Made
+
+1. **Footer CTA transition fix (all pages)** — The white-to-beige footer CTA section had an abrupt edge. Added `border-radius: 32px 32px 0 0` and `box-shadow: 0 -2px 24px rgba(0,0,0,0.04)` to `.footer-cta` for a smooth rounded transition. Added `margin-top: 3rem` for spacing between content and footer CTA.
+
+2. **Header formatting standardized (all pages)** — Applied Clear First's header pattern to Foam Rinse, Dawn Shield, Deep Dusk, and The Whole Routine:
+   - `body { background: #fff }` — white header area
+   - `header.site-header .custom-logo { max-height: 80px }` — compact logo
+   - `#inner-wrap { background: #F5F0EB; border-radius: 32px 32px 0 0; box-shadow: ... }` — rounded beige content area
+   - Breadcrumb moved inside `.hero-band`
+   - `.honest-strip` changed from bordered box to top-border separator
+
+3. **Deep Dusk green→black theme** — All algae-themed CSS (`.callout-algae`, `.ing-detail`, `.badge-hero`) remapped from green (`#2d5a3a`) to dark/night palette (`#1a1a1a`, `#2a2a2a`, `#333`) to match the page's night theme.
+
+4. **The Whole Routine — blue→sage green** — Bundle page color theme changed from purple/blue to sage green. `--purple` variable values remapped: `#534AB7→#6B7F5A`, `#EEEDFE→#F0F4ED`, `#AFA9EC→#B8C8AD`, `#3C3489→#5A6B4A`, `#7F77DD→#7A9168`. Variable names kept as `--purple` to avoid renaming every CSS reference.
+
+5. **The Whole Routine — hero section cleanup** — Removed the white `.box-hero` card (border, border-radius, background) so content fills the beige `.hero-band` directly without a nested card appearance.
+
+### Pages Updated
+
+| Page | ID | Theme |
+|------|----|-------|
+| Clear First | 31 | Beige (reference page) |
+| Foam Rinse | 33 | Beige |
+| Dawn Shield | 35 | Warm |
+| Deep Dusk | 37 | Dark/Night |
+| The Whole Routine | 39 | Sage Green (was purple/blue) |
+
+### CSS Variable Map Update
+
+The bundle page now uses sage green values for `--purple` variables:
+
+```
+--purple        → #6B7F5A  (was #534AB7)
+--purple-light  → #F0F4ED  (was #EEEDFE)
+--purple-border → #B8C8AD  (was #AFA9EC)
+--purple-dark   → #5A6B4A  (was #3C3489)
+--purple-text   → #7A9168  (was #7F77DD)
+```
