@@ -472,3 +472,92 @@ All changes applied to live Local by Flywheel WordPress site. File modified: `od
 
 - **Inline style overrides**: Deep Dusk page content was pushed via REST API with hardcoded inline color values. Child theme CSS uses `.page-id-37` scoping with `!important` to override. Attribute selectors (`[style*="color: #333"]`) catch remaining inline styles.
 - **Tab scrollbar**: The `.tabs` element uses `overflow-x: auto` for mobile scrolling. Scrollbar is hidden purely cosmetically — scroll still works via touch/trackpad.
+
+---
+
+## Session Log — 2026-04-16 (White Pillars, Hero "4" Visibility, Bundle Row Redesign)
+
+All changes applied to live Local by Flywheel WordPress site. Files modified: `oddcareco-child/style.css`, `product-pages/homepage.html`, WordPress page ID 26 (homepage) via REST API.
+
+### Changes Made
+
+1. **Removed white pillars on all pages** — Thin white strips were visible on both sides of every page, caused by Kadence's article wrapper (`.entry.content-bg`) having a white background with a box-shadow, and `.entry-content-wrap` having 32px side padding, sitting inside a rounded `#inner-wrap`. Fixes in child theme CSS:
+   - `body { background: #F5F0EB !important }` — beige body so no white shows through
+   - `body.page-id-37 { background: #0d0d0d !important }` — Deep Dusk dark override
+   - `header.site-header { background: #fff }` — keep header clean white
+   - `#inner-wrap { border-radius: 0 !important; box-shadow: none !important }` — flatten the rounded-corner wrapper
+   - `.entry.content-bg { background: transparent !important; box-shadow: none !important }` (promoted from homepage-only to global)
+   - `.entry-content-wrap { padding-left: 0 !important; padding-right: 0 !important }` (promoted from homepage-only to global)
+
+2. **Hero background "4" now visible** — The large watermark "4" behind the hero text was invisible because its color (`#F7F4EF`) was almost identical to the beige body background (`#F5F0EB`). Darkened via `.hero::before { color: #E2D9CF !important }` in child theme CSS — subtle but clearly readable.
+
+3. **"The Whole Routine" bundle block redesigned** — The sage-green bordered box below the product carousel looked awkward because sage is an accent color in the ODD palette, never a surface color. Converted from a boxed card into a borderless "summary row":
+   - Removed `background: #eef3ec` and `border: 1px solid #c8d9c4`
+   - Added `border-top: 1px solid #e5dfd6` — thin divider line, same as used elsewhere
+   - Badge switched from sage-bg to `#1a1a1a` dark-bg (matches CTA button pattern)
+   - Name/price now `#1a1a1a`, tagline muted gray `#9e9e9e`
+   - Sage (`#7a9e7e`) retained only on the "save ₹397" savings text
+   - Added `<span class="bundle-arrow">→</span>` with hover translate for click affordance
+   - Hover: opacity 0.7 fade (replaced the box-shadow pop)
+   - Shortened tagline: "Complete AM + PM + body routine. One box."
+   - Fixed stale link: `/product/the-whole-routine` → `/the-whole-routine/`
+   - Both `product-pages/homepage.html` blueprint and WordPress page ID 26 updated
+
+### Files Changed
+
+| File | What changed |
+|---|---|
+| `oddcareco-child/style.css` | Body beige + Deep Dusk dark override, header explicit white, inner-wrap border-radius/shadow removed, entry.content-bg + entry-content-wrap promoted to global, hero::before color fix, bundle-row margin updated |
+| `product-pages/homepage.html` | Bundle row CSS rewritten (borderless summary row), HTML updated with arrow + shortened tagline + corrected href |
+| WordPress page ID 26 | Bundle CSS block + bundle HTML replaced via REST API (`wp.apiFetch` from admin context) |
+
+### Technical Notes
+
+- **Body background priority**: Page inline CSS (`body { background: #fff }`) was overriding the child theme. Used `!important` in child theme to force the beige, then scoped `body.page-id-37` override for the dark Deep Dusk page.
+- **Global-only-needed-everywhere promotions**: `.entry.content-bg { background: transparent }` and `.entry-content-wrap { padding: 0 }` were originally scoped to `.home` only. Promoted to global since every page was affected by the same white-pillar issue.
+- **WordPress REST API push from admin**: The frontend doesn't load `wpApiSettings` or `wp.apiFetch`. To push page updates via the browser, navigate to `/wp-admin/post.php?post={id}&action=edit` first — that loads the WP admin JS context where `wp.apiFetch()` works with automatic nonce handling.
+
+---
+
+## Session Log — 2026-04-17: Homepage Animations, Product Grid, Bundle Redesign & FAQ
+
+All changes applied to live Local by Flywheel WordPress site. Files modified: `oddcareco-child/style.css`, `oddcareco-child/functions.php`.
+
+### Changes Made
+
+1. **Hero section text centered** — Main hero text was left-aligned instead of centered. Added `text-align: center !important` to `.hero` in child theme CSS.
+
+2. **Product grid changed to 2x2 layout** — Switched from side-by-side flex row to a CSS Grid 2x2 layout (`grid-template-columns: 1fr 1fr`) to future-proof for product images. Single column on mobile via `@media (max-width: 768px)`.
+
+3. **"Drop & Settle" entrance animation for products** — Added physics-style bounce animation triggered by scroll via IntersectionObserver. Products start invisible 100px above, drop in with overshoot/bounce using `@keyframes dropSettle`. Each card staggers by 0.12s delay (0s, 0.12s, 0.24s, 0.36s). Uses `animation-fill-mode: forwards` to persist final state.
+
+4. **Removed spotlight dimming on hover** — Previously hovering one product card dimmed the others. Removed those CSS rules entirely per user preference.
+
+5. **"The Whole Routine" bundle redesigned as star product** — Transformed the flat horizontal strip into a prominent dark premium card:
+   - Dark background (#1a1a1a) with sage green left border accent
+   - Rounded corners (20px) matching product cards
+   - Badge inverted to sage green background with dark text
+   - Larger typography for name (20px) and price (22px) in off-white
+   - Hover: lift effect + sage glow shadow + arrow nudge
+   - Drop animation as 5th element (0.48s delay) using general sibling combinator (`~`) to trigger from grid's `.revealed` class
+
+6. **"Things we'll just say directly" contrast fix** — Section was beige-on-beige (card bg `#f5f0e8` vs page bg `#F5F0EB`). Changed `.honest-card` to white background with subtle border and shadow.
+
+7. **"The Questions" FAQ section redesign** — Fixed multiple issues:
+   - **Contrast**: Changed from one large beige card to individual white cards per question with borders, rounded corners (14px), and spacing
+   - **Accordion functionality**: WordPress entity-encoded `>` as `&gt;` in inline `<script>`, breaking the JS. Moved FAQ toggle logic to `functions.php` `wp_footer` action instead. Accordion opens one question at a time, closing others.
+   - **Answer font**: Applied clean system font stack (`-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI'`) at 14px, 1.8 line-height, with antialiasing for professional appearance.
+
+### Files Changed
+
+| File | What changed |
+|---|---|
+| `oddcareco-child/style.css` | Hero centering, 2x2 product grid, `@keyframes dropSettle` animation, staggered delays, bundle dark card redesign, honest-card contrast fix, FAQ individual cards + font styling, mobile responsive grid |
+| `oddcareco-child/functions.php` | Added FAQ accordion toggle JS (click handler with open/close class toggling) inside homepage `wp_footer` action |
+
+### Technical Notes
+
+- **IntersectionObserver for scroll-reveal**: Observes `.product-grid` at 15% threshold. Adds `.revealed` class which triggers CSS animations on child `.p-card` elements and sibling `.bundle-row`.
+- **General sibling combinator (`~`)**: `.product-grid.revealed ~ .bundle-row` triggers bundle animation when the grid above it is revealed — they're siblings, not parent-child.
+- **WordPress entity encoding workaround**: Inline `<script>` blocks in WordPress page content get entity-encoded (`>` → `&gt;`), breaking JS. Solution: inject JS via child theme `functions.php` `wp_footer` action hook instead.
+- **CSS specificity with `!important`**: Required throughout because WordPress page content uses inline styles that override child theme CSS. All overrides scoped to `.page-id-26` for homepage only.
