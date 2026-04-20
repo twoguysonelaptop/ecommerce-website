@@ -153,7 +153,8 @@ All 5 product description pages have been created as static HTML files in `produ
 - [x] Add Manifesto + Our Mission buttons to homepage footer
 - [x] Header icons (cart + account) added to Kadence header
 - [x] My Account page — styled, branded, WooCommerce registration enabled
-- [ ] WooCommerce product setup and integration
+- [x] WooCommerce product setup and integration
+- [x] Custom plugin (oddcareco-core) — wishlists, referral codes, analytics dashboard
 - [ ] Plugin installation (Razorpay payments, SEO, etc.)
 - [ ] Shipping configuration
 - [ ] Testing and launch
@@ -561,3 +562,154 @@ All changes applied to live Local by Flywheel WordPress site. Files modified: `o
 - **General sibling combinator (`~`)**: `.product-grid.revealed ~ .bundle-row` triggers bundle animation when the grid above it is revealed — they're siblings, not parent-child.
 - **WordPress entity encoding workaround**: Inline `<script>` blocks in WordPress page content get entity-encoded (`>` → `&gt;`), breaking JS. Solution: inject JS via child theme `functions.php` `wp_footer` action hook instead.
 - **CSS specificity with `!important`**: Required throughout because WordPress page content uses inline styles that override child theme CSS. All overrides scoped to `.page-id-26` for homepage only.
+
+---
+
+## Session Log — 2026-04-17: Remove All Hyphens from Website Text Content
+
+All changes applied to static HTML blueprints and pushed to live Local by Flywheel WordPress site via a one-time PHP updater script (`odd-update-pages.php`, deleted after use).
+
+### Changes Made
+
+1. **Removed all hyphen characters (`-`) from visible text content across the entire website** — hyphens in text were replaced with spaces for readability. CSS, JavaScript, HTML attributes, and URLs were left untouched. A Python script was used to parse each HTML file, skip `<style>` and `<script>` blocks, skip inside HTML tags, and replace `-` with a space only in text nodes between tags.
+
+2. **Product codes updated** — `ODD-01` → `ODD 01`, `ODD-02` → `ODD 02`, `ODD-03` → `ODD 03`, `ODD-04` → `ODD 04` across all pages and the nav dropdown in `functions.php`.
+
+3. **Ingredient/science terms updated** — `bio-retinol` → `bio retinol`, `triple-acid` → `triple acid`, `retinol-equivalent` → `retinol equivalent`, `oil-soluble` → `oil soluble`, etc.
+
+4. **Compound words updated** — `non-greasy` → `non greasy`, `non-comedogenic` → `non comedogenic`, `non-negotiable` → `non negotiable`, `rinse-off` → `rinse off`, `leave-on` → `leave on`, `daily-use` → `daily use`, `twice-daily` → `twice daily`, `post-acne` → `post acne`, `anti-aging` → `anti aging`, `fragrance-free` → `fragrance free`, `fragrance-forward` → `fragrance forward`, `pea-sized` → `pea sized`, `single-ingredient` → `single ingredient`, `finger-lengths` → `finger lengths`, `serum-level` → `serum level`, `well-compensated` → `well compensated`, `follow-up` → `follow up`, `pop-up` → `pop up`, `anxiety-inducing` → `anxiety inducing`, `skincare-obsessed` → `skincare obsessed`, `micro-tears` → `micro tears`, `micro-granules` → `micro granules`, `low-molecular-weight` → `low molecular weight`, `pre-foamed` → `pre foamed`, etc.
+
+### Files Changed
+
+| File | Lines changed |
+|---|---|
+| `product-pages/homepage.html` | 11 |
+| `product-pages/clear-first-facewash.html` | 17 |
+| `product-pages/foam-rinse-bodywash.html` | 16 |
+| `product-pages/dawn-shield-sunscreen.html` | 14 |
+| `product-pages/deep-dusk-nightcream.html` | 22 |
+| `product-pages/the-whole-routine-bundle.html` | 8 |
+| `product-pages/manifesto.html` | 7 |
+| `product-pages/our-mission.html` | 4 |
+| `oddcareco-child/functions.php` | Product codes in nav dropdown JS object |
+
+### WordPress Pages Updated
+
+| Page | ID | Status |
+|------|----|--------|
+| Homepage | 26 | Updated |
+| Clear First (Facewash) | 31 | Updated |
+| Foam Rinse (Body Wash) | 33 | Updated |
+| Dawn Shield (AM Cream) | 35 | Updated |
+| Deep Dusk (PM Cream) | 37 | Updated |
+| The Whole Routine (Bundle) | 39 | Updated |
+
+### Technical Notes
+
+- **Text-only replacement**: A Python script parsed each HTML file character-by-character, tracking `<style>` and `<script>` blocks to skip. Only text nodes (content between `>` and `<` outside style/script) had hyphens replaced. This preserved all CSS class names, property names, hex color values, JavaScript code, HTML attributes, and URLs.
+- **Em dashes (`—`) and en dashes (`–`) were NOT affected** — these are different Unicode characters (U+2014 and U+2013) from the ASCII hyphen (U+002D). CTA buttons, breadcrumb separators, and number ranges using em/en dashes remain unchanged.
+- **WordPress push process**: Content was pushed via a temporary PHP script using `wp_update_post()`. CSS `:root` variable declarations were stripped and `var(--xxx)` references replaced with hard-coded hex values (same process as original page pushes). Content wrapped in `<!-- wp:html -->` blocks.
+
+---
+
+## Session Log — 2026-04-20: Database, Custom Plugin & WooCommerce Products
+
+### Changes Made
+
+1. **Custom plugin created: `oddcareco-core`** — 17-file WordPress plugin at `wp-content/plugins/oddcareco-core/`. Activated on live site. Creates 6 custom database tables via `dbDelta()` on activation.
+
+2. **6 custom database tables created:**
+
+| Table | Purpose |
+|-------|---------|
+| `wp_oddcareco_wishlists` | User wishlist definitions (title, share key, public flag) |
+| `wp_oddcareco_wishlist_items` | Products saved to wishlists (unique per wishlist+product) |
+| `wp_oddcareco_referrals` | Referral tracking: referrer → referee → reward chain |
+| `wp_oddcareco_referral_stats` | Pre-aggregated referral stats per user |
+| `wp_oddcareco_analytics_events` | Raw event log (page views, add-to-cart, purchases, etc.) |
+| `wp_oddcareco_analytics_daily` | Daily aggregated stats for fast admin dashboard queries |
+
+3. **Wishlist feature built:**
+   - Heart toggle button on product pages (AJAX, logged-in users only)
+   - "Wishlist" tab in My Account (added at priority 20, after theme's filter)
+   - Share-by-link functionality via 32-char random key
+   - Admin page: Wishlist Analytics (total wishlists, total items, most-wishlisted products)
+
+4. **Referral code system built:**
+   - Code format: `ODD-XXXXXX` (6 uppercase alphanumeric, no ambiguous chars)
+   - Auto-generated on account creation or first login, stored in `wp_usermeta`
+   - Cookie capture on `?ref=ODD-XXXXXX` URL visits (30-day cookie)
+   - On referee's first purchase: referrer gets a WooCommerce reward coupon
+   - "Your Referral Code" section on My Account dashboard
+   - Admin page: Referral Program (stats, top referrers, recent referrals, configurable settings)
+   - Settings: reward amount, reward type, cookie days, min spend, expiry — all configurable in admin
+
+5. **Analytics tracking system built:**
+   - Server-side hooks: `woocommerce_add_to_cart`, `woocommerce_remove_cart_item`, `woocommerce_checkout_order_processed`, `woocommerce_payment_complete`, `woocommerce_applied_coupon`
+   - Frontend JS tracker (`tracker.js`, <2KB): tracks `page_view` and `product_view` via REST endpoint `oddcareco/v1/event`
+   - GDPR-safe: IP hashed with daily rotating salt, device type derived from User-Agent then discarded, URLs stripped of PII params
+   - Cron jobs: daily aggregation at 2am, raw event cleanup at 3am (90-day retention), weekly referral expiry
+   - Admin page: Analytics Dashboard (conversion funnel, top viewed products, top added-to-cart, device breakdown, date range picker)
+
+6. **GDPR privacy handlers:** WordPress privacy data exporter + eraser registered for wishlists, referrals, and analytics data.
+
+7. **Clean uninstall:** `uninstall.php` drops all 6 custom tables, removes plugin options and referral code usermeta.
+
+8. **5 WooCommerce products created programmatically:**
+
+| Product | SKU | Price | Stock | Product ID |
+|---------|-----|-------|-------|-----------|
+| Clear First (Facewash) | ODD-01 | ₹499 | 100 | 112 |
+| Foam Rinse (Body Wash) | ODD-02 | ₹449 | 100 | 113 |
+| Dawn Shield (AM Cream) | ODD-03 | ₹399 | 100 | 114 |
+| Deep Dusk (PM Cream) | ODD-04 | ₹549 | 100 | 115 |
+| The Group Project (Bundle) | ODD-BUNDLE | ~~₹1,896~~ ₹1,499 | 50 | 116 |
+
+   - All products: published, stock managed, category "Skincare", product attributes (Size, Type, SPF where applicable)
+   - Bundle has regular price ₹1,896 and sale price ₹1,499 (save ₹397)
+   - Bundle stores child product IDs in custom meta `_oddcareco_bundle_product_ids`
+   - Descriptions use actual product ingredients from the brief
+
+### Plugin Structure
+
+```
+oddcareco-core/
+  oddcareco-core.php              — Main plugin (activation hook, autoloader, HPOS compat)
+  includes/
+    class-oddcareco-db.php        — 6 table schemas, dbDelta, cron scheduling, drop_tables
+    class-oddcareco-wishlist.php  — CRUD, AJAX toggle, My Account tab, share link
+    class-oddcareco-referrals.php — Code gen, cookie capture, reward coupons, expiry cron
+    class-oddcareco-analytics.php — Event recording, REST endpoint, WC hooks, aggregation cron
+    class-oddcareco-privacy.php   — GDPR data exporter + eraser
+  admin/
+    class-oddcareco-admin.php             — Menu registration, asset enqueue
+    class-oddcareco-admin-analytics.php   — Analytics dashboard controller
+    class-oddcareco-admin-wishlist.php    — Wishlist analytics controller
+    class-oddcareco-admin-referrals.php   — Referral management controller
+    views/
+      analytics-dashboard.php    — Funnel, top products, device breakdown
+      wishlist-dashboard.php     — Stats cards, most-wishlisted table
+      referrals-dashboard.php    — Stats, leaderboard, recent activity, settings form
+  assets/
+    admin.css    — Admin page styles (sage green accents, ODD brand)
+    admin.js     — Funnel bar animation
+    tracker.js   — Frontend analytics tracker (<2KB, sendBeacon)
+  uninstall.php  — Clean table drop + option/meta cleanup
+```
+
+### Files Changed
+
+| File | What changed |
+|---|---|
+| `wp-content/plugins/oddcareco-core/` (17 files) | New plugin — entire directory created |
+| `ecommerce.md` | Updated Next Steps, added session log |
+
+### Technical Notes
+
+- **Architecture: plugin, not child theme** — Data layer code lives in `oddcareco-core` plugin, separate from the presentation-layer child theme (`oddcareco-child`). Plugin survives theme changes. Child theme `functions.php` (215 lines) remains untouched.
+- **dbDelta() formatting** — Two spaces after `PRIMARY KEY`, each column on its own line, `KEY` not `INDEX`. Standard WordPress pattern from WooCommerce's own `class-wc-install.php`.
+- **Referral status enum** — Changed from MySQL `enum()` to `varchar(20)` for `dbDelta()` compatibility (WordPress `dbDelta` doesn't handle MySQL enum types reliably).
+- **WooCommerce HPOS compatibility** — Plugin declares compatibility with `custom_order_tables` via `FeaturesUtil::declare_compatibility()` in `before_woocommerce_init` hook.
+- **Product creation** — Used temporary PHP script (`odd-create-products.php`, deleted after use) with `WC_Product_Simple` class. First run hit "duplicated SKU" error because products were partially created without the duplicate guard. Fixed by adding a cleanup pass that deletes existing products by SKU before creating fresh ones.
+- **Bundle implementation** — `WC_Product_Simple` with regular_price=1896 and sale_price=1499 (not `WC_Product_Grouped`). Child product IDs stored in `_oddcareco_bundle_product_ids` postmeta for future stock-sync hook.
+- **Existing static pages retained** — The editorial HTML pages (IDs 31, 33, 35, 37, 39) remain as landing pages. The new WooCommerce products (IDs 112-116) are separate product posts with "Add to Cart" functionality.
