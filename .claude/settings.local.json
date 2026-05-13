@@ -86,7 +86,17 @@
       "Bash(mysql -u root -proot -h localhost local -e \"SELECT SUBSTRING\\(post_content, 1, 3000\\) FROM wp_posts WHERE ID = 26 AND post_status = 'publish'\")",
       "Bash(C:/Users/rohan/AppData/Roaming/Local/lightning-services/mariadb-10.6.23+0/bin/win32/bin/mysql.exe:*)",
       "Bash(mkdir -p \"C:/Users/rohan/.claude/skills/brainstorming\")",
-      "Bash(mv \"C:/Users/rohan/.claude/skills/brainstorming.md\" \"C:/Users/rohan/.claude/skills/brainstorming/SKILL.md\")"
+      "Bash(mv \"C:/Users/rohan/.claude/skills/brainstorming.md\" \"C:/Users/rohan/.claude/skills/brainstorming/SKILL.md\")",
+      "Bash(rm -rf wordpress/wp-content/uploads)",
+      "Bash(mkdir -p wordpress/wp-content/uploads)",
+      "Bash(cp -r \"/c/Users/rohan/Local Sites/odd-care-co/app/public/wp-content/uploads/2026\" wordpress/wp-content/uploads/)",
+      "Bash(cp \"/c/Users/rohan/Local Sites/odd-care-co/app/public/wp-content/uploads/odd-care-co-logo.jpeg\" wordpress/wp-content/uploads/)",
+      "Bash(cp \"/c/Users/rohan/Local Sites/odd-care-co/app/public/wp-content/uploads/woocommerce-placeholder.webp\" wordpress/wp-content/uploads/)",
+      "Bash(cp \"/c/Users/rohan/Local Sites/odd-care-co/app/public/wp-content/uploads/woocommerce-placeholder-\"*.webp wordpress/wp-content/uploads/)",
+      "Bash(mkdir -p wordpress/database/patches)",
+      "Bash(mv update_hero_svg.sql wordpress/database/patches/)",
+      "Bash(mv update_hero_text.sql wordpress/database/patches/)",
+      "Bash(chmod +x:*)"
     ]
   }
 }

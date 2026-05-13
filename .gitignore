@@ -6,3 +6,10 @@ playwright-report/
 test-results/
 playwright-results.json
 playwright-results.xml
+
+# WooCommerce logs (generated at runtime)
+wc-logs/
+
+# OS files
+.DS_Store
+Thumbs.db
