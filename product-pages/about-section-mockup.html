@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Section — 3 Design Approaches</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #F5F0EB; color: #1a1a1a; }
+
+.label {
+  text-align: center;
+  padding: 3rem 2rem 1.5rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #9CAF88;
+}
+.label span { display: block; font-size: 22px; letter-spacing: 0; text-transform: none; color: #1a1a1a; font-weight: 600; margin-top: 6px; }
+
+.divider {
+  max-width: 1200px;
+  margin: 0 auto;
+  border: none;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+/* ============ APPROACH A: Horizontal Icon Strip ============ */
+.approach-a {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+.approach-a .section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.approach-a .section-header h2 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #9CAF88;
+  margin-bottom: 8px;
+}
+.approach-a .section-header p {
+  font-size: 14px;
+  color: #888;
+}
+.approach-a .values-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+.approach-a .value-item {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border-right: 1px solid rgba(0,0,0,0.06);
+}
+.approach-a .value-item:nth-child(3),
+.approach-a .value-item:nth-child(6) { border-right: none; }
+.approach-a .value-item:nth-child(n+4) { border-top: 1px solid rgba(0,0,0,0.06); }
+.approach-a .value-icon {
+  width: 36px; height: 36px;
+  margin: 0 auto 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: #9CAF88;
+}
+.approach-a .value-icon svg { width: 24px; height: 24px; stroke: #9CAF88; fill: none; stroke-width: 1.5; }
+.approach-a .value-item h4 {
+  font-size: 12px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.06em; margin-bottom: 6px;
+}
+.approach-a .value-item p {
+  font-size: 12px; color: #888; line-height: 1.5;
+}
+
+/* ============ APPROACH B: Editorial Two-Column ============ */
+.approach-b {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+.approach-b .section-header {
+  text-align: left;
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+}
+.approach-b .section-header h2 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #9CAF88;
+}
+.approach-b .section-header p {
+  font-size: 13px;
+  color: #888;
+}
+.approach-b .values-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem 4rem;
+}
+.approach-b .value-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.approach-b .value-icon {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  color: #9CAF88;
+  margin-top: 2px;
+}
+.approach-b .value-icon svg { width: 20px; height: 20px; stroke: #9CAF88; fill: none; stroke-width: 1.5; }
+.approach-b .value-text h4 {
+  font-size: 13px; font-weight: 600; margin-bottom: 4px;
+}
+.approach-b .value-text p {
+  font-size: 12px; color: #888; line-height: 1.5;
+}
+
+/* ============ APPROACH C: Minimal Centered List ============ */
+.approach-c {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+.approach-c .section-header {
+  margin-bottom: 3rem;
+}
+.approach-c .section-header h2 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #9CAF88;
+  margin-bottom: 8px;
+}
+.approach-c .section-header p {
+  font-size: 14px;
+  color: #888;
+}
+.approach-c .values-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.approach-c .value-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.approach-c .value-item:last-child { border-bottom: none; }
+.approach-c .value-icon {
+  width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  color: #9CAF88;
+}
+.approach-c .value-icon svg { width: 18px; height: 18px; stroke: #9CAF88; fill: none; stroke-width: 1.5; }
+.approach-c .value-item h4 {
+  font-size: 13px; font-weight: 500;
+}
+.approach-c .value-sep {
+  color: #ccc; font-size: 11px;
+}
+.approach-c .value-item p {
+  font-size: 12px; color: #888;
+}
+</style>
+</head>
+<body>
+
+<!-- APPROACH A -->
+<div class="label">Approach A <span>3x2 Grid — Centered Icons, Subtle Dividers</span></div>
+<section class="approach-a">
+  <div class="section-header">
+    <h2>About Us</h2>
+    <p>What we believe in. Nothing more.</p>
+  </div>
+  <div class="values-row">
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg></div>
+      <h4>Clean & Safe</h4>
+      <p>No nasties. Just the good stuff.</p>
+    </div>
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <h4>Cruelty Free</h4>
+      <p>We love animals. They're not our testers.</p>
+    </div>
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <h4>Sustainable</h4>
+      <p>Better for you. Better for Earth.</p>
+    </div>
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+      <h4>Made in India</h4>
+      <p>Thoughtfully made. Proudly local.</p>
+    </div>
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg></div>
+      <h4>Dermatologist Tested</h4>
+      <p>Tested by experts. Not just influencers.</p>
+    </div>
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h4>pH Balanced</h4>
+      <p>Your skin's comfort zone. We stay in it.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- APPROACH B -->
+<div class="label">Approach B <span>Two-Column Editorial — Left-Aligned, Airy</span></div>
+<section class="approach-b">
+  <div class="section-header">
+    <h2>About Us</h2>
+    <p>What we believe in. Nothing more.</p>
+  </div>
+  <div class="values-grid">
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg></div>
+      <div class="value-text">
+        <h4>Clean & Safe</h4>
+        <p>No nasties. Just the good stuff.</p>
+      </div>
+    </div>
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="value-text">
+        <h4>Cruelty Free</h4>
+        <p>We love animals. They're not our testers.</p>
+      </div>
+    </div>
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="value-text">
+        <h4>Sustainable</h4>
+        <p>Better for you. Better for Earth.</p>
+      </div>
+    </div>
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+      <div class="value-text">
+        <h4>Made in India</h4>
+        <p>Thoughtfully made. Proudly local.</p>
+      </div>
+    </div>
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg></div>
+      <div class="value-text">
+        <h4>Dermatologist Tested</h4>
+        <p>Tested by experts. Not just influencers.</p>
+      </div>
+    </div>
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="value-text">
+        <h4>pH Balanced</h4>
+        <p>Your skin's comfort zone. We stay in it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- APPROACH C -->
+<div class="label">Approach C <span>Minimal Centered List — Ultra Clean</span></div>
+<section class="approach-c">
+  <div class="section-header">
+    <h2>About Us</h2>
+    <p>What we believe in. Nothing more.</p>
+  </div>
+  <div class="values-list">
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/></svg></div>
+      <h4>Clean & Safe</h4>
+      <span class="value-sep">/</span>
+      <p>No nasties. Just the good stuff.</p>
+    </div>
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <h4>Cruelty Free</h4>
+      <span class="value-sep">/</span>
+      <p>We love animals. They're not our testers.</p>
+    </div>
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <h4>Sustainable</h4>
+      <span class="value-sep">/</span>
+      <p>Better for you. Better for Earth.</p>
+    </div>
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+      <h4>Made in India</h4>
+      <span class="value-sep">/</span>
+      <p>Thoughtfully made. Proudly local.</p>
+    </div>
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg></div>
+      <h4>Dermatologist Tested</h4>
+      <span class="value-sep">/</span>
+      <p>Tested by experts. Not just influencers.</p>
+    </div>
+    <div class="value-item">
+      <div class="value-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h4>pH Balanced</h4>
+      <span class="value-sep">/</span>
+      <p>Your skin's comfort zone. We stay in it.</p>
+    </div>
+  </div>
+</section>
+
+<div style="height: 4rem;"></div>
+</body>
+</html>

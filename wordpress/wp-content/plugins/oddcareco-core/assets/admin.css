@@ -1,0 +1,219 @@
+/* ODD Care Co — Admin Dashboard Styles */
+
+.oddcareco-admin {
+    max-width: 1200px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+}
+
+.oddcareco-admin h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.oddcareco-admin h2 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 1rem;
+    letter-spacing: -0.01em;
+}
+
+/* Date range picker */
+.oddcareco-date-range {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+.oddcareco-date-range label {
+    font-size: 13px;
+    color: #555;
+}
+.oddcareco-date-range input[type="date"] {
+    padding: 6px 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+/* Cards */
+.oddcareco-card {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Stat cards */
+.oddcareco-stat-card {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+}
+.stat-number {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.02em;
+}
+.stat-label {
+    display: block;
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+}
+
+/* Grid layouts */
+.oddcareco-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.oddcareco-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.oddcareco-grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Tables */
+.oddcareco-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.oddcareco-table th {
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #888;
+    padding: 8px 12px;
+    border-bottom: 1px solid #e5e5e5;
+    font-weight: 500;
+}
+.oddcareco-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f5f5f5;
+    font-size: 14px;
+    color: #1a1a1a;
+}
+.oddcareco-table tr:hover td {
+    background: #fafaf9;
+}
+
+/* Funnel */
+.oddcareco-funnel {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.funnel-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+}
+.funnel-bar {
+    height: 32px;
+    background: #9CAF88;
+    border-radius: 6px;
+    min-width: 4px;
+    opacity: 0.7;
+    transition: width 0.3s ease;
+}
+.funnel-label {
+    font-size: 13px;
+    color: #555;
+    min-width: 120px;
+}
+.funnel-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+/* Device grid */
+.oddcareco-device-grid {
+    display: flex;
+    gap: 2rem;
+}
+.device-item {
+    text-align: center;
+}
+.device-type {
+    display: block;
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+.device-count {
+    display: block;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 4px;
+}
+
+/* Badges */
+.oddcareco-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.badge-pending   { background: #FFF3CD; color: #856404; }
+.badge-completed { background: #D4EDDA; color: #155724; }
+.badge-rewarded  { background: #E8F5E9; color: #2E7D32; }
+.badge-expired   { background: #F5F5F5; color: #888; }
+
+/* Empty state */
+.oddcareco-empty {
+    color: #999;
+    font-size: 14px;
+    font-style: italic;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+/* Form styling */
+.oddcareco-admin .form-table th {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1a1a1a;
+}
+.oddcareco-admin .form-table input,
+.oddcareco-admin .form-table select {
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+    .oddcareco-grid-2,
+    .oddcareco-grid-3,
+    .oddcareco-grid-4 {
+        grid-template-columns: 1fr;
+    }
+}

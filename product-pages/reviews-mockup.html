@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews Section Mockup — Multi-Lane Ticker</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Caveat:wght@400;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #f9f9f9;
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+            background-size: 28px 28px;
+            color: #000;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Section header */
+        .reviews-section {
+            padding: 4rem 0;
+            width: 100%;
+            position: relative;
+        }
+
+        .section-eyebrow {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-eyebrow .number {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: #7a8a6e;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-eyebrow h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #000;
+        }
+
+        .section-eyebrow .accent {
+            font-family: 'Caveat', cursive;
+            color: #7a8a6e;
+            font-size: 1.4rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Ticker lanes */
+        .ticker-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 2rem 0;
+        }
+
+        .ticker-lane {
+            display: flex;
+            width: max-content;
+            gap: 1rem;
+        }
+
+        .ticker-lane.left {
+            animation: scrollLeft 40s linear infinite;
+        }
+
+        .ticker-lane.right {
+            animation: scrollRight 55s linear infinite;
+        }
+
+        .ticker-lane.left-slow {
+            animation: scrollLeft 50s linear infinite;
+        }
+
+        /* Pause on hover */
+        .ticker-lane:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes scrollRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Review cards */
+        .review-card {
+            flex-shrink: 0;
+            width: 340px;
+            padding: 1.5rem;
+            background: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 0;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Grid background pattern (matches site) */
+        .review-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
+        }
+
+        .review-card .stars {
+            color: #7a8a6e;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.75rem;
+        }
+
+        .review-card .quote {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 1.25rem;
+        }
+
+        .review-card .author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .review-card .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #7a8a6e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .review-card .author-info .name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .review-card .author-info .meta {
+            font-size: 0.7rem;
+            color: #888;
+            margin-top: 2px;
+        }
+
+        .review-card .tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 0.6rem;
+            padding: 3px 8px;
+            background: rgba(122, 138, 110, 0.15);
+            color: #7a8a6e;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Fade edges */
+        .ticker-wrapper {
+            position: relative;
+        }
+
+        .ticker-wrapper::before,
+        .ticker-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 120px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .ticker-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, #f9f9f9, transparent);
+        }
+
+        .ticker-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, #f9f9f9, transparent);
+        }
+
+        /* Info panel */
+        .info-panel {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .info-panel h3 {
+            color: #7a8a6e;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .info-panel ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .info-panel li {
+            background: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 0;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body>
+
+<div class="reviews-section">
+    <div class="section-eyebrow">
+        <div class="number">05 — What They Say</div>
+        <h2>Real People. Real Routines.</h2>
+        <div class="accent">no paid actors, we promise</div>
+    </div>
+
+    <div class="ticker-wrapper">
+        <div class="ticker-container">
+            <!-- Lane 1: scrolls left -->
+            <div class="ticker-lane left" id="lane1"></div>
+            <!-- Lane 2: scrolls right -->
+            <div class="ticker-lane right" id="lane2"></div>
+            <!-- Lane 3: scrolls left (slower) -->
+            <div class="ticker-lane left-slow" id="lane3"></div>
+        </div>
+    </div>
+</div>
+
+<div class="info-panel">
+    <h3>Mockup Features</h3>
+    <ul>
+        <li>3 lanes, alternating directions</li>
+        <li>Different speeds per lane</li>
+        <li>Pause on hover</li>
+        <li>Infinite loop (duplicated cards)</li>
+        <li>Fade edges</li>
+        <li>Hover scale + green border</li>
+        <li>Grid pattern overlay on cards</li>
+        <li>Matches ODD bento design language</li>
+    </ul>
+</div>
+
+<script>
+    const reviews = [
+        { name: "Ananya", age: 28, skin: "Combination Skin", initial: "A", quote: "My skin actually feels balanced for the first time. Morning routine takes literally 2 minutes.", tag: "verified" },
+        { name: "Rohan", age: 31, skin: "Oily Skin", initial: "R", quote: "Finally, something that doesn't make my face feel like a frying pan by noon. Simple and it works.", tag: "verified" },
+        { name: "Mehak", age: 26, skin: "Dry Skin", initial: "M", quote: "The PM cream is my holy grail. Wake up with skin that actually feels hydrated, not greasy.", tag: "verified" },
+        { name: "Priya", age: 24, skin: "Sensitive Skin", initial: "P", quote: "No fragrance, no drama. My skin stopped freaking out after I switched to this.", tag: "3 months" },
+        { name: "Arjun", age: 29, skin: "Normal Skin", initial: "A", quote: "I never had a skincare routine before. This made it stupidly easy to start.", tag: "new user" },
+        { name: "Kavya", age: 33, skin: "Combination Skin", initial: "K", quote: "The facewash is incredible. Doesn't strip my skin but actually cleans it properly.", tag: "verified" },
+        { name: "Vikram", age: 27, skin: "Oily Skin", initial: "V", quote: "3.5 minutes. That's it. No 10-step routine nonsense. My skin has never looked better.", tag: "6 months" },
+        { name: "Sneha", age: 30, skin: "Dry Skin", initial: "S", quote: "I was skeptical about the 'one dose daily' thing. Turns out less really is more.", tag: "verified" },
+        { name: "Aditya", age: 25, skin: "Acne-Prone", initial: "A", quote: "Clean ingredients, no BS marketing. Exactly what my skin needed.", tag: "new user" },
+        { name: "Neha", age: 34, skin: "Mature Skin", initial: "N", quote: "The AM cream under makeup is *chef's kiss*. Lightweight but does the job.", tag: "1 year" },
+        { name: "Rahul", age: 22, skin: "Oily Skin", initial: "R", quote: "Body wash that doesn't leave residue. Didn't know that was possible until ODD.", tag: "verified" },
+        { name: "Isha", age: 28, skin: "Sensitive Skin", initial: "I", quote: "My dermatologist actually approved of the ingredients list. That says everything.", tag: "verified" },
+    ];
+
+    function createCard(review) {
+        return `
+            <div class="review-card">
+                <div class="tag">${review.tag}</div>
+                <div class="stars">★★★★★</div>
+                <div class="quote">"${review.quote}"</div>
+                <div class="author">
+                    <div class="avatar">${review.initial}</div>
+                    <div class="author-info">
+                        <div class="name">${review.name}, ${review.age}</div>
+                        <div class="meta">${review.skin}</div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function populateLane(laneId, startIndex, count) {
+        const lane = document.getElementById(laneId);
+        const laneReviews = [];
+        for (let i = 0; i < count; i++) {
+            laneReviews.push(reviews[(startIndex + i) % reviews.length]);
+        }
+        // Duplicate for seamless loop
+        const cards = laneReviews.map(createCard).join('');
+        lane.innerHTML = cards + cards;
+    }
+
+    populateLane('lane1', 0, 5);
+    populateLane('lane2', 4, 5);
+    populateLane('lane3', 8, 4);
+</script>
+
+</body>
+</html>

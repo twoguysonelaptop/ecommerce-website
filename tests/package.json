@@ -1,0 +1,23 @@
+{
+  "name": "oddcareco-e2e-tests",
+  "private": true,
+  "scripts": {
+    "test": "npx playwright test --config=playwright.config.ts",
+    "test:chromium": "npx playwright test --config=playwright.config.ts --project=chromium",
+    "test:firefox": "npx playwright test --config=playwright.config.ts --project=firefox",
+    "test:mobile": "npx playwright test --config=playwright.config.ts --project=mobile-chrome",
+    "test:auth": "npx playwright test --config=playwright.config.ts e2e/auth/",
+    "test:homepage": "npx playwright test --config=playwright.config.ts e2e/features/homepage.spec.ts",
+    "test:products": "npx playwright test --config=playwright.config.ts e2e/features/products.spec.ts",
+    "test:cart": "npx playwright test --config=playwright.config.ts e2e/features/cart.spec.ts",
+    "test:checkout": "npx playwright test --config=playwright.config.ts e2e/features/checkout.spec.ts",
+    "test:nav": "npx playwright test --config=playwright.config.ts e2e/navigation/",
+    "test:headed": "npx playwright test --config=playwright.config.ts --headed",
+    "test:debug": "npx playwright test --config=playwright.config.ts --debug",
+    "report": "npx playwright show-report playwright-report",
+    "install-browsers": "npx playwright install --with-deps"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0"
+  }
+}

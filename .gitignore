@@ -1,0 +1,8 @@
+# Dependencies
+node_modules/
+
+# Test artifacts (regenerated on test runs)
+playwright-report/
+test-results/
+playwright-results.json
+playwright-results.xml

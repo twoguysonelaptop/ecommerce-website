@@ -713,3 +713,302 @@ oddcareco-core/
 - **Product creation** — Used temporary PHP script (`odd-create-products.php`, deleted after use) with `WC_Product_Simple` class. First run hit "duplicated SKU" error because products were partially created without the duplicate guard. Fixed by adding a cleanup pass that deletes existing products by SKU before creating fresh ones.
 - **Bundle implementation** — `WC_Product_Simple` with regular_price=1896 and sale_price=1499 (not `WC_Product_Grouped`). Child product IDs stored in `_oddcareco_bundle_product_ids` postmeta for future stock-sync hook.
 - **Existing static pages retained** — The editorial HTML pages (IDs 31, 33, 35, 37, 39) remain as landing pages. The new WooCommerce products (IDs 112-116) are separate product posts with "Add to Cart" functionality.
+
+---
+
+## Session Log — 2026-05-01: Homepage CSS Restoration, Product Section Fixes & 3D Mascot Pipeline
+
+### Major Problems Solved
+
+#### 1. Homepage CSS Completely Broken (wpautop corruption)
+
+**Problem:** The entire homepage structure and architecture was broken — raw CSS was rendering as text, layout was destroyed, all styling gone.
+
+**Root Cause:** WordPress's `wpautop()` filter. A previous session used `content.rendered` (from the REST API without `?context=edit`) to read the page content, then saved it back. The `content.rendered` version has already been processed by `wpautop()`, which injects `<p></p>` tags into `<style>` blocks. Saving this processed content back as raw content meant 70+ `<p>` tags were embedded inside CSS rules, breaking every single style declaration.
+
+**Fix:** Analyzed all WordPress revisions (212-226) to find revision 222 as the last clean version with all features intact. Restored from that revision. All subsequent edits used `content.raw` (via `?context=edit` parameter) to avoid `wpautop()` processing.
+
+**Key Learning:** When using the WordPress REST API, ALWAYS read with `?context=edit` to get `content.raw`. Never read `content.rendered` and write it back — `wpautop()` will corrupt any inline `<style>` blocks.
+
+#### 2. Website Reverted to Old Version After Restoration
+
+**Problem:** After fixing the CSS corruption, the site looked like an older version — missing the grid structure background, missing the logo in the hero section grid, and other recent changes.
+
+**Root Cause:** The initial restoration went too far back — to revision 212, which predated several feature additions. Revisions 213-222 contained incremental improvements (hero merge, watermark, grid structure, etc.) that were lost.
+
+**Fix:** Mapped the full revision history (212-226), identified that revision 223 was where corruption began (first `<p>` tags appeared inside `<style>` blocks), and restored to revision 222 instead — the last clean revision that contained all accumulated changes.
+
+#### 3. Black Backgrounds in Product Display Section
+
+**Problem:** The product section had unwanted black color backgrounds on the section label card and combo/bundle bar.
+
+**Root Cause:** The `.odd-grid` container has `background: var(--black)` (which creates 2px black gap lines between cards). Cards that used `background: var(--beige)` were rendering as transparent because `--beige` was never defined as a CSS variable in the page's `:root` or `.wf {}` block — it was stripped during the WordPress push process.
+
+**Fix:** Replaced all `var(--beige)` references with the hardcoded hex value `#F5F0EB`. Added explicit `style="background-color: #F5F0EB;"` inline attributes to `.card-section-label` and `.card-combo` HTML elements. Inline styles were used instead of CSS rules because WordPress strips CSS rules with compound selectors.
+
+#### 4. Harsh Borders and Misaligned Products
+
+**Problem:** The borders between product cards looked too harsh/industrial, and products were not aligned symmetrically in the product display section.
+
+**Root Cause:** The `.odd-grid` 2px gap with black background created stark black divider lines. Product card image areas had `min-height: 180px` causing inconsistent heights across cards.
+
+**Fix:** Added soft outline borders (`outline: 1px solid rgba(0,0,0,0.1); outline-offset: -1px`) to product cards and section labels. Changed `.product-card-img` from `min-height: 180px` to `height: 220px; display: flex; align-items: center; justify-content: center;` for consistent image area heights. Added flex layout to `.product-card-body` for consistent text alignment.
+
+### 3D Mascot Pipeline (Created then Partially Removed)
+
+Built a 3-step automated pipeline to generate an animated 3D mascot from a reference image:
+
+#### Scripts Created
+
+| File | Purpose | Status |
+|------|---------|--------|
+| `3d-mascot-pipeline/generate_mesh.py` | Step 1: Sends mascot.jpeg to Tripo3D or CSM API, downloads `mascot_raw.glb` | Kept |
+| `3d-mascot-pipeline/process_mascot.py` | Step 2: Blender Python script — imports GLB, creates 9-bone humanoid armature, parents mesh with auto-weights, keyframes 60-frame waving animation, exports `mascot_waving.glb` | Kept |
+| `3d-mascot-pipeline/run_pipeline.py` | Step 3: Orchestrator — chains Steps 1 & 2 with preflight checks (Blender detection, API key validation, `--skip-generate` flag) | Kept |
+| `3d-mascot-pipeline/create_mascot_blender.py` | Alternative: Procedural Blender geometry generation (sphere head, cylinder body, capsule limbs, visor, "ODD" text, PBR materials, 3 NLA animations) | **Removed** — output quality was poor |
+| `3d-mascot-pipeline/mascot_animated.glb` | Generated 3D model (282KB, 3290 faces, 11 bones, 3 animation clips) | **Removed** — looked choppy and untextured |
+| `3d-mascot-pipeline/test_viewer.html` | Three.js GLB viewer with orbit controls and animation buttons | **Removed** |
+
+#### Pipeline Problems Encountered
+
+**Problem 1: Tripo3D API credits exhausted**
+- **Error:** `403 Forbidden — "You don't have enough credit to create this task"`
+- **Root Cause:** Free API credits on the Tripo3D account were used up. The image upload succeeded but task creation was blocked.
+- **Resolution:** Pipeline works correctly — just needs credits or a different backend. `--skip-generate` flag allows bypassing Step 1 if a GLB is obtained manually.
+
+**Problem 2: Unicode encoding error on Windows**
+- **Error:** `UnicodeEncodeError: 'charmap' codec can't encode characters` when printing box-drawing characters (`╔═╗║╚╝`) and checkmarks (`✓`)
+- **Root Cause:** Windows terminal uses cp1252 encoding which doesn't support Unicode box-drawing characters.
+- **Fix:** Replaced all Unicode decorative characters with ASCII equivalents (`═` → `=`, `╔╗╚╝║` → removed, `✓` → `[OK]`, `—` → `--`).
+
+**Problem 3: Blender 5.0 Action API change**
+- **Error:** `AttributeError: 'Action' object has no attribute 'fcurves'`
+- **Root Cause:** Blender 5.0 restructured the Action type to use a layered system (layers > strips > channelbags > fcurves) instead of direct `action.fcurves` access.
+- **Fix:** Created `get_action_fcurves()` helper that tries the new layered API first (`action.layers[].strips[].channelbag(slot).fcurves`), falling back to `action.fcurves` for older Blender versions.
+
+**Problem 4: Procedural model quality too low**
+- **Outcome:** The Blender procedural approach produced a working 282KB GLB with geometry, materials, rig, and 3 animations — but the visual quality was choppy and untextured. Primitive geometry (spheres + cylinders) can't match the smooth, organic feel of the reference mascot.
+- **Resolution:** Removed all generated files. A proper 3D model requires either: (a) a paid AI image-to-3D service with texturing, (b) manual sculpting by a 3D artist, or (c) the existing procedural Three.js mascot in `odd-mascot.js` which uses cel-shading to mask the geometric simplicity.
+
+### Existing Procedural Mascot Discovery
+
+During investigation, discovered that `product-pages/odd-mascot.js` (627 lines) already contains a fully functional procedural Three.js mascot with:
+- Cel-shaded MeshToonMaterial rendering (hides geometric simplicity)
+- Animations: wave, point, pop-up entrance, idle bob, random blink
+- Mobile-optimized (reduced geometry segments, visibility observer)
+- Already integrated into `product-pages/homepage.html`
+- ~20KB JavaScript, zero external file dependencies
+
+This procedural mascot is a viable alternative to a GLB model for website use.
+
+### Files Changed
+
+| File | What changed |
+|---|---|
+| WordPress page ID 26 | Restored from revision 222, CSS variable fixes, inline background colors, product alignment CSS |
+| `3d-mascot-pipeline/generate_mesh.py` | Created (Tripo3D/CSM API mesh generation), fixed Unicode characters |
+| `3d-mascot-pipeline/process_mascot.py` | Created (Blender rig + animation), fixed Unicode characters |
+| `3d-mascot-pipeline/run_pipeline.py` | Created (pipeline orchestrator), fixed Unicode characters and encoding |
+
+### Technical Notes
+
+- **WordPress revision analysis**: Used `GET /wp-json/wp/v2/pages/26/revisions` to list all revisions, then checked each for `<p>` tag contamination inside `<style>` blocks. Revision 223 was the first corrupted one (introduced by saving `content.rendered` back as raw).
+- **Inline styles vs CSS rules in WordPress**: WordPress strips CSS rules that use compound selectors (e.g., `.card-combo.span-4c`) from page content. Inline `style=""` attributes on HTML elements are the reliable workaround.
+- **Blender 5.0 headless mode**: `blender.exe -b -P script.py` works on Windows. The `-b` flag runs without GUI. Blender 5.0 deprecates `Material.use_nodes` (scheduled for removal in 6.0) but it still functions.
+- **NLA tracks for multi-animation GLB export**: Each animation must be a separate Action pushed to its own NLA track (muted) with the active action set to None. The glTF exporter then writes each track as a separate AnimationClip. Set `export_nla_strips=True` in export settings.
+
+---
+
+## Session Log — 2026-05-03: Product Card Hover Fix, Colored Circles & Section Label Restyle
+
+### Changes Made
+
+#### 1. Removed Black Hover Effect on Product Cards
+
+**Problem:** Hovering over any product card in the product display section caused a solid black background flash.
+
+**Root Cause:** The live homepage serves content from `homepage-wireframe.html` (NOT `homepage.html`). The wireframe's inline CSS had an explicit `background: var(--black)` rule on `.wf .product-card:hover` (lines 501-507). Previous attempts failed because they targeted the wrong file (`homepage.html`) which uses completely different class names (`.sys-card` vs `.product-card`).
+
+**Fix:** Changed `.wf .product-card:hover` background from `var(--black)` to `#fff` in both the wireframe inline CSS and the child theme CSS (with `!important` to override inline styles). Also reset hover colors on `.card-tag`, `.product-price`, `.product-card-desc`, and `.product-card-body` border.
+
+#### 2. Added Colored Circles Behind Product Bottles
+
+Added decorative circles behind each product bottle using `::before` pseudo-elements on `.product-card-img`, with colors matching each product's theme:
+
+| Product | Bottle class | Circle color | Size |
+|---------|-------------|-------------|------|
+| Clear First (Facewash) | `.bottle-tube` | `#d5d5d5` (light gray) | 140px |
+| Foam Rinse (Body Wash) | `.bottle-foamer` | `#8a8a8a` (medium gray) | 165px |
+| Dawn Shield (AM Cream) | `.bottle-airless-am` | `#d4b078` (golden tan) | 140px |
+| Deep Dusk (PM Cream) | `.bottle-airless-pm` | `#1a1a1a` (black) | 140px |
+
+Used CSS `:has()` selector to target circles per bottle type. Circles are absolutely positioned with `top: 50%; left: 50%; transform: translate(-50%, -50%)`.
+
+#### 3. Centered Bottles and Circles in Card Boxes
+
+Changed `.card-bottle-wrap` from `align-items: flex-end` (bottles at bottom) to `align-items: center` so bottles sit in the vertical center of their image area, aligned with the circles behind them.
+
+#### 4. Restyled "THE SYSTEM" Section Label
+
+- Changed background from beige to white (`#fff`)
+- Changed heading text to Caveat (handwritten) font at 2.5rem bold
+- Added organic hand-drawn SVG underlines on "THE SYSTEM" and "That's it." text using `::after` pseudo-elements with dual-path SVG data URIs (two overlapping wavy cubic bezier paths for brush-stroke effect)
+- Positioned mascot image in bottom-right corner of the card
+- Used JavaScript DOM manipulation in `functions.php` to wrap text in `.hand-underline` spans at runtime (avoids needing database access to modify WordPress page HTML)
+
+### Files Changed
+
+| File | What changed |
+|---|---|
+| `product-pages/homepage-wireframe.html` | Removed black hover CSS, added circle CSS, centered bottles, added `.hand-underline` spans to section label HTML |
+| `wp-content/themes/oddcareco-child/style.css` | Added `!important` overrides for hover fix, circles, bottle centering, section label restyle (white bg, Caveat font, SVG underlines, mascot positioning) |
+| `wp-content/themes/oddcareco-child/functions.php` | Added JS in homepage `wp_footer` hook to inject `.hand-underline` spans on `#wf-products` section label text |
+| `ecommerce.md` | Added this session log |
+
+### Technical Notes
+
+- **Critical discovery: live page uses `homepage-wireframe.html`** — The live WordPress page (ID 26) serves content from `homepage-wireframe.html`, which uses `.wf .product-card` / `.odd-card` / `.odd-grid` classes. `homepage.html` uses completely different classes (`.sys-card`, `.system-grid`) and is NOT the live page. All homepage CSS changes must target the wireframe's class names.
+- **Child theme CSS `!important` strategy** — The page's inline `<style>` loads in `<body>` after child theme CSS in `<head>`. Since inline CSS doesn't use `!important`, child theme `!important` declarations win the specificity battle.
+- **SVG underline technique** — Two overlapping `<path>` elements in an SVG data URI: a primary stroke (2.8px width) and a secondary stroke (1.5px, 40% opacity) offset slightly, creating an organic hand-drawn appearance. The SVG uses `preserveAspectRatio="none"` to stretch to any text width.
+- **DOM manipulation for WordPress content** — Since modifying WordPress page HTML requires database access, JavaScript in `functions.php`'s `wp_footer` hook wraps target text in `<span class="hand-underline">` at runtime. This approach works without touching the database and survives content edits.
+
+---
+
+## Session Log — 2026-05-04: Routine Section Merge & Reviews Ticker Redesign
+
+### Changes Made
+
+#### 1. Routine Section — Merged Headline + Product Timeline Into Single Row
+
+**Problem:** The "3.5 Minutes Total" headline (Card I) and the 4 product timeline steps (Card J) were in separate bento grid cards, taking up two rows.
+
+**Fix:** Merged both cards into a single `span-4c` card with internal flexbox layout (`.routine-combined`). The headline sits on the left (`flex: 0 0 220px`) and the 4 product steps fill the right side (`flex: 1`). Section 04 ("We don't do shortcuts") was pushed down below. Used ASCII comment markers (`<!-- Card I:`, `<!-- Card K:`) as boundaries for string replacement — unicode box-drawing characters in comments are unreliable for JavaScript string matching in the WordPress editor.
+
+#### 2. Reviews Section — Replaced Static Cards With Multi-Lane Auto-Scrolling Ticker
+
+**Problem:** The homepage had 3 static review cards (Ananya, Rohan, Mehak) inside the bento grid. The user wanted a unique, dynamic, playful display matching the site's design language.
+
+**Design process:** Used the brainstorming skill to explore options. User chose: 10+ reviews, auto-rotating, playful & dynamic, full-width breakout from the grid. Three approaches proposed (multi-lane ticker, floating card cloud, 3D carousel drum). User selected multi-lane ticker. Visual mockup built at `product-pages/reviews-mockup.html` and approved before implementation.
+
+**Implementation:**
+- Split the single `.odd-grid` into two grids at the review boundary
+- Removed the 3 static `.card-review` cards (grid indices 7, 8, 9)
+- Inserted a full-width `.wf-reviews-ticker` section between the two grids
+- Section contains 3 horizontal lanes of review cards scrolling in alternating directions:
+  - Lane 1: scrolls left at 40s
+  - Lane 2: scrolls right at 55s (slower, per user request)
+  - Lane 3: scrolls left at 50s
+- 12 reviews (expanded from 3), with a realistic mix of 4-star and 5-star ratings
+- Cards duplicate for seamless infinite loop
+- Pause on hover per lane
+- Fade-to-background edges on both sides (120px gradient)
+- Section eyebrow: "05 — What They Say" / "Real People. Real Routines." / "no paid actors, we promise" (Caveat handwriting font)
+
+**Card styling (matching homepage theme):**
+- White background, square corners (no border-radius), 1px border `rgba(0,0,0,0.08)`
+- Grid pattern overlay (28px, 3% opacity — matches page background grid)
+- Sage green avatars, star ratings, and tags
+- Tags per review: VERIFIED, NEW USER, 3 MONTHS, 6 MONTHS, 1 YEAR
+- Hover: scale 1.03 + soft box-shadow
+- 4-star reviews use outline star (☆) for empty position
+
+**CSS scoped under `.wf`** to avoid conflicts. Uses `@keyframes wfScrollLeft` / `wfScrollRight` (prefixed to avoid collision with any existing animations). JavaScript populates lanes from a reviews data array using `innerHTML` duplication.
+
+#### 3. Reviews Data (12 reviews)
+
+| Name | Age | Skin Type | Stars | Tag |
+|------|-----|-----------|-------|-----|
+| Ananya | 28 | Combination | 5 | verified |
+| Rohan | 31 | Oily | 5 | verified |
+| Mehak | 26 | Dry | 4 | verified |
+| Priya | 24 | Sensitive | 5 | 3 months |
+| Arjun | 29 | Normal | 4 | new user |
+| Kavya | 33 | Combination | 5 | verified |
+| Vikram | 27 | Oily | 5 | 6 months |
+| Sneha | 30 | Dry | 4 | verified |
+| Aditya | 25 | Acne-Prone | 5 | new user |
+| Neha | 34 | Mature | 4 | 1 year |
+| Rahul | 22 | Oily | 5 | verified |
+| Isha | 28 | Sensitive | 5 | verified |
+
+### Files Changed
+
+| File | What changed |
+|---|---|
+| WordPress page ID 26 | Merged routine cards, replaced 3 static review cards with full-width ticker section, split `.odd-grid` into two |
+| `product-pages/reviews-mockup.html` | Created — standalone mockup of the ticker design (used for visual approval before implementation) |
+
+### Technical Notes
+
+- **Grid split strategy:** The single `.odd-grid` was split at the review boundary. `</div><!-- /.odd-grid part 1 -->` closes the first grid after `.card-rules`, the ticker section sits between, then `<div class="odd-grid">` reopens for remaining cards (mascot, mission, footer). The original `</div><!-- /.odd-grid -->` closing tag now closes the second grid.
+- **WordPress code editor injection:** Content modified via `nativeInputValueSetter` on the code editor textarea + dispatching `input` event to trigger Gutenberg state updates. This is the reliable pattern for programmatic WordPress content edits.
+- **Unicode in WordPress JS:** Star characters (★☆) are rendered via `\u2605` / `\u2606` in the inline `<script>`. The createCard function builds star strings dynamically based on each review's `stars` field.
+- **Comment markers for boundaries:** Used `<!-- Card N: Review 1 -->` and `<!-- Card Q: Mascot Feature -->` as replacement boundaries — ASCII-only comments are reliable for JavaScript `indexOf()` matching in the WordPress editor.
+
+---
+
+## Session Log — 2026-05-04: About Us Section Redesign & Footer Beige Theme
+
+All changes applied to live Local by Flywheel WordPress site. Files modified: `oddcareco-child/style.css`, `product-pages/homepage-wireframe.html`, WordPress page ID 26 (homepage content via REST API).
+
+### Changes Made
+
+#### 1. About Us Section — Complete Redesign
+
+**Problem:** The About section had 4 misaligned value boxes inside the `.odd-grid` (black background). The black grid background was overlapping into the section, making it look broken.
+
+**Fix:** Replaced the 4 boxed value cards with a clean, box-free standalone section outside the grid.
+
+- Removed Cards R, S, T, U (Clean & Safe, Cruelty Free, Sustainable, Made in India) from inside `.odd-grid`
+- Created new `.wf-about` section with 6 values in a 3x2 centered grid layout
+- Added 2 new values: **Dermatologist Tested** ("Tested by experts. Not just influencers.") and **pH Balanced** ("Your skin's comfort zone. We stay in it.")
+- Section heading: "ABOUT US" in sage green small caps + subtitle "What we believe in. Nothing more."
+- Sage green SVG icons for each value, centered with subtle divider lines between cells
+- Beige background (#F5F0EB), full-width (no max-width constraint), responsive single-column on mobile
+
+#### 2. Removed Mascot Section
+
+- The mascot card ("Built different. On purpose.") was the only card left in the second `.odd-grid` after the value cards were removed
+- This caused a large black rectangle (grid background showing through empty cells)
+- Removed the second `.odd-grid` wrapper entirely and the mascot card with it
+- Flow is now: Reviews Ticker → About Us → Footer
+
+#### 3. Reviews-to-About Transition
+
+**Problem:** Hard visual cut between the white reviews section and beige About section.
+
+**Fix:**
+- Added `::after` gradient on `.wf-reviews-ticker` that fades from transparent to beige (#F5F0EB), 80px height
+- Made `.wf-about` full-width (`max-width: none`) so the beige background covers edge-to-edge, hiding the grid pattern on the sides
+
+#### 4. Footer Redesign — Beige Theme with Watermark
+
+**Problem:** The dark black footer (#000) clashed with the site's light, minimalist beige theme.
+
+**Fix:** Complete color inversion from dark-on-light to light-on-dark:
+
+- **Background:** Changed from black (#000) to beige (#F5F0EB) with dark grid overlay (`rgba(0,0,0,0.03)`)
+- **"ODD CARE CO." watermark:** Added `::before` pseudo-element matching the hero section's watermark — `font-size: 11.4vw`, `font-weight: 900`, `color: rgba(0,0,0,0.06)`, centered absolute position
+- **Newsletter:** Dark border input, dark (#1a1a1a) subscribe button with white text
+- **Column headings:** Bold black (#1a1a1a), `font-weight: 800`
+- **Links:** Dark gray (#333), hover → black (#000)
+- **Trust badges:** Dark gray (#333) text, #555 icon strokes
+- **Copyright/bottom bar:** #666 text, social icons #555 → hover #000
+- **Borders:** `rgba(0,0,0,0.08)` (dark subtle lines instead of white)
+- **Structure unchanged:** Newsletter CTA, 4-column links (Shop, Company, Help, badges), bottom bar with socials
+
+### Files Changed
+
+| File | What changed |
+|---|---|
+| `oddcareco-child/style.css` | About section CSS (~80 lines), reviews-to-about gradient transition, mascot standalone styles, footer beige redesign with watermark (~90 lines) |
+| `product-pages/homepage-wireframe.html` | Replaced 4 value cards with standalone `.wf-about` section (6 values, 3x2 grid) |
+| WordPress page ID 26 | Removed value cards (ROW 8), removed second `.odd-grid` + mascot card, inserted About Us section HTML |
+
+### Technical Notes
+
+- **About section outside grid:** The `.wf-about` section sits between the grid close (`</div><!-- /.odd-grid -->`) and the footer (`<footer class="wf-footer">`). It's a standalone section, not inside any grid container.
+- **Full-width beige coverage:** `.wf-about` uses `width: 100%; max-width: none` to ensure the beige background covers the full viewport width, hiding the parent `.wf` container's grid-pattern background on the edges.
+- **Footer watermark source:** The hero section's "ODD CARE CO." watermark is defined in inline CSS on the page as `.card-hero-merged::before` with `content: "ODD  CARE  CO."`, `font-size: 11.4vw`, `color: rgba(0,0,0,0.06)`. The footer uses the same values on `.wf .wf-footer::before`.
+- **Footer z-index stacking:** `.wf-footer::before` (watermark) has `z-index: 0`, `.footer-inner` has `z-index: 1` — ensures text content sits above the watermark.
+- **WordPress REST API updates:** Page content modified via `wp.apiFetch()` from the admin editor tab, using `?context=edit` to read `content.raw` (avoiding `wpautop` corruption).

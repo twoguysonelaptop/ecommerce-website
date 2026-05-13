@@ -4,198 +4,743 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ODD Care Co. — Skincare for people who have better things to do</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   color: #1a1a1a;
   background: #fff;
 }
 
 :root {
-  --sage: #7a9e7e;
+  --sage: #9CAF88;
+  --sage-dark: #7a9e7e;
   --sage-dim: #4e7053;
-  --beige: #f5f0e8;
+  --beige: #F5F0EB;
   --beige-dark: #ece6da;
-  --dark: #111111;
+  --dark: #0d0d0d;
+  --near-dark: #1a1a1a;
   --border: #e5dfd6;
-  --muted: #5e5e5e;
-  --faint: #9e9e9e;
+  --muted: #555555;
+  --faint: #999999;
 }
 
-/* ── TICKER ─────────────────────────────── */
-.ticker {
-  background: var(--dark);
-  padding: 9px 0;
-  overflow: hidden;
-  border-bottom: 1px solid #1f1f1f;
-}
-.ticker-track {
-  display: flex;
-  gap: 0;
-  white-space: nowrap;
-  animation: tick 28s linear infinite;
-  width: max-content;
-}
-.ticker-item {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: #3a3a3a;
-  padding: 0 1.75rem;
-}
-.ticker-item.hi { color: var(--sage); }
-.ticker-sep { color: #2a2a2a; padding: 0; }
-@keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
 
-/* ── HEADER / NAV ───────────────────────── */
+/* Hidden SVG filters */
+.svg-filters { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ── NAVIGATION ──────────────────────────── */
 .site-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.9rem 2rem;
+  padding: 0 2.5rem;
+  height: 64px;
   background: #fff;
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 100;
 }
+
 .site-logo {
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--dark);
-  text-decoration: none;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  flex-shrink: 0;
 }
-.site-logo span { font-weight: 400; color: var(--muted); }
-.header-icons {
+.site-logo-main {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--near-dark);
+  text-transform: uppercase;
+  line-height: 1;
+}
+.site-logo-sub {
+  font-size: 9px;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+.main-nav a {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+.main-nav a:hover { color: var(--near-dark); }
+
+.header-right {
   display: flex;
   align-items: center;
   gap: 1.25rem;
+  flex-shrink: 0;
 }
-.header-icons a {
-  color: var(--dark);
-  transition: color 0.2s;
+
+.header-icons {
   display: flex;
   align-items: center;
+  gap: 1rem;
+}
+.header-icons a {
+  color: var(--near-dark);
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
 }
 .header-icons a:hover { color: var(--sage-dim); }
-.header-icons svg { width: 22px; height: 22px; }
+.header-icons svg { width: 20px; height: 20px; }
 
-/* ── HERO ────────────────────────────────── */
-.hero {
-  padding: 7rem 1.5rem 6rem;
-  text-align: center;
+.btn-quiz {
+  background: var(--near-dark);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 9px 20px;
+  border-radius: 999px;
+  transition: opacity 0.15s;
+}
+.btn-quiz:hover { opacity: 0.85; }
+
+/* ── MARQUEE BANNER ──────────────────────── */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
   border-bottom: 1px solid var(--border);
+  padding: 11px 0;
+  background: #fff;
+}
+.marquee-track {
+  display: inline-flex;
+  animation: marquee-scroll 30s linear infinite;
+}
+.marquee-item {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--near-dark);
+  padding: 0 1.5rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.marquee-sep {
+  margin: 0 1.2rem;
+  color: var(--faint);
+  font-size: 14px;
+}
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── HERO SECTION ────────────────────────── */
+.hero {
+  background: var(--beige);
+  padding: 4rem 2.5rem 3rem;
   position: relative;
   overflow: hidden;
 }
 .hero::before {
-  content: '4';
+  content:
+    "ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  "
+    "ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  "
+    "ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  "
+    "ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  "
+    "ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  "
+    "ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  "
+    "ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  "
+    "ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  "
+    "ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  "
+    "ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ODD CARE CO.  ";
   position: absolute;
-  font-size: 40vw;
-  font-weight: 700;
-  color: #f7f4ef;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -52%);
-  line-height: 1;
+  inset: -20px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  line-height: 3.2;
+  color: rgba(0, 0, 0, 0.04);
+  word-spacing: 2.5rem;
+  text-transform: uppercase;
   pointer-events: none;
-  letter-spacing: -0.06em;
   z-index: 0;
 }
-.hero > * { position: relative; z-index: 1; }
+.hero-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 2rem;
+  align-items: end;
+  min-height: 460px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content {
+  max-width: 480px;
+  padding-bottom: 2rem;
+}
+
 .hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--sage);
-  margin-bottom: 2rem;
-}
-.hero-title {
-  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  letter-spacing: 0.16em;
+  color: var(--muted);
   font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
-  color: #1a1a1a;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
 }
-.hero-title-2 {
-  font-size: clamp(2rem, 4.5vw, 3.25rem);
-  font-weight: 400;
-  line-height: 1.05;
+.hero-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1.5px;
+  background: var(--near-dark);
+  flex-shrink: 0;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  color: var(--near-dark);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.hero-title .hero-title-light {
+  display: block;
+  font-weight: 800;
   letter-spacing: -0.03em;
-  color: var(--faint);
-  margin-bottom: 2rem;
 }
-.hero-sub {
-  font-size: 16px;
-  color: var(--muted);
-  max-width: 440px;
-  margin: 0 auto 2.5rem;
-  line-height: 1.75;
-}
-.hero-pills {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 2.5rem;
-}
-.hero-pill {
-  font-size: 11px;
-  padding: 5px 14px;
+
+.hero-badge {
+  display: inline-block;
+  border: 1.5px solid var(--near-dark);
   border-radius: 999px;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  background: rgba(255,255,255,0.8);
+  padding: 8px 20px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--near-dark);
+  margin-bottom: 1.75rem;
 }
+
 .hero-btns {
   display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 2.5rem;
 }
 .btn-dark {
-  display: inline-block;
-  background: #1a1a1a;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--near-dark);
   color: #f5f5f5;
-  font-size: 14px;
-  padding: 13px 28px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 13px 26px;
   border-radius: 999px;
   border: none;
   cursor: pointer;
-  text-decoration: none;
   transition: opacity 0.15s;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 .btn-dark:hover { opacity: 0.82; }
 .btn-ghost {
   display: inline-block;
   background: transparent;
-  color: var(--muted);
-  font-size: 14px;
-  padding: 13px 28px;
+  color: var(--near-dark);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 13px 26px;
   border-radius: 999px;
-  border: 1px solid var(--border);
+  border: 1.5px solid var(--near-dark);
   cursor: pointer;
-  text-decoration: none;
   transition: all 0.15s;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
-.btn-ghost:hover { border-color: #aaa; color: #1a1a1a; }
+.btn-ghost:hover { background: var(--near-dark); color: #fff; }
 
-/* ── SHARED ───────────────────────────────── */
+.hero-handwritten {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-arrow {
+  font-size: 22px;
+  color: var(--near-dark);
+  line-height: 1;
+}
+.hero-handwritten span {
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+
+/* ── HERO VISUAL — Sketch-style Products ── */
+.hero-visual {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 380px;
+  padding-bottom: 10px;
+}
+
+.hero-products-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6px;
+  padding-bottom: 20px;
+}
+
+/* Apply sketch outline filter to each product */
+.hero-product-3d {
+  filter: url(#sketch-outline);
+  perspective: 800px;
+  position: relative;
+}
+
+.hero-product-3d .bottle {
+  zoom: 0.62;
+}
+.hero-product-3d .bottle:hover {
+  transform: rotateY(12deg) rotateX(-1deg);
+}
+
+/* ODD branded glass in the hero */
+.hero-odd-cup {
+  position: relative;
+  filter: url(#sketch-outline);
+  margin: 0 -2px;
+  align-self: flex-end;
+}
+.cup-glass {
+  width: 72px;
+  height: 130px;
+  background: linear-gradient(135deg,
+    rgba(255,255,255,0.35) 0%,
+    rgba(245,240,230,0.55) 30%,
+    rgba(240,235,225,0.45) 70%,
+    rgba(255,255,255,0.25) 100%
+  );
+  border-radius: 3px 3px 6px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  clip-path: polygon(6% 0%, 94% 0%, 100% 100%, 0% 100%);
+}
+.cup-logo {
+  font-size: 18px;
+  font-weight: 800;
+  color: rgba(0,0,0,0.1);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+.cup-logo-sub {
+  font-size: 7px;
+  font-weight: 500;
+  color: rgba(0,0,0,0.08);
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+}
+
+/* Hand-drawn ground line */
+.hero-ground-line {
+  position: absolute;
+  bottom: 0;
+  left: -20px;
+  right: -20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+/* Decorative dots */
+.hero-products-row::before,
+.hero-products-row::after {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #333;
+}
+.hero-products-row::before {
+  top: 20px;
+  right: -8px;
+}
+.hero-products-row::after {
+  bottom: 40px;
+  left: -10px;
+  width: 4px;
+  height: 4px;
+}
+
+/* Extra decorative elements */
+.hero-dot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #444;
+}
+
+/* ══════════════════════════════════════════
+   3D PRODUCT BOTTLES — CSS Models
+   ══════════════════════════════════════════ */
+
+.bottle {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateY(-8deg) rotateX(2deg);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: pointer;
+}
+.bottle:hover {
+  transform: rotateY(12deg) rotateX(-1deg);
+}
+
+.bottle-shadow {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 16px;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(3px);
+  z-index: -1;
+}
+
+/* ── 1. CLEAR FIRST — Squeeze Tube ─────── */
+.bottle-tube {
+  width: 90px;
+  height: 260px;
+  position: relative;
+}
+
+.tube-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 90px;
+  height: 220px;
+  border-radius: 6px 6px 24px 24px;
+  overflow: hidden;
+  background: #b0b0b0;
+}
+
+.tube-body .label {
+  position: absolute;
+  inset: 0;
+  background-image: url('/wp-content/uploads/2026/04/label-clear-first.jpeg');
+  background-size: 240% auto;
+  background-position: 68% 45%;
+  background-repeat: no-repeat;
+}
+
+.tube-body .cylinder-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    rgba(0,0,0,0.22) 0%, rgba(255,255,255,0.18) 12%,
+    rgba(255,255,255,0.08) 25%, rgba(0,0,0,0) 45%,
+    rgba(0,0,0,0.03) 75%, rgba(0,0,0,0.18) 100%
+  );
+  pointer-events: none;
+}
+
+.tube-body .highlight {
+  position: absolute;
+  top: 0; left: 14px; width: 6px; height: 100%;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.05) 100%
+  );
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+.tube-cap {
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 38px; height: 44px;
+  background: linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 40%, #bbb 100%);
+  border-radius: 6px 6px 2px 2px;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.4), inset 0 -1px 3px rgba(0,0,0,0.1);
+}
+.tube-cap::before {
+  content: '';
+  position: absolute; top: -2px; left: 50%; transform: translateX(-50%);
+  width: 22px; height: 6px; background: #ccc; border-radius: 3px 3px 0 0;
+}
+.tube-cap::after {
+  content: '';
+  position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%);
+  width: 12px; height: 3px; background: rgba(0,0,0,0.1); border-radius: 2px;
+}
+
+.tube-neck {
+  position: absolute;
+  top: 34px; left: 50%; transform: translateX(-50%);
+  width: 32px; height: 12px;
+  background: linear-gradient(135deg, #ddd, #c5c5c5);
+  border-radius: 0 0 4px 4px;
+}
+
+/* ── 2. FOAM RINSE — Foamer Pump Bottle ── */
+.bottle-foamer {
+  width: 100px;
+  height: 340px;
+  position: relative;
+}
+
+.foamer-body {
+  position: absolute;
+  bottom: 0; left: 5px;
+  width: 90px; height: 250px;
+  border-radius: 6px 6px 10px 10px;
+  overflow: hidden;
+  background: #e8e5e0;
+}
+
+.foamer-body .label {
+  position: absolute; inset: 0;
+  background-image: url('/wp-content/uploads/2026/04/label-foam-rinse.jpeg');
+  background-size: 220% auto;
+  background-position: 68% 50%;
+  background-repeat: no-repeat;
+}
+
+.foamer-body .cylinder-shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg,
+    rgba(0,0,0,0.2) 0%, rgba(255,255,255,0.2) 10%,
+    rgba(255,255,255,0.1) 22%, rgba(0,0,0,0) 45%,
+    rgba(0,0,0,0.02) 70%, rgba(0,0,0,0.15) 100%
+  );
+  pointer-events: none;
+}
+
+.foamer-body .highlight {
+  position: absolute;
+  top: 0; left: 10px; width: 5px; height: 100%;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%
+  );
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+.foamer-neck {
+  position: absolute; top: 58px; left: 50%; transform: translateX(-50%);
+  width: 24px; height: 32px;
+  background: linear-gradient(135deg, #f0f0f0, #d8d8d8);
+  border-radius: 3px;
+}
+
+.foamer-pump {
+  position: absolute; top: 22px; left: 50%; transform: translateX(-50%);
+  width: 36px; height: 40px;
+  background: linear-gradient(180deg, #f5f5f5 0%, #e0e0e0 60%, #d0d0d0 100%);
+  border-radius: 6px 6px 3px 3px;
+  box-shadow: inset 0 2px 3px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.foamer-nozzle {
+  position: absolute; top: 10px; left: 50%;
+  width: 30px; height: 14px;
+  background: linear-gradient(180deg, #eee, #d5d5d5);
+  border-radius: 3px 14px 14px 3px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.foamer-pump::before {
+  content: '';
+  position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+  width: 28px; height: 10px;
+  background: linear-gradient(180deg, #f8f8f8, #e8e8e8);
+  border-radius: 4px 4px 0 0;
+}
+
+/* ── 3. DAWN SHIELD — Airless Pump (AM) ── */
+.bottle-airless-am {
+  width: 56px;
+  height: 270px;
+  position: relative;
+}
+
+.airless-am-body {
+  position: absolute; bottom: 0; left: 0;
+  width: 56px; height: 225px;
+  border-radius: 5px 5px 8px 8px;
+  overflow: hidden;
+  background: #c4a96e;
+}
+
+.airless-am-body .label {
+  position: absolute; inset: 0;
+  background-image: url('/wp-content/uploads/2026/04/label-dawn-shield.jpeg');
+  background-size: 240% auto;
+  background-position: 68% 40%;
+  background-repeat: no-repeat;
+}
+
+.airless-am-body .cylinder-shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg,
+    rgba(0,0,0,0.25) 0%, rgba(255,255,255,0.2) 12%,
+    rgba(255,255,255,0.08) 25%, rgba(0,0,0,0) 50%,
+    rgba(0,0,0,0.05) 75%, rgba(0,0,0,0.2) 100%
+  );
+  pointer-events: none;
+}
+
+.airless-am-body .highlight {
+  position: absolute;
+  top: 0; left: 8px; width: 4px; height: 100%;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%
+  );
+  filter: blur(2px); pointer-events: none;
+}
+
+.airless-am-shoulder {
+  position: absolute; top: 22px; left: 50%; transform: translateX(-50%);
+  width: 48px; height: 20px;
+  background: linear-gradient(180deg, #d8d8d8, #bbb);
+  border-radius: 4px 4px 0 0;
+}
+
+.airless-am-cap {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 38px; height: 28px;
+  background: linear-gradient(180deg, #f0f0f0 0%, #ddd 40%, #ccc 100%);
+  border-radius: 50% 50% 6px 6px;
+  box-shadow: inset 0 3px 6px rgba(255,255,255,0.5), inset 0 -2px 3px rgba(0,0,0,0.08);
+}
+.airless-am-cap::after {
+  content: '';
+  position: absolute; top: 4px; left: 50%; transform: translateX(-50%);
+  width: 8px; height: 4px; background: rgba(0,0,0,0.08); border-radius: 50%;
+}
+
+/* ── 4. DEEP DUSK — Airless Pump (PM) ──── */
+.bottle-airless-pm {
+  width: 56px;
+  height: 270px;
+  position: relative;
+}
+
+.airless-pm-body {
+  position: absolute; bottom: 0; left: 0;
+  width: 56px; height: 225px;
+  border-radius: 5px 5px 8px 8px;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+
+.airless-pm-body .label {
+  position: absolute; inset: 0;
+  background-image: url('/wp-content/uploads/2026/04/label-deep-dusk.jpeg');
+  background-size: 240% auto;
+  background-position: 68% 40%;
+  background-repeat: no-repeat;
+}
+
+.airless-pm-body .cylinder-shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg,
+    rgba(0,0,0,0.3) 0%, rgba(255,255,255,0.12) 12%,
+    rgba(255,255,255,0.05) 25%, rgba(0,0,0,0) 50%,
+    rgba(0,0,0,0.05) 75%, rgba(0,0,0,0.25) 100%
+  );
+  pointer-events: none;
+}
+
+.airless-pm-body .highlight {
+  position: absolute;
+  top: 0; left: 7px; width: 4px; height: 100%;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 100%
+  );
+  filter: blur(2px); pointer-events: none;
+}
+
+.airless-pm-shoulder {
+  position: absolute; top: 22px; left: 50%; transform: translateX(-50%);
+  width: 48px; height: 20px;
+  background: linear-gradient(180deg, #d8d8d8, #bbb);
+  border-radius: 4px 4px 0 0;
+}
+
+.airless-pm-cap {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 38px; height: 28px;
+  background: linear-gradient(180deg,
+    rgba(240,235,225,0.85) 0%, rgba(225,218,205,0.7) 40%, rgba(210,200,185,0.6) 100%
+  );
+  border-radius: 50% 50% 6px 6px;
+  box-shadow: inset 0 3px 8px rgba(255,255,255,0.5), inset 0 -2px 4px rgba(0,0,0,0.05), 0 0 6px rgba(255,255,255,0.15);
+  backdrop-filter: blur(2px);
+}
+.airless-pm-cap::after {
+  content: '';
+  position: absolute; top: 5px; left: 50%; transform: translateX(-50%);
+  width: 8px; height: 4px; background: rgba(180,170,150,0.4); border-radius: 50%;
+}
+
+/* ── SECTION EYEBROW (shared) ────────────── */
 .section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: var(--faint);
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1rem;
+}
+.section-num {
+  font-weight: 700;
+  color: var(--near-dark);
+  font-size: 10px;
 }
 .section-eyebrow::after {
   content: '';
@@ -204,833 +749,1521 @@ body {
   background: var(--border);
 }
 
-/* ── PRODUCTS GRID ───────────────────────── */
-.products {
-  padding: 5rem 1.5rem;
-  max-width: 1000px;
+/* ── THE SYSTEM (02) ─────────────────────── */
+.system {
+  padding: 5rem 2.5rem;
+  max-width: 1280px;
   margin: 0 auto;
-  border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border);
 }
-.product-grid {
+
+.system-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.system-intro h2 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--near-dark);
+  line-height: 1.15;
+}
+.system-intro p {
+  font-size: 15px;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
+.system-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-bottom: 12px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
 }
-.p-card {
+
+.sys-card {
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 16px;
   overflow: hidden;
-  cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
-  text-decoration: none;
-  color: inherit;
   display: flex;
   flex-direction: column;
   background: #fff;
 }
-.p-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.07); }
+.sys-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
 
-.p-card-top {
-  height: 80px;
+.sys-card-top {
+  height: 160px;
   display: flex;
   align-items: flex-end;
-  padding: 0 1.25rem 1rem;
+  justify-content: center;
   position: relative;
+  overflow: hidden;
 }
-.p-card-num {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  opacity: 0.55;
+
+.sys-card-num {
+  position: absolute;
+  top: 14px; left: 16px;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
-.p-card-body {
+
+.sys-card-model {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+  padding: 8px 0 4px;
+  perspective: 600px;
+}
+.sys-card-model .bottle {
+  zoom: 0.4;
+  pointer-events: none;
+}
+.sys-card-model .bottle-shadow { display: none; }
+
+.sys-card-body {
   padding: 1.25rem;
   flex: 1;
   display: flex;
   flex-direction: column;
 }
-.p-card-name {
-  font-size: 17px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.35rem;
-  color: #1a1a1a;
+
+.sys-card-name {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--near-dark);
+  margin-bottom: 4px;
 }
-.p-card-tagline {
+
+.sys-card-desc {
   font-size: 12px;
   color: var(--muted);
-  line-height: 1.6;
+  line-height: 1.5;
   margin-bottom: 1rem;
-  flex: 1;
 }
-.p-card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-.p-card-actives {
+
+.sys-card-keywords {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
-}
-.p-active-tag {
-  font-size: 10px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  color: var(--faint);
-  background: var(--beige);
-}
-.p-card-price {
-  font-size: 15px;
-  font-weight: 500;
-  color: #1a1a1a;
-  flex-shrink: 0;
-  margin-left: 0.75rem;
-}
-
-/* Product colour identities */
-.p-facewash .p-card-top { background: #e8edee; }
-.p-facewash .p-card-num { color: #6a8a90; }
-.p-bodywash .p-card-top { background: var(--beige); }
-.p-bodywash .p-card-num { color: #9a8a70; }
-.p-amcream .p-card-top { background: #e8ece5; }
-.p-amcream .p-card-num { color: var(--sage-dim); }
-.p-pmcream .p-card-top { background: #1a1a1a; }
-.p-pmcream .p-card-num { color: #555; }
-.p-pmcream .p-card-name { color: #e0e0e0; }
-.p-pmcream .p-card-tagline { color: #777; }
-.p-pmcream .p-active-tag { background: #222; border-color: #333; color: #666; }
-.p-pmcream .p-card-price { color: #e0e0e0; }
-.p-pmcream { background: #141414; border-color: #2a2a2a; }
-
-/* Bundle row */
-.bundle-row {
-  border: 1px solid #c8d9c4;
-  background: #eef3ec;
-  border-radius: 20px;
-  padding: 1.5rem 1.75rem;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
-  transition: box-shadow 0.15s;
-}
-.bundle-row:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-.bundle-badge {
-  background: var(--sage);
-  color: #fff;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 6px 14px;
-  border-radius: 999px;
-  flex-shrink: 0;
-}
-.bundle-info { flex: 1; }
-.bundle-name { font-size: 16px; font-weight: 500; color: #2a5c30; margin-bottom: 0.25rem; letter-spacing: -0.01em; }
-.bundle-tagline { font-size: 13px; color: #5a7a5a; }
-.bundle-price-block { text-align: right; flex-shrink: 0; }
-.bundle-price { font-size: 18px; font-weight: 500; color: #2a5c30; display: block; }
-.bundle-saving { font-size: 11px; color: #5a7a5a; font-style: italic; }
-
-/* ── WHY 4 ──────────────────────────────── */
-.why4 {
-  background: var(--beige);
-  padding: 6rem 1.5rem;
-  border-bottom: 1px solid var(--beige-dark);
-}
-.why4-inner {
-  max-width: 900px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1.6fr;
-  gap: 4rem;
-  align-items: center;
-}
-.why4-number {
-  font-size: clamp(7rem, 18vw, 13rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.06em;
-  color: var(--sage);
-}
-.why4-period { color: #1a1a1a; }
-.why4-text {}
-.why4-title {
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  font-weight: 500;
-  line-height: 1.25;
-  letter-spacing: -0.03em;
-  color: #1a1a1a;
+  gap: 6px;
   margin-bottom: 1.25rem;
 }
-.why4-body {
-  font-size: 15px;
-  color: var(--muted);
-  line-height: 1.85;
-  margin-bottom: 2rem;
-}
-.why4-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.why4-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 13px;
-  color: var(--muted);
-}
-.why4-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--sage);
-  flex-shrink: 0;
-}
-
-/* ── ROUTINE ────────────────────────────── */
-.routine {
-  border-bottom: 1px solid var(--border);
-}
-.routine-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.routine-col {
-  padding: 5rem 3rem;
-}
-.routine-col.am { background: #fff; border-right: 1px solid var(--border); }
-.routine-col.pm { background: var(--dark); }
-.routine-col-label {
+.sys-keyword {
   font-size: 9px;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  margin-bottom: 0.5rem;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
 }
-.routine-col.am .routine-col-label { color: var(--faint); }
-.routine-col.pm .routine-col-label { color: #444; }
-.routine-col-time {
-  font-size: clamp(1.75rem, 3vw, 2.25rem);
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  margin-bottom: 2.5rem;
+
+.sys-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #f0ede8;
 }
-.routine-col.am .routine-col-time { color: #1a1a1a; }
-.routine-col.pm .routine-col-time { color: #e0e0e0; }
-.routine-steps {
+
+.sys-card-price {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--near-dark);
+}
+
+.sys-card-arrow {
+  font-size: 18px;
+  color: var(--near-dark);
+  transition: transform 0.15s;
+}
+.sys-card:hover .sys-card-arrow { transform: translateX(3px); }
+
+.sys-facewash .sys-card-top { background: #e8edee; }
+.sys-facewash .sys-card-num { color: #6a8a90; }
+.sys-bodywash .sys-card-top { background: var(--beige); }
+.sys-bodywash .sys-card-num { color: #9a8a70; }
+.sys-amcream .sys-card-top { background: #e8ece5; }
+.sys-amcream .sys-card-num { color: var(--sage-dim); }
+.sys-pmcream .sys-card-top { background: #1a1a1a; }
+.sys-pmcream .sys-card-num { color: #666; }
+.sys-pmcream .sys-card-name { color: var(--near-dark); }
+
+/* ── BUNDLE BAR ──────────────────────────── */
+.bundle-bar {
+  max-width: 1280px;
+  margin: 0 auto 0;
+  padding: 0 2.5rem 5rem;
+}
+.bundle-bar-inner {
+  background: var(--near-dark);
+  border-radius: 16px;
+  padding: 1.5rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  transition: box-shadow 0.2s;
+  cursor: pointer;
+}
+.bundle-bar-inner:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+
+.bundle-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(156,175,136,0.15);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.bundle-icon svg { width: 20px; height: 20px; color: var(--sage); }
+
+.bundle-info { flex: 1; }
+.bundle-name {
+  font-size: 14px; font-weight: 600; color: #f0ede8;
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 3px;
+}
+.bundle-desc { font-size: 13px; color: #777; }
+
+.bundle-pricing {
+  display: flex; align-items: center; gap: 1rem; flex-shrink: 0;
+}
+.bundle-original { font-size: 14px; color: #666; text-decoration: line-through; }
+.bundle-price { font-size: 22px; font-weight: 700; color: #f0ede8; }
+.bundle-save {
+  background: var(--sage); color: #fff;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 999px;
+}
+
+/* ── THE SYSTEM — New Sidebar+Grid Layout ── */
+.system-container {
+  border: 1px solid var(--border);
+  display: flex;
+}
+
+.system-sidebar {
+  width: 22%;
+  border-right: 1px solid var(--border);
+  padding: 2.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  justify-content: space-between;
+  min-height: 420px;
 }
-.routine-step {
+
+.system-sidebar-num {
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.system-sidebar-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  line-height: 1.1;
+}
+
+.hand-underline {
+  position: relative;
+  display: inline-block;
+}
+.hand-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 3px;
+  background: var(--near-dark);
+  border-radius: 50% / 10%;
+  transform: rotate(-1deg);
+}
+
+.system-sidebar-tagline {
+  margin-top: 3rem;
+}
+.system-sidebar-tagline p {
+  font-size: 2.25rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--near-dark);
+}
+
+.system-sidebar-mascot {
+  margin-top: auto;
+  padding-top: 2rem;
+}
+
+.system-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.system-container .system-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  flex: 1;
+}
+
+.system-container .sys-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border: none;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
+  text-decoration: none;
+  color: inherit;
+}
+.system-container .sys-card:last-child {
+  border-right: none;
+}
+.system-container .sys-card:hover {
+  background: #fff;
+  transform: none;
+  box-shadow: none;
+}
+
+.system-container .sys-card-num {
+  position: static;
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--near-dark);
+}
+
+.sys-card-content {
   display: flex;
   align-items: flex-start;
   gap: 1rem;
 }
-.routine-step-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  flex-shrink: 0;
+
+.system-container .sys-card-model {
+  width: 50%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
+  perspective: 600px;
+  min-height: 140px;
+  height: auto;
+  padding: 0;
+  position: static;
+  overflow: visible;
 }
-.routine-step-name {
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 2px;
+.system-container .sys-card-model .bottle {
+  zoom: 0.35;
+  pointer-events: none;
 }
-.routine-step-note {
+.system-container .sys-card-model .bottle-shadow { display: none; }
+
+.sys-card-info {
+  width: 50%;
+  padding-top: 1rem;
+}
+
+.system-container .sys-card-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: var(--near-dark);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0;
+}
+
+.system-container .sys-card-desc {
   font-size: 12px;
-}
-.routine-col.am .routine-step-name { color: #1a1a1a; }
-.routine-col.am .routine-step-note { color: var(--faint); }
-.routine-col.pm .routine-step-name { color: #d0d0d0; }
-.routine-col.pm .routine-step-note { color: #555; }
-
-/* Step icon colors — AM */
-.icon-facewash { background: #e0e8ea; color: #5a8090; }
-.icon-bodywash { background: var(--beige); color: #8a7a60; }
-.icon-amcream { background: #dce8da; color: var(--sage-dim); }
-/* Step icon colors — PM */
-.icon-pmcream { background: #1f1f1f; color: #666; border: 1px solid #2a2a2a; }
-.icon-facewash-pm { background: #1e1e1e; color: #555; border: 1px solid #2a2a2a; }
-
-.routine-footer {
-  border-top: 1px solid var(--border);
-  padding: 1.5rem 3rem;
-  background: var(--beige);
-  text-align: center;
-  font-size: 14px;
   color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 0;
 }
-.routine-footer strong { color: #1a1a1a; font-weight: 500; }
 
-/* ── HONEST CARDS ───────────────────────── */
-.honest {
-  padding: 5rem 1.5rem;
-  border-bottom: 1px solid var(--border);
-  max-width: 900px;
-  margin: 0 auto;
+.sys-card-bottom {
+  margin-top: 2rem;
 }
-.honest-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+
+.system-container .sys-card-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 1.5rem;
 }
-.honest-card {
-  background: var(--beige);
-  border-radius: 16px;
-  padding: 1.5rem;
-  border: 1px solid var(--beige-dark);
-}
-.honest-q {
-  font-size: 14px;
-  font-weight: 500;
-  color: #1a1a1a;
-  margin-bottom: 0.6rem;
-}
-.honest-a {
-  font-size: 13px;
+.system-container .sys-keyword {
+  font-size: 10px;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  letter-spacing: 0.05em;
   color: var(--muted);
-  line-height: 1.75;
+  border-radius: 0;
 }
 
-/* ── FAQ ────────────────────────────────── */
-.faq {
-  padding: 5rem 1.5rem;
-  border-bottom: 1px solid var(--border);
-  max-width: 720px;
-  margin: 0 auto;
-}
-.faq-item {
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-}
-.faq-item:first-of-type { border-top: 1px solid var(--border); }
-.faq-q {
+.system-container .sys-card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 0;
-  font-size: 15px;
-  font-weight: 500;
-  color: #1a1a1a;
-  gap: 1rem;
+  padding-top: 0;
+  border-top: none;
+  margin-top: 0;
 }
-.faq-icon {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
+
+.system-container .sys-card-price {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--near-dark);
+}
+
+.system-container .sys-card-arrow {
+  font-size: 1.25rem;
+  color: var(--near-dark);
+  transition: transform 0.15s;
+}
+.system-container .sys-card:hover .sys-card-arrow {
+  transform: translateX(3px);
+}
+
+/* Bundle Banner */
+.bundle-banner {
+  background: var(--beige-dark);
+  padding: 1.5rem 2rem;
+  margin: 1rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+.bundle-banner:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.bundle-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.bundle-banner-icon {
+  width: 96px;
+  height: 96px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  color: var(--faint);
+  background: rgba(255,255,255,0.3);
+  border-radius: 8px;
   flex-shrink: 0;
-  transition: all 0.2s;
 }
-.faq-item.open .faq-icon { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
-.faq-a {
+.bundle-banner-icon svg {
+  width: 40px;
+  height: 40px;
+  color: var(--sage-dim);
+}
+
+.bundle-banner-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.15;
+  color: var(--near-dark);
+  margin-bottom: 0.25rem;
+}
+.bundle-banner-desc {
   font-size: 14px;
   color: var(--muted);
-  line-height: 1.8;
-  padding-bottom: 1.25rem;
-  display: none;
-  max-width: 580px;
+  line-height: 1.5;
 }
-.faq-a.open { display: block; }
 
-/* ── REVIEWS ────────────────────────────── */
-.reviews {
-  background: var(--beige);
-  padding: 5rem 1.5rem;
-  border-bottom: 1px solid var(--beige-dark);
-}
-.reviews-inner { max-width: 900px; margin: 0 auto; }
-.reviews-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-.r-card {
-  background: #fff;
-  border-radius: 18px;
-  padding: 1.5rem;
-  border: 1px solid var(--beige-dark);
-  display: flex;
-  flex-direction: column;
-}
-.r-name { font-size: 14px; font-weight: 500; color: #1a1a1a; margin-bottom: 2px; }
-.r-tag { font-size: 11px; color: var(--faint); margin-bottom: 1rem; font-style: italic; line-height: 1.4; }
-.r-text { font-size: 13px; color: var(--muted); line-height: 1.75; flex: 1; }
-.r-badge {
-  font-size: 11px;
-  padding: 3px 12px;
-  border-radius: 999px;
-  display: inline-block;
-  margin-top: 1rem;
-  align-self: flex-start;
-}
-.r-badge-sage { background: #e2ede3; color: #3a6640; }
-.r-badge-dark { background: #1a1a1a; color: #aaa; }
-.r-badge-amber { background: #f5ede0; color: #7a5a30; }
-
-/* ── FOOTER CTA ─────────────────────────── */
-.footer-cta {
-  background: var(--dark);
-  padding: 7rem 1.5rem;
-  text-align: center;
-}
-.footer-cta-inner { max-width: 560px; margin: 0 auto; }
-.footer-eyebrow {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: #444;
-  margin-bottom: 2rem;
+.bundle-banner-right {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
+
+.bundle-banner-pricing {
+  text-align: right;
+}
+.bundle-banner-original {
+  font-size: 1.125rem;
+  color: var(--faint);
+  text-decoration: line-through;
+  margin-right: 0.5rem;
+}
+.bundle-banner-price {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--near-dark);
+}
+
+.bundle-banner-actions {
+  display: flex;
+  align-items: center;
   gap: 1rem;
 }
-.footer-eyebrow::before,.footer-eyebrow::after {
-  content: '';
-  width: 40px;
-  height: 1px;
-  background: #333;
-  display: block;
-}
-.footer-title {
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
-  font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: -0.035em;
-  color: #e0e0e0;
-  margin-bottom: 1.25rem;
-}
-.footer-title span { color: var(--sage); }
-.footer-sub {
-  font-size: 15px;
-  color: #555;
-  line-height: 1.75;
-  margin-bottom: 2.5rem;
-}
-.btn-sage {
-  display: inline-block;
-  background: var(--sage);
+.bundle-banner-save {
+  background: var(--near-dark);
   color: #fff;
-  font-size: 14px;
-  padding: 14px 32px;
-  border-radius: 999px;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.15s;
-}
-.btn-sage:hover { opacity: 0.88; }
-.footer-links {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 1.25rem;
-}
-.btn-ghost-dark {
-  display: inline-block;
-  background: transparent;
-  color: #888;
-  font-size: 12px;
-  padding: 9px 20px;
-  border-radius: 999px;
-  border: 0.5px solid #333;
-  text-decoration: none;
-  transition: border-color 0.15s, color 0.15s;
-}
-.btn-ghost-dark:hover { border-color: #666; color: #bbb; }
-.footer-fine {
   font-size: 11px;
-  color: #333;
-  margin-top: 1.5rem;
-  letter-spacing: 0.01em;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
 }
-.footer-fine span::before { content: ' · '; }
-.footer-fine span:first-child::before { content: ''; }
+.bundle-banner-arrow {
+  font-size: 1.875rem;
+  transition: transform 0.15s;
+  color: var(--near-dark);
+}
+.bundle-banner:hover .bundle-banner-arrow {
+  transform: translateX(4px);
+}
 
-/* ── RESPONSIVE ─────────────────────────── */
+/* ── ROUTINE AT A GLANCE (03) ────────────── */
+.routine {
+  padding: 5rem 2.5rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+
+.routine-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+.routine-headline {
+  display: flex; flex-direction: column; justify-content: center;
+}
+.routine-headline .ampm {
+  font-family: 'Caveat', cursive; font-size: 20px; color: var(--sage-dark);
+  margin-top: 0.75rem;
+}
+
+.routine-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.routine-step { text-align: center; }
+
+.routine-step-icon {
+  width: 80px; height: 80px; border-radius: 50%;
+  margin: 0 auto 1rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.05em;
+  position: relative;
+}
+
+.routine-step:not(:last-child) .routine-step-icon::after {
+  content: '\2192';
+  position: absolute; right: -22px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px; color: var(--border);
+}
+
+.step-cleanse { background: #e8edee; color: #5a8090; }
+.step-wash { background: var(--beige); color: #8a7a60; }
+.step-protect { background: #e8ece5; color: var(--sage-dim); }
+.step-nourish { background: #1f1f1f; color: #888; }
+
+.routine-step-label {
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.16em;
+  color: var(--faint); margin-bottom: 4px;
+}
+.routine-step-name {
+  font-size: 13px; font-weight: 600; color: var(--near-dark); margin-bottom: 4px;
+}
+.routine-step-desc {
+  font-size: 11px; color: var(--muted); line-height: 1.5; margin-bottom: 8px;
+}
+.routine-step-time {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10px; font-weight: 600; color: var(--near-dark);
+  background: #f5f5f5; padding: 4px 10px; border-radius: 999px;
+}
+.routine-step-time svg { width: 12px; height: 12px; color: var(--faint); }
+
+.routine-total-number {
+  font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 700;
+  color: var(--near-dark); letter-spacing: -0.04em; line-height: 1;
+}
+.routine-total-unit {
+  font-size: 13px; font-weight: 500; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem;
+}
+.routine-total-msg {
+  font-family: 'Caveat', cursive; font-size: 18px; color: var(--sage-dark);
+}
+
+/* ── WHY ODD > THEM (04) ────────────────── */
+.why-odd {
+  padding: 5rem 2.5rem; max-width: 1280px; margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+
+.why-odd-layout {
+  display: grid; grid-template-columns: 220px 1fr 200px;
+  gap: 2.5rem; align-items: start; margin-top: 2.5rem;
+}
+
+.why-odd-intro h3 {
+  font-size: 16px; font-weight: 600; color: var(--near-dark);
+  line-height: 1.4; margin-bottom: 1rem;
+}
+.why-odd-intro p {
+  font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem;
+}
+.why-odd-intro .odd-way {
+  font-family: 'Caveat', cursive; font-size: 18px; color: var(--sage-dark);
+}
+
+.compare-table {
+  width: 100%; border-collapse: collapse;
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+}
+.compare-table thead th {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em;
+  font-weight: 600; padding: 1rem 1.25rem; text-align: left;
+}
+.compare-table thead .col-them { background: #faf8f5; color: var(--muted); }
+.compare-table thead .col-vs {
+  background: #fff; color: var(--faint); text-align: center; width: 50px; font-size: 11px;
+}
+.compare-table thead .col-odd { background: var(--near-dark); color: #f0ede8; }
+.compare-table tbody td {
+  padding: 0.9rem 1.25rem; font-size: 13px;
+  border-top: 1px solid #f0ede8; vertical-align: middle;
+}
+.compare-table tbody .td-them { color: #999; background: #faf8f5; }
+.compare-table tbody .td-vs { text-align: center; color: var(--border); font-size: 10px; background: #fff; }
+.compare-table tbody .td-odd { color: #e8e4de; background: var(--near-dark); font-weight: 500; }
+.compare-table .col-cat, .compare-table .td-cat {
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em;
+  font-weight: 700; color: var(--faint); background: #fff;
+  width: 100px; padding: 0.9rem 1rem;
+  border-right: 1px solid var(--border); vertical-align: middle;
+}
+
+.our-rules { background: var(--beige); border-radius: 14px; padding: 1.75rem; }
+.our-rules h4 {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em;
+  font-weight: 700; color: var(--near-dark); margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
+}
+.our-rules ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+.our-rules li {
+  font-size: 13px; font-weight: 500; color: var(--near-dark);
+  display: flex; align-items: center; gap: 8px;
+}
+.our-rules li::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--sage); flex-shrink: 0;
+}
+
+/* ── REVIEWS (05) ────────────────────────── */
+.reviews {
+  padding: 5rem 2.5rem; max-width: 1280px; margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+.reviews-header {
+  display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2.5rem;
+}
+.reviews-header h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600;
+  color: var(--near-dark); letter-spacing: -0.02em;
+}
+.reviews-header p { font-size: 14px; color: var(--muted); margin-top: 0.25rem; }
+.reviews-header .read-all {
+  font-size: 12px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--near-dark);
+  border: 1px solid var(--border); padding: 10px 20px;
+  border-radius: 999px; transition: all 0.15s;
+}
+.reviews-header .read-all:hover { border-color: var(--near-dark); }
+
+.reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+.review-card {
+  background: var(--beige); border-radius: 16px; padding: 1.75rem;
+  display: flex; flex-direction: column;
+}
+.review-stars { color: var(--near-dark); font-size: 13px; letter-spacing: 2px; margin-bottom: 1rem; }
+.review-text { font-size: 14px; color: var(--muted); line-height: 1.75; flex: 1; margin-bottom: 1.25rem; }
+.review-author {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding-top: 1rem; border-top: 1px solid var(--border);
+}
+.review-avatar {
+  width: 36px; height: 36px; border-radius: 50%; background: #ddd;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 600; color: #888;
+}
+.review-meta .review-name { font-size: 13px; font-weight: 600; color: var(--near-dark); }
+.review-meta .review-skin { font-size: 11px; color: var(--faint); }
+
+/* ── TRUST BADGES ────────────────────────── */
+.trust {
+  padding: 4rem 2.5rem; max-width: 1280px; margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+.trust-row { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+.trust-row + .trust-row { margin-top: 2rem; }
+.trust-badge { display: flex; align-items: center; gap: 0.75rem; }
+.trust-icon {
+  width: 40px; height: 40px; border-radius: 10px; background: var(--beige);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.trust-icon svg { width: 20px; height: 20px; color: var(--sage-dim); }
+.trust-badge-text h4 {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--near-dark);
+}
+.trust-badge-text p { font-size: 11px; color: var(--faint); }
+
+/* ── FOOTER ──────────────────────────────── */
+.site-footer { background: var(--dark); padding: 5rem 2.5rem 2rem; margin-top: 2rem; }
+.footer-inner { max-width: 1280px; margin: 0 auto; }
+
+.footer-newsletter {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 3rem; padding-bottom: 3.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 3.5rem;
+}
+.footer-newsletter-left { flex: 1; }
+.footer-nl-logo {
+  font-size: 18px; font-weight: 800; letter-spacing: 0.02em;
+  color: #f0ede8; text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.footer-nl-logo span {
+  font-weight: 400; font-size: 11px; text-transform: lowercase;
+  color: #666; margin-left: 2px;
+}
+.footer-nl-title {
+  font-size: 14px; font-weight: 600; color: #f0ede8;
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem;
+}
+.footer-nl-desc { font-size: 12px; color: #777; line-height: 1.6; margin-bottom: 0.5rem; }
+.footer-socials { display: flex; gap: 0.75rem; margin-top: 1rem; }
+.footer-socials a {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  color: #888; font-size: 14px; transition: all 0.15s;
+}
+.footer-socials a:hover { color: #fff; border-color: rgba(255,255,255,0.25); }
+
+.footer-newsletter-right { display: flex; gap: 8px; align-items: center; }
+.footer-email-input {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 999px; padding: 12px 20px; font-size: 13px;
+  color: #ccc; width: 280px; outline: none; font-family: inherit;
+}
+.footer-email-input::placeholder { color: #555; }
+.footer-email-input:focus { border-color: var(--sage); }
+.footer-subscribe-btn {
+  background: var(--sage); color: #fff; border: none; border-radius: 999px;
+  padding: 12px 24px; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; cursor: pointer; transition: opacity 0.15s; font-family: inherit;
+}
+.footer-subscribe-btn:hover { opacity: 0.85; }
+
+.footer-columns {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+  padding-bottom: 3.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 2rem;
+}
+.footer-col h5 {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em;
+  font-weight: 600; color: #888; margin-bottom: 1.25rem;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+.footer-col ul li a { font-size: 13px; color: #999; transition: color 0.15s; }
+.footer-col ul li a:hover { color: var(--sage); }
+
+.footer-badges { display: flex; gap: 2rem; flex-wrap: wrap; }
+.footer-badge-item {
+  font-size: 11px; color: #666; display: flex; align-items: center; gap: 6px;
+}
+.footer-badge-item svg { width: 14px; height: 14px; color: var(--sage); }
+
+.footer-copyright {
+  display: flex; justify-content: space-between; align-items: center; padding-top: 2rem;
+}
+.footer-copyright p { font-size: 11px; color: #555; }
+.footer-copyright a { font-size: 11px; color: #666; transition: color 0.15s; }
+.footer-copyright a:hover { color: #999; }
+.footer-copyright-links { display: flex; gap: 1.5rem; }
+
+/* ── RESPONSIVE ──────────────────────────── */
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; min-height: auto; }
+  .hero-visual { min-height: 280px; }
+  .hero-product-3d .bottle { zoom: 0.5; }
+  .cup-glass { width: 58px; height: 105px; }
+  .system-container { flex-direction: column; }
+  .system-sidebar { width: 100%; min-height: auto; border-right: none; border-bottom: 1px solid var(--border); padding: 2rem; }
+  .system-sidebar-tagline { margin-top: 1.5rem; }
+  .system-sidebar-tagline p { font-size: 1.75rem; }
+  .system-sidebar-mascot { display: none; }
+  .system-container .system-grid { grid-template-columns: repeat(2, 1fr); }
+  .system-container .sys-card:nth-child(2n) { border-right: none; }
+  .routine-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .routine-steps { grid-template-columns: repeat(2, 1fr); }
+  .routine-step:nth-child(2) .routine-step-icon::after { display: none; }
+  .routine-total { text-align: left; }
+  .why-odd-layout { grid-template-columns: 1fr; }
+  .footer-newsletter { flex-direction: column; }
+  .footer-columns { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 768px) {
-  .hero::before { display: none; }
-  .hero { padding: 4rem 1.25rem 3.5rem; }
-  .product-grid { grid-template-columns: 1fr; }
-  .why4-inner { grid-template-columns: 1fr; gap: 2rem; }
-  .why4-number { font-size: 6rem; }
-  .routine-inner { grid-template-columns: 1fr; }
-  .routine-col.am { border-right: none; border-bottom: 1px solid #222; }
-  .routine-col { padding: 3rem 1.5rem; }
-  .routine-footer { padding: 1.25rem 1.5rem; }
-  .honest-grid { grid-template-columns: 1fr; }
+  .site-header { padding: 0 1.25rem; }
+  .main-nav { display: none; }
+  .hero { padding: 2rem 1.25rem; }
+  .hero-title { font-size: 2rem; }
+  .hero-products-row { gap: 4px; }
+  .hero-product-3d .bottle { zoom: 0.38; }
+  .cup-glass { width: 48px; height: 90px; }
+  .hero-btns { flex-direction: column; }
+  .hero-btns .btn-dark,
+  .hero-btns .btn-ghost { width: 100%; text-align: center; justify-content: center; }
+  .system { padding: 3rem 1.25rem; }
+  .system-container .system-grid { grid-template-columns: 1fr; }
+  .system-container .sys-card { border-right: none; }
+  .bundle-banner { flex-direction: column; text-align: center; margin: 0.5rem; padding: 1.5rem; }
+  .bundle-banner-left { flex-direction: column; }
+  .bundle-banner-right { flex-direction: column; gap: 1rem; }
+  .bundle-banner-pricing { text-align: center; }
+  .routine { padding: 3rem 1.25rem; }
+  .routine-steps { grid-template-columns: 1fr 1fr; }
+  .routine-step .routine-step-icon::after { display: none; }
+  .why-odd { padding: 3rem 1.25rem; }
+  .compare-table { font-size: 12px; }
+  .compare-table thead th, .compare-table tbody td { padding: 0.7rem 0.75rem; }
+  .reviews { padding: 3rem 1.25rem; }
   .reviews-grid { grid-template-columns: 1fr; }
+  .reviews-header { flex-direction: column; gap: 1rem; }
+  .trust { padding: 3rem 1.25rem; }
+  .trust-row { gap: 1.5rem; }
+  .site-footer { padding: 3rem 1.25rem 1.5rem; }
+  .footer-newsletter-right { width: 100%; }
+  .footer-email-input { flex: 1; width: auto; }
+  .footer-columns { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .footer-copyright { flex-direction: column; gap: 1rem; text-align: center; }
 }
 </style>
 </head>
 <body>
 
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-track">
-    <span class="ticker-item hi">face wash</span><span class="ticker-item">·</span>
-    <span class="ticker-item hi">body wash</span><span class="ticker-item">·</span>
-    <span class="ticker-item hi">am cream</span><span class="ticker-item">·</span>
-    <span class="ticker-item hi">pm cream</span><span class="ticker-item">·</span>
-    <span class="ticker-item">that's it</span><span class="ticker-item">·</span>
-    <span class="ticker-item">no serum</span><span class="ticker-item">·</span>
-    <span class="ticker-item">no toner</span><span class="ticker-item">·</span>
-    <span class="ticker-item">no upsell</span><span class="ticker-item">·</span>
-    <span class="ticker-item">just 4</span><span class="ticker-item">·</span>
-    <span class="ticker-item">3.5 min/day</span><span class="ticker-item">·</span>
-    <!-- duplicate for infinite loop -->
-    <span class="ticker-item hi">face wash</span><span class="ticker-item">·</span>
-    <span class="ticker-item hi">body wash</span><span class="ticker-item">·</span>
-    <span class="ticker-item hi">am cream</span><span class="ticker-item">·</span>
-    <span class="ticker-item hi">pm cream</span><span class="ticker-item">·</span>
-    <span class="ticker-item">that's it</span><span class="ticker-item">·</span>
-    <span class="ticker-item">no serum</span><span class="ticker-item">·</span>
-    <span class="ticker-item">no toner</span><span class="ticker-item">·</span>
-    <span class="ticker-item">no upsell</span><span class="ticker-item">·</span>
-    <span class="ticker-item">just 4</span><span class="ticker-item">·</span>
-    <span class="ticker-item">3.5 min/day</span><span class="ticker-item">·</span>
-  </div>
-</div>
+<!-- SVG Filter: Hand-drawn sketch outline effect -->
+<svg class="svg-filters" xmlns="http://www.w3.org/2000/svg">
+  <filter id="sketch-outline" x="-15%" y="-15%" width="130%" height="130%">
+    <!-- Expand shape edge to create outline -->
+    <feMorphology in="SourceAlpha" operator="dilate" radius="1.8" result="fat"/>
+    <!-- Hand-drawn wobble noise -->
+    <feTurbulence type="turbulence" baseFrequency="0.035" numOctaves="4" seed="3" result="noise"/>
+    <feDisplacementMap in="fat" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="wobbly"/>
+    <!-- Color outline dark -->
+    <feFlood flood-color="#2a2a2a" result="color"/>
+    <feComposite in="color" in2="wobbly" operator="in" result="outline"/>
+    <!-- Stack: outline behind original -->
+    <feMerge>
+      <feMergeNode in="outline"/>
+      <feMergeNode in="SourceGraphic"/>
+    </feMerge>
+  </filter>
+</svg>
 
-<!-- HEADER -->
+<!-- ============================================
+     NAVIGATION
+     ============================================ -->
 <header class="site-header">
-  <a href="/" class="site-logo">ODD <span>Care Co.</span></a>
-  <div class="header-icons">
-    <a href="/my-account" aria-label="Account">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
-    </a>
-    <a href="/cart" aria-label="Cart">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-    </a>
+  <a href="/" class="site-logo">
+    <span class="site-logo-main">ODD</span>
+    <span class="site-logo-sub"><span>CARE</span><span>CO.</span></span>
+  </a>
+  <nav class="main-nav">
+    <a href="#system">Products</a>
+    <a href="#routine">Routines</a>
+    <a href="/our-mission">About Us</a>
+    <a href="#">Sustainability</a>
+    <a href="#">Journal</a>
+  </nav>
+  <div class="header-right">
+    <div class="header-icons">
+      <a href="#" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </a>
+      <a href="/my-account" aria-label="Account">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+      </a>
+      <a href="/cart" aria-label="Cart">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      </a>
+    </div>
+    <a href="#" class="btn-quiz">Take the Quiz</a>
   </div>
 </header>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-eyebrow">Skincare for people who have better things to do</div>
-  <h1 class="hero-title">We made 4 products.</h1>
-  <div class="hero-title-2">We're not making more.</div>
-  <p class="hero-sub">Face wash. Body wash. AM cream. Night cream. Everything your skin actually needs — actives at real doses, zero filler steps.</p>
-  <div class="hero-pills">
-    <span class="hero-pill">multifunctional actives</span>
-    <span class="hero-pill">dermatologist tested</span>
-    <span class="hero-pill">3.5 min/day total</span>
-    <span class="hero-pill">no 5th product. ever.</span>
-  </div>
-  <div class="hero-btns">
-    <a href="/shop" class="btn-dark">Get The Whole Routine — ₹1,499</a>
-    <a href="/shop" class="btn-ghost">Wait, just 4?</a>
+<!-- ============================================
+     MARQUEE BANNER
+     ============================================ -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">CLEAN INGREDIENTS</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">NO BS</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">MADE FOR REAL LIFE</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">ALWAYS HONEST</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">CLEAN INGREDIENTS</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">NO BS</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">MADE FOR REAL LIFE</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">ALWAYS HONEST</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">CLEAN INGREDIENTS</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">NO BS</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">MADE FOR REAL LIFE</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">ALWAYS HONEST</span><span class="marquee-sep">&middot;</span>
   </div>
 </div>
 
-<!-- PRODUCTS -->
-<div class="products">
-  <div class="section-eyebrow">The full lineup</div>
-
-  <div class="product-grid">
-
-    <!-- Clear First -->
-    <a href="/product/clear-first" class="p-card p-facewash">
-      <div class="p-card-top">
-        <span class="p-card-num">ODD 01</span>
+<!-- ============================================
+     HERO SECTION
+     ============================================ -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Made for people, not perfect people.</div>
+      <h1 class="hero-title">
+        Care<br>
+        That Does More.<br>
+        <span class="hero-title-light">Less Noise.</span>
+      </h1>
+      <div class="hero-badge">Honest Care for Everyday Humans.</div>
+      <div class="hero-btns">
+        <a href="/shop" class="btn-dark">Shop Products</a>
+        <a href="#" class="btn-ghost">Take the Quiz</a>
       </div>
-      <div class="p-card-body">
-        <div class="p-card-name">Clear First</div>
-        <div class="p-card-tagline">Cleans, exfoliates, and balances your skin's microbiome — all at once. AM or PM.</div>
-        <div class="p-card-footer">
-          <div class="p-card-actives">
-            <span class="p-active-tag">niacinamide 2%</span>
-            <span class="p-active-tag">salicylic 0.5%</span>
-            <span class="p-active-tag">AHA+BHA+PHA</span>
+      <div class="hero-handwritten">
+        <span class="hero-arrow">&#8627;</span>
+        <span>no fluff. Just what works.</span>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-products-row">
+
+        <!-- Clear First — Squeeze Tube -->
+        <div class="hero-product-3d">
+          <div class="bottle bottle-tube">
+            <div class="tube-cap"></div>
+            <div class="tube-neck"></div>
+            <div class="tube-body">
+              <div class="label"></div>
+              <div class="cylinder-shade"></div>
+              <div class="highlight"></div>
+            </div>
+            <div class="bottle-shadow"></div>
           </div>
-          <div class="p-card-price">₹499</div>
+        </div>
+
+        <!-- ODD branded glass -->
+        <div class="hero-odd-cup">
+          <div class="cup-glass">
+            <span class="cup-logo">ODD</span>
+            <span class="cup-logo-sub">care co.</span>
+          </div>
+        </div>
+
+        <!-- Foam Rinse — Foamer Pump -->
+        <div class="hero-product-3d">
+          <div class="bottle bottle-foamer">
+            <div class="foamer-nozzle"></div>
+            <div class="foamer-pump"></div>
+            <div class="foamer-neck"></div>
+            <div class="foamer-body">
+              <div class="label"></div>
+              <div class="cylinder-shade"></div>
+              <div class="highlight"></div>
+            </div>
+            <div class="bottle-shadow"></div>
+          </div>
+        </div>
+
+        <!-- Dawn Shield — Airless AM -->
+        <div class="hero-product-3d">
+          <div class="bottle bottle-airless-am">
+            <div class="airless-am-cap"></div>
+            <div class="airless-am-shoulder"></div>
+            <div class="airless-am-body">
+              <div class="label"></div>
+              <div class="cylinder-shade"></div>
+              <div class="highlight"></div>
+            </div>
+            <div class="bottle-shadow"></div>
+          </div>
+        </div>
+
+        <!-- Deep Dusk — Airless PM -->
+        <div class="hero-product-3d">
+          <div class="bottle bottle-airless-pm">
+            <div class="airless-pm-cap"></div>
+            <div class="airless-pm-shoulder"></div>
+            <div class="airless-pm-body">
+              <div class="label"></div>
+              <div class="cylinder-shade"></div>
+              <div class="highlight"></div>
+            </div>
+            <div class="bottle-shadow"></div>
+          </div>
+        </div>
+
+        <!-- Hand-drawn ground line -->
+        <svg class="hero-ground-line" viewBox="0 0 600 20" preserveAspectRatio="none">
+          <path d="M0 12 Q25 6,50 11 Q75 16,100 10 Q130 5,160 12 Q190 17,220 10 Q250 5,280 12 Q310 17,340 10 Q370 5,400 12 Q430 17,460 10 Q490 5,520 12 Q550 17,580 10 L600 12" stroke="#333" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        </svg>
+
+        <!-- Decorative dots -->
+        <span class="hero-dot" style="top:15px;right:-12px;"></span>
+        <span class="hero-dot" style="top:60px;right:-6px;width:3px;height:3px;"></span>
+        <span class="hero-dot" style="bottom:50px;left:-14px;"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     THE SYSTEM — Section 02
+     ============================================ -->
+<section class="system" id="system">
+  <div class="system-container">
+    <!-- Sidebar -->
+    <aside class="system-sidebar">
+      <div>
+        <span class="system-sidebar-num">02</span>
+        <h2 class="system-sidebar-title">
+          <span class="hand-underline">THE SYSTEM</span>
+        </h2>
+        <div class="system-sidebar-tagline">
+          <p>4 steps.</p>
+          <p><span class="hand-underline">That's it.</span></p>
+        </div>
+      </div>
+      <div class="system-sidebar-mascot">
+        <!-- Mascot placeholder -->
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="system-main">
+      <div class="system-grid">
+
+    <a href="/clear-first" class="sys-card">
+      <div>
+        <span class="sys-card-num">01</span>
+        <div class="sys-card-content">
+          <div class="sys-card-model">
+            <div class="bottle bottle-tube">
+              <div class="tube-cap"></div>
+              <div class="tube-neck"></div>
+              <div class="tube-body">
+                <div class="label"></div>
+                <div class="cylinder-shade"></div>
+                <div class="highlight"></div>
+              </div>
+            </div>
+          </div>
+          <div class="sys-card-info">
+            <div class="sys-card-name">CLEAR FIRST</div>
+            <div class="sys-card-desc">All-in-One<br>Daily Cleanser</div>
+          </div>
+        </div>
+      </div>
+      <div class="sys-card-bottom">
+        <div class="sys-card-keywords">
+          <span class="sys-keyword">Cleanse</span>
+          <span class="sys-keyword">Refresh</span>
+          <span class="sys-keyword">Balance</span>
+        </div>
+        <div class="sys-card-footer">
+          <span class="sys-card-price">&#8377;499</span>
+          <span class="sys-card-arrow">→</span>
         </div>
       </div>
     </a>
 
-    <!-- Foam Rinse -->
-    <a href="/product/foam-rinse" class="p-card p-bodywash">
-      <div class="p-card-top">
-        <span class="p-card-num">ODD 02</span>
-      </div>
-      <div class="p-card-body">
-        <div class="p-card-name">Foam Rinse</div>
-        <div class="p-card-tagline">Your body has skin. This treats it properly. Fights body acne, refines texture, doesn't dry you out.</div>
-        <div class="p-card-footer">
-          <div class="p-card-actives">
-            <span class="p-active-tag">niacinamide 4%</span>
-            <span class="p-active-tag">AHA+BHA+PHA</span>
-            <span class="p-active-tag">ProVit B5</span>
+    <a href="/foam-rinse" class="sys-card">
+      <div>
+        <span class="sys-card-num">02</span>
+        <div class="sys-card-content">
+          <div class="sys-card-model">
+            <div class="bottle bottle-foamer">
+              <div class="foamer-nozzle"></div>
+              <div class="foamer-pump"></div>
+              <div class="foamer-neck"></div>
+              <div class="foamer-body">
+                <div class="label"></div>
+                <div class="cylinder-shade"></div>
+                <div class="highlight"></div>
+              </div>
+            </div>
           </div>
-          <div class="p-card-price">₹449</div>
+          <div class="sys-card-info">
+            <div class="sys-card-name">FOAM RINSE</div>
+            <div class="sys-card-desc">All-in-One<br>Foaming Body Wash</div>
+          </div>
+        </div>
+      </div>
+      <div class="sys-card-bottom">
+        <div class="sys-card-keywords">
+          <span class="sys-keyword">Cleanse</span>
+          <span class="sys-keyword">Purify</span>
+          <span class="sys-keyword">Calm</span>
+        </div>
+        <div class="sys-card-footer">
+          <span class="sys-card-price">&#8377;449</span>
+          <span class="sys-card-arrow">→</span>
         </div>
       </div>
     </a>
 
-    <!-- Dawn Shield -->
-    <a href="/product/dawn-shield" class="p-card p-amcream">
-      <div class="p-card-top">
-        <span class="p-card-num">ODD 03</span>
-      </div>
-      <div class="p-card-body">
-        <div class="p-card-name">Dawn Shield</div>
-        <div class="p-card-tagline">SPF 50+ PA + sunscreen that's also your moisturiser. Non greasy. One pump before you leave.</div>
-        <div class="p-card-footer">
-          <div class="p-card-actives">
-            <span class="p-active-tag">SPF 50+ PA +</span>
-            <span class="p-active-tag">ceramides</span>
-            <span class="p-active-tag">niacinamide</span>
+    <a href="/dawn-shield" class="sys-card">
+      <div>
+        <span class="sys-card-num">03</span>
+        <div class="sys-card-content">
+          <div class="sys-card-model">
+            <div class="bottle bottle-airless-am">
+              <div class="airless-am-cap"></div>
+              <div class="airless-am-shoulder"></div>
+              <div class="airless-am-body">
+                <div class="label"></div>
+                <div class="cylinder-shade"></div>
+                <div class="highlight"></div>
+              </div>
+            </div>
           </div>
-          <div class="p-card-price">₹399</div>
+          <div class="sys-card-info">
+            <div class="sys-card-name">DAWN SHIELD</div>
+            <div class="sys-card-desc">All-in-One Daily<br>Protective Moisturizer</div>
+          </div>
+        </div>
+      </div>
+      <div class="sys-card-bottom">
+        <div class="sys-card-keywords">
+          <span class="sys-keyword">Protect</span>
+          <span class="sys-keyword">Hydrate</span>
+          <span class="sys-keyword">Shield</span>
+        </div>
+        <div class="sys-card-footer">
+          <span class="sys-card-price">&#8377;399</span>
+          <span class="sys-card-arrow">→</span>
         </div>
       </div>
     </a>
 
-    <!-- Deep Dusk -->
-    <a href="/product/deep-dusk" class="p-card p-pmcream">
-      <div class="p-card-top">
-        <span class="p-card-num" style="color:#555;">ODD 04</span>
-      </div>
-      <div class="p-card-body">
-        <div class="p-card-name">Deep Dusk</div>
-        <div class="p-card-tagline">Night cream with bio retinol. Repairs your barrier, fades pigmentation, retains moisture. Do it once. Sleep.</div>
-        <div class="p-card-footer">
-          <div class="p-card-actives">
-            <span class="p-active-tag">bio retinol</span>
-            <span class="p-active-tag">niacinamide 2%</span>
-            <span class="p-active-tag">shea butter</span>
+    <a href="/deep-dusk" class="sys-card">
+      <div>
+        <span class="sys-card-num">04</span>
+        <div class="sys-card-content">
+          <div class="sys-card-model">
+            <div class="bottle bottle-airless-pm">
+              <div class="airless-pm-cap"></div>
+              <div class="airless-pm-shoulder"></div>
+              <div class="airless-pm-body">
+                <div class="label"></div>
+                <div class="cylinder-shade"></div>
+                <div class="highlight"></div>
+              </div>
+            </div>
           </div>
-          <div class="p-card-price">₹549</div>
+          <div class="sys-card-info">
+            <div class="sys-card-name">DEEP DUSK</div>
+            <div class="sys-card-desc">All-in-One<br>Sundown Cream<br>With Actives</div>
+          </div>
+        </div>
+      </div>
+      <div class="sys-card-bottom">
+        <div class="sys-card-keywords">
+          <span class="sys-keyword">Nourish</span>
+          <span class="sys-keyword">Restore</span>
+          <span class="sys-keyword">Soothe</span>
+        </div>
+        <div class="sys-card-footer">
+          <span class="sys-card-price">&#8377;549</span>
+          <span class="sys-card-arrow">→</span>
         </div>
       </div>
     </a>
 
-  </div><!-- /.product-grid -->
-
-  <!-- Bundle -->
-  <a href="/product/the-whole-routine" class="bundle-row">
-    <div class="bundle-badge">All 4</div>
-    <div class="bundle-info">
-      <div class="bundle-name">The Whole Routine</div>
-      <div class="bundle-tagline">Complete AM + PM + body routine. One order. Nothing missing. Nothing extra.</div>
-    </div>
-    <div class="bundle-price-block">
-      <span class="bundle-price">₹1,499</span>
-      <span class="bundle-saving">save ₹397 vs. individual</span>
-    </div>
-  </a>
-
-</div><!-- /.products -->
-
-<!-- WHY 4 -->
-<div class="why4">
-  <div class="why4-inner">
-    <div class="why4-number">4<span class="why4-period">.</span></div>
-    <div class="why4-text">
-      <h2 class="why4-title">Most routines need 12 products to do what we do in 4.</h2>
-      <p class="why4-body">We built each product to do the work of three. Actives at real concentrations, not dusted in for label appeal. Nothing decorative. Nothing that exists to add a step.</p>
-      <div class="why4-list">
-        <div class="why4-item"><div class="why4-dot"></div>Clear First covers cleansing + exfoliation + microbiome balance</div>
-        <div class="why4-item"><div class="why4-dot"></div>Foam Rinse covers body care + pore treatment + hydration</div>
-        <div class="why4-item"><div class="why4-dot"></div>Dawn Shield covers SPF + moisturiser + barrier in one step</div>
-        <div class="why4-item"><div class="why4-dot"></div>Deep Dusk covers retinol + repair + overnight hydration</div>
       </div>
+
+      <!-- Bundle Banner -->
+      <a href="/the-whole-routine" class="bundle-banner">
+        <div class="bundle-banner-left">
+          <div class="bundle-banner-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <div>
+            <div class="bundle-banner-name">The Daily ODD Combo</div>
+            <div class="bundle-banner-desc">Everything you need. Every day.<br>Complete routine at a better value.</div>
+          </div>
+        </div>
+        <div class="bundle-banner-right">
+          <div class="bundle-banner-pricing">
+            <span class="bundle-banner-original">&#8377;1,896</span>
+            <span class="bundle-banner-price">&#8377;1,499</span>
+          </div>
+          <div class="bundle-banner-actions">
+            <span class="bundle-banner-save">SAVE 21%</span>
+            <span class="bundle-banner-arrow">→</span>
+          </div>
+        </div>
+      </a>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ROUTINE -->
-<div class="routine">
-  <div class="routine-inner">
-
-    <div class="routine-col am">
-      <div class="routine-col-label">Morning</div>
-      <div class="routine-col-time">The AM routine.</div>
-      <div class="routine-steps">
-        <div class="routine-step">
-          <div class="routine-step-icon icon-facewash">01</div>
-          <div>
-            <div class="routine-step-name">Clear First</div>
-            <div class="routine-step-note">In the shower. Lather, rinse, done.</div>
-          </div>
-        </div>
-        <div class="routine-step">
-          <div class="routine-step-icon icon-bodywash">02</div>
-          <div>
-            <div class="routine-step-name">Foam Rinse</div>
-            <div class="routine-step-note">Also in the shower. Foam, rinse.</div>
-          </div>
-        </div>
-        <div class="routine-step">
-          <div class="routine-step-icon icon-amcream">03</div>
-          <div>
-            <div class="routine-step-name">Dawn Shield</div>
-            <div class="routine-step-note">After shower. One pump. Then leave.</div>
-          </div>
+<!-- ============================================
+     ROUTINE AT A GLANCE — Section 03
+     ============================================ -->
+<section class="routine" id="routine">
+  <div class="section-eyebrow"><span class="section-num">03</span> Routine at a Glance</div>
+  <div class="routine-layout">
+    <div class="routine-headline">
+      <div class="routine-total-number">3.5</div>
+      <div class="routine-total-unit">Minutes Total</div>
+      <div class="routine-total-msg">You're done. Go live.</div>
+      <div class="ampm">am &amp; pm</div>
+    </div>
+    <div class="routine-steps">
+      <div class="routine-step">
+        <div class="routine-step-icon step-cleanse">01</div>
+        <div class="routine-step-label">Step 1</div>
+        <div class="routine-step-name">Cleanse</div>
+        <div class="routine-step-desc">Clear First<br>Clean skin. Clear head.</div>
+        <div class="routine-step-time">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          30 sec
         </div>
       </div>
-    </div>
-
-    <div class="routine-col pm">
-      <div class="routine-col-label">Night</div>
-      <div class="routine-col-time">The PM routine.</div>
-      <div class="routine-steps">
-        <div class="routine-step">
-          <div class="routine-step-icon icon-facewash-pm">01</div>
-          <div>
-            <div class="routine-step-name">Clear First</div>
-            <div class="routine-step-note">Optional. After a long day, yes. Otherwise skip.</div>
-          </div>
+      <div class="routine-step">
+        <div class="routine-step-icon step-wash">02</div>
+        <div class="routine-step-label">Step 2</div>
+        <div class="routine-step-name">Wash</div>
+        <div class="routine-step-desc">Foam Rinse<br>Deep clean. Not stripped.</div>
+        <div class="routine-step-time">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          60 sec
         </div>
-        <div class="routine-step">
-          <div class="routine-step-icon icon-pmcream">02</div>
-          <div>
-            <div class="routine-step-name">Deep Dusk</div>
-            <div class="routine-step-note">One pump. Sleep. Wake up.</div>
-          </div>
+      </div>
+      <div class="routine-step">
+        <div class="routine-step-icon step-protect">03</div>
+        <div class="routine-step-label">Step 3</div>
+        <div class="routine-step-name">Protect</div>
+        <div class="routine-step-desc">Dawn Shield SPF<br>Shield what matters most.</div>
+        <div class="routine-step-time">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          30 sec
+        </div>
+      </div>
+      <div class="routine-step">
+        <div class="routine-step-icon step-nourish">04</div>
+        <div class="routine-step-label">Step 4</div>
+        <div class="routine-step-name">Nourish</div>
+        <div class="routine-step-desc">Deep Dusk<br>Nourish &amp; restore. Always.</div>
+        <div class="routine-step-time">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          60 sec
         </div>
       </div>
     </div>
-
   </div>
-  <div class="routine-footer">
-    Total daily time: <strong>~3.5 minutes.</strong> You spend longer than this picking a Netflix show.
-  </div>
-</div>
+</section>
 
-<!-- HONEST CARDS -->
-<div class="honest">
-  <div class="section-eyebrow">Things we'll just say directly</div>
-  <div class="honest-grid">
-    <div class="honest-card">
-      <div class="honest-q">Why only 4?</div>
-      <div class="honest-a">Because that's what your skin actually needs. Everything else is optional at best, anxiety inducing at worst. We checked the science. Twice.</div>
+<!-- ============================================
+     WHY ODD > THEM — Section 04
+     ============================================ -->
+<section class="why-odd" id="why-odd">
+  <div class="section-eyebrow"><span class="section-num">04</span> Why ODD &gt; Them</div>
+  <div class="why-odd-layout">
+    <div class="why-odd-intro">
+      <h3>We don't do skincare. So you don't have to either.</h3>
+      <p>We don't do multiple. We don't do confusing. We don't do 10-step routines.</p>
+      <div class="odd-way">The ODD way.</div>
     </div>
-    <div class="honest-card">
-      <div class="honest-q">When do results show?</div>
-      <div class="honest-a">4–6 weeks. Not overnight. Not in a week. Anyone saying otherwise is selling something else, and the something else usually costs more.</div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th class="col-cat"></th>
+          <th class="col-them">Them</th>
+          <th class="col-vs">vs</th>
+          <th class="col-odd">ODD Care Co.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-cat">Ingredients</td><td class="td-them">Harsh Chemicals</td><td class="td-vs">&middot;</td><td class="td-odd">Clean, Safe Ingredients</td></tr>
+        <tr><td class="td-cat">Philosophy</td><td class="td-them">Short-term Fix</td><td class="td-vs">&middot;</td><td class="td-odd">Long-term Care</td></tr>
+        <tr><td class="td-cat">Routine</td><td class="td-them">Overcomplicated</td><td class="td-vs">&middot;</td><td class="td-odd">Simple &amp; Effective</td></tr>
+        <tr><td class="td-cat">Transparency</td><td class="td-them">Hidden Ingredients</td><td class="td-vs">&middot;</td><td class="td-odd">Full Transparency</td></tr>
+        <tr><td class="td-cat">Made For</td><td class="td-them">10+ Step Routines</td><td class="td-vs">&middot;</td><td class="td-odd">People with better things to do</td></tr>
+        <tr><td class="td-cat">Ethics</td><td class="td-them">Tested on Animals</td><td class="td-vs">&middot;</td><td class="td-odd">Cruelty Free</td></tr>
+      </tbody>
+    </table>
+    <div class="our-rules">
+      <h4>Our Rules</h4>
+      <ul>
+        <li>Real Ingredients</li>
+        <li>Real Results</li>
+        <li>No BS</li>
+        <li>Always Honest</li>
+      </ul>
     </div>
-    <div class="honest-card">
-      <div class="honest-q">Will you add products?</div>
-      <div class="honest-a">We've had this debate internally four times. The answer has been no every time. Ask again next year. Answer will be the same.</div>
+  </div>
+</section>
+
+<!-- ============================================
+     REVIEWS — Section 05
+     ============================================ -->
+<section class="reviews" id="reviews">
+  <div class="section-eyebrow"><span class="section-num">05</span> Real People, Real Stories</div>
+  <div class="reviews-header">
+    <div>
+      <h2>Real People,<br>Real Stories</h2>
+      <p>No filters. Just real ODD-ers.</p>
     </div>
-    <div class="honest-card">
-      <div class="honest-q">Is this for sensitive skin?</div>
-      <div class="honest-a">Yes. Formulated for daily use on all skin types. If you're nervous, patch test first. We would too. You know your skin better than we do.</div>
-    </div>
+    <a href="#" class="read-all">Read All Reviews</a>
   </div>
-</div>
-
-<!-- FAQ -->
-<div class="faq">
-  <div class="section-eyebrow">The questions</div>
-
-  <div class="faq-item" onclick="faqToggle(this)">
-    <div class="faq-q">Is this really a complete routine? <div class="faq-icon">+</div></div>
-    <div class="faq-a">Yes. AM: Clear First + Foam Rinse in the shower, Dawn Shield after. PM: Clear First (optional) + Deep Dusk. Your skin is covered — cleansing, hydration, sun protection, barrier repair, actives for texture and tone. We didn't cut corners. We cut unnecessary products.</div>
-  </div>
-  <div class="faq-item" onclick="faqToggle(this)">
-    <div class="faq-q">I already have a skincare routine. Why would I switch? <div class="faq-icon">+</div></div>
-    <div class="faq-a">You probably wouldn't switch entirely. But if you're buying for someone who doesn't have a routine — a partner, sibling, a friend still using shampoo on their face — this is where to start. The formulations are also genuinely good. The skincare obsessed people who've tried it know.</div>
-  </div>
-  <div class="faq-item" onclick="faqToggle(this)">
-    <div class="faq-q">What about eye cream / toner / essence / serum? <div class="faq-icon">+</div></div>
-    <div class="faq-a">Eye cream: your night cream covers the under eye area. Toner: not necessary if your cleanser maintains pH (ours does). Essence and mist: we genuinely cannot help you here. Serum: the actives in our products are at serum level concentrations. We just put them where you'll actually use them.</div>
-  </div>
-  <div class="faq-item" onclick="faqToggle(this)">
-    <div class="faq-q">Can I use this if I'm on tretinoin or prescription actives? <div class="faq-icon">+</div></div>
-    <div class="faq-a">Talk to your dermatologist — really. Our face wash has BHA which layered on top of tret can be too much for some skin. The body wash, Dawn Shield, and Deep Dusk are generally fine. When in doubt: your derm knows your skin, we don't.</div>
-  </div>
-
-</div>
-
-<!-- REVIEWS -->
-<div class="reviews">
-  <div class="reviews-inner">
-    <div class="section-eyebrow">Reviews — unfiltered</div>
-    <div class="reviews-grid">
-
-      <div class="r-card">
-        <div class="r-name">Karan V., Hyderabad</div>
-        <div class="r-tag">skincare obsessive with 40 products · recommended this anyway</div>
-        <div class="r-text">"The formulation logic is genuinely smart. Retinol in night cream, BHA in face wash, SPF built into the AM step. Someone thought this through. Recommended it to 3 people already."</div>
-        <span class="r-badge r-badge-sage">starts the recommendation chain</span>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div class="review-text">My skin finally feels calm and balanced. The routine is so effortless. Finally, a brand that gets it.</div>
+      <div class="review-author">
+        <div class="review-avatar">A</div>
+        <div class="review-meta">
+          <div class="review-name">Ananya, 28</div>
+          <div class="review-skin">Combination Skin</div>
+        </div>
       </div>
-
-      <div class="r-card">
-        <div class="r-name">Meera T., Pune</div>
-        <div class="r-tag">gifted this to her boyfriend</div>
-        <div class="r-text">"He used bar soap on his face for 28 years. Three weeks in and his skin looks better than mine. I'm furious. Also I stole the face wash."</div>
-        <span class="r-badge r-badge-amber">gifted, then immediately stolen</span>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div class="review-text">Simple, effective and no weird ingredients. Finally, a brand that actually tells you what's in it. Refreshing.</div>
+      <div class="review-author">
+        <div class="review-avatar">R</div>
+        <div class="review-meta">
+          <div class="review-name">Rohan, 31</div>
+          <div class="review-skin">Oily Skin</div>
+        </div>
       </div>
-
-      <div class="r-card">
-        <div class="r-name">Anonymous</div>
-        <div class="r-tag">verified purchase · 3 stars</div>
-        <div class="r-text">"Didn't fix my acne in a week. 3 stars."<br><br><em style="font-size:12px;color:#aaa;">— Brand: We did say 4–6 weeks. This review is staying up.</em></div>
-        <span class="r-badge r-badge-dark">we keep the unflattering ones</span>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div class="review-text">I travel a lot and this routine keeps my skin happy everywhere. No fuss, no figuring out what goes where.</div>
+      <div class="review-author">
+        <div class="review-avatar">M</div>
+        <div class="review-meta">
+          <div class="review-name">Mehak, 26</div>
+          <div class="review-skin">Dry Skin</div>
+        </div>
       </div>
-
     </div>
   </div>
-</div>
+</section>
 
-<!-- FOOTER CTA -->
-<div class="footer-cta">
-  <div class="footer-cta-inner">
-    <div class="footer-eyebrow">the whole group</div>
-    <h2 class="footer-title">4 products. One box.<br><span>Your skin, sorted.</span></h2>
-    <p class="footer-sub">No follow up email asking if you need a serum. No "complete the routine" pop up. Just 4 products, shipped.</p>
-    <a href="/product/the-whole-routine" class="btn-sage">Get The Whole Routine — ₹1,499</a>
-    <div class="footer-links">
-      <a href="/why-4" class="btn-ghost-dark">Manifesto</a>
-      <a href="/our-mission" class="btn-ghost-dark">Our Mission</a>
+<!-- ============================================
+     TRUST BADGES
+     ============================================ -->
+<section class="trust">
+  <div class="trust-row">
+    <div class="trust-badge">
+      <div class="trust-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="trust-badge-text"><h4>Clean &amp; Safe</h4><p>No nasties. Just the good stuff.</p></div>
     </div>
-    <div class="footer-fine">
-      <span>free shipping</span>
-      <span>30 day returns</span>
-      <span>still only 4 products</span>
+    <div class="trust-badge">
+      <div class="trust-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="trust-badge-text"><h4>Cruelty Free</h4><p>We love animals. They're not our testers.</p></div>
+    </div>
+    <div class="trust-badge">
+      <div class="trust-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 22 16 8"/><circle cx="18" cy="6" r="3"/><path d="m2 13 6 6"/></svg></div>
+      <div class="trust-badge-text"><h4>Sustainable</h4><p>Better for you. Better for Earth.</p></div>
+    </div>
+    <div class="trust-badge">
+      <div class="trust-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="trust-badge-text"><h4>Made in India</h4><p>Thoughtfully made. Proudly local.</p></div>
     </div>
   </div>
-</div>
+  <div class="trust-row" style="margin-top:2rem;">
+    <div class="trust-badge">
+      <div class="trust-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+      <div class="trust-badge-text"><h4>100% Secure Payments</h4></div>
+    </div>
+    <div class="trust-badge">
+      <div class="trust-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></div>
+      <div class="trust-badge-text"><h4>Easy Returns</h4></div>
+    </div>
+    <div class="trust-badge">
+      <div class="trust-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+      <div class="trust-badge-text"><h4>Dermatologically Tested</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-newsletter">
+      <div class="footer-newsletter-left">
+        <div class="footer-nl-logo">ODD <span>care co.</span></div>
+        <div class="footer-nl-title">Stay in the ODD Loop</div>
+        <div class="footer-nl-desc">New drops. Honest talks. Special offers.<br>No spam. Just good stuff.</div>
+        <div class="footer-socials">
+          <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="#" aria-label="X"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-newsletter-right">
+        <input type="email" class="footer-email-input" placeholder="your@email.com">
+        <button class="footer-subscribe-btn">Subscribe</button>
+      </div>
+    </div>
+    <div class="footer-columns">
+      <div class="footer-col">
+        <h5>Shop</h5>
+        <ul><li><a href="/shop">All Products</a></li><li><a href="#system">Build Your Routine</a></li><li><a href="/the-whole-routine">Combos</a></li><li><a href="#">Gift Cards</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul><li><a href="/our-mission">About Us</a></li><li><a href="#">Sustainability</a></li><li><a href="#">Careers</a></li><li><a href="#">Contact Us</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h5>Help</h5>
+        <ul><li><a href="#">FAQs</a></li><li><a href="#">Shipping &amp; Delivery</a></li><li><a href="#">Returns &amp; Refunds</a></li><li><a href="#">Track Your Order</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h5>&nbsp;</h5>
+        <div class="footer-badges">
+          <div class="footer-badge-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> 100% Secure Payments</div>
+          <div class="footer-badge-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Easy Returns</div>
+          <div class="footer-badge-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Dermatologically Tested</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <p>&copy; 2026 ODD Care Co. All rights reserved.</p>
+      <div class="footer-copyright-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <script>
-function faqToggle(el) {
-  const a = el.querySelector('.faq-a');
-  const icon = el.querySelector('.faq-icon');
-  const isOpen = el.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(x => {
-    x.classList.remove('open');
-    x.querySelector('.faq-a').classList.remove('open');
-    x.querySelector('.faq-icon').textContent = '+';
+/* ── Smooth scroll ── */
+document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+  link.addEventListener('click', function(e) {
+    var target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   });
-  if (!isOpen) {
-    el.classList.add('open');
-    a.classList.add('open');
-    icon.textContent = '−';
-  }
-}
+});
+
+/* ── Scroll-reveal ── */
+(function() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.sys-card, .routine-step, .review-card, .trust-badge').forEach(function(el) {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.system-grid, .routine-steps, .reviews-grid, .trust-row').forEach(function(container) {
+    var childObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var children = entry.target.children;
+          for (var i = 0; i < children.length; i++) {
+            children[i].style.transitionDelay = (i * 0.1) + 's';
+            children[i].classList.add('revealed');
+          }
+          childObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    childObserver.observe(container);
+  });
+})();
+
+var style = document.createElement('style');
+style.textContent = '.revealed { opacity: 1 !important; transform: translateY(0) !important; }';
+document.head.appendChild(style);
+</script>
+
+<!-- 3D Mascot -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="odd-mascot.js"></script>
+<script>
+var mascot = OddMascot.create({
+  container: '.hero-visual',
+  size: 140,
+  position: { x: -10, y: 50 },
+  animation: 'pop-up',
+  popUpDelay: 2000,
+  waveSpeed: 8,
+  waveAmplitude: 0.4
+});
 </script>
 
 </body>

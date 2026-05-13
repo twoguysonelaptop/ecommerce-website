@@ -1,0 +1,1318 @@
+/*
+ Theme Name:   ODD Care Co
+ Theme URI:    https://oddcareco.com
+ Description:  Child theme for ODD Care Co — minimalist e-commerce brand
+ Author:       ODD Care Co
+ Template:     kadence
+ Version:      1.0.0
+ Text Domain:  oddcareco-child
+*/
+
+/* ============================================
+   ODD Care Co — Brand Overrides
+   Color Palette:
+     Primary:    #000000 (Black)
+     Background: #FFFFFF (White)
+     Accent:     #9CAF88 (Sage Green)
+     Surface:    #F5F0EB (Light Beige)
+     Dark:       #1a1a1a (Near-black)
+   ============================================ */
+
+:root {
+  --odd-black: #000000;
+  --odd-white: #FFFFFF;
+  --odd-sage: #9CAF88;
+  --odd-beige: #F5F0EB;
+  --odd-dark: #1a1a1a;
+  --odd-gray: #555555;
+  --odd-light-gray: #e0e0e0;
+  --odd-border: #e5e5e5;
+}
+
+/* Global resets to match the minimal aesthetic */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  color: var(--odd-dark);
+  background: var(--odd-beige) !important;
+}
+
+/* Deep Dusk (page-id-37): dark body to match dark content */
+body.page-id-37 {
+  background: #0d0d0d !important;
+}
+
+/* Keep header white against beige body */
+header.site-header {
+  background: var(--odd-white);
+}
+
+/* Increase header size — more breathing room around logo */
+.site-main-header-inner-wrap {
+  padding: 0rem 0 !important;
+  max-height: 140px !important;
+}
+.site-header .custom-logo {
+  max-height: 90px !important;
+  width: auto !important;
+}
+
+/* ══════════════════════════════════════════════
+   HOMEPAGE v2 — WordPress Overrides
+   Page ID 26 · New editorial-style design
+   ══════════════════════════════════════════════ */
+
+/* Homepage body: white background (not beige) */
+body.page-id-26 {
+  background: #ffffff !important;
+}
+
+/* Hide Kadence theme header on homepage — page has its own inline header */
+body.page-id-26 .site-main-header-wrap {
+  display: none !important;
+}
+
+/* Hide Kadence footer on homepage — page has its own footer */
+/* Target only the Kadence footer (direct child of .site), not the page-content footer */
+body.page-id-26 > .site > .site-footer,
+body.page-id-26 .site.wp-site-blocks > .site-footer {
+  display: none !important;
+}
+
+/* Hide custom odd-footer on homepage too */
+body.page-id-26 .odd-footer {
+  display: none !important;
+}
+
+/* Top announcement bar */
+.page-id-26 .top-bar {
+  position: relative !important;
+  z-index: 12 !important;
+}
+
+/* Kadence header: show full nav on homepage */
+.page-id-26 .site-main-header-inner-wrap {
+  max-height: none !important;
+}
+
+/* "GET ALL 4" button in Kadence header */
+.odd-get-all-btn {
+  background: var(--odd-sage) !important;
+  color: #fff !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  padding: 9px 20px !important;
+  border-radius: 999px !important;
+  text-decoration: none !important;
+  transition: opacity 0.15s ease !important;
+}
+.odd-get-all-btn:hover { opacity: 0.85 !important; }
+
+/* Navigation items uppercase */
+.page-id-26 .main-navigation > ul > li > a {
+  font-size: 11px !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+  color: var(--odd-gray) !important;
+}
+.page-id-26 .main-navigation > ul > li > a:hover {
+  color: var(--odd-dark) !important;
+}
+
+/* Hero section: override Kadence content width */
+.page-id-26 .entry-content-wrap {
+  max-width: none !important;
+}
+
+/* Google Fonts: Caveat loaded via wp_enqueue_scripts in functions.php */
+
+/* Remove rounded corners and shadow from inner-wrap — no more white pillars */
+#inner-wrap {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Pill-shaped buttons (matching homepage_final.html) */
+.wp-block-button__link,
+.button,
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button,
+.woocommerce #respond input#submit {
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+/* Primary buttons — dark */
+.wp-block-button__link,
+.woocommerce a.button.alt,
+.woocommerce button.button.alt,
+.woocommerce input.button.alt {
+  background: var(--odd-dark);
+  color: #f5f5f5;
+  border: none;
+}
+
+.wp-block-button__link:hover,
+.woocommerce a.button.alt:hover,
+.woocommerce button.button.alt:hover {
+  background: var(--odd-black);
+}
+
+/* Secondary/outline buttons */
+.woocommerce a.button,
+.woocommerce button.button {
+  background: transparent;
+  color: var(--odd-dark);
+  border: 0.5px solid var(--odd-border);
+}
+
+/* Thin borders throughout */
+.woocommerce-page .woocommerce,
+.entry-content,
+hr {
+  border-color: var(--odd-border);
+}
+
+/* Eyebrow/label text style */
+.oddcareco-eyebrow {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--odd-gray);
+}
+
+/* Product cards — clean and minimal */
+.woocommerce ul.products li.product {
+  border: 0.5px solid var(--odd-border);
+  border-radius: 10px;
+  padding: 1rem;
+  transition: transform 0.12s ease;
+}
+
+.woocommerce ul.products li.product:hover {
+  transform: translateY(-2px);
+}
+
+/* Price styling */
+.woocommerce .price {
+  color: var(--odd-dark);
+  font-weight: 500;
+}
+
+/* WooCommerce notices — minimal */
+.woocommerce-message,
+.woocommerce-info {
+  border-top-color: var(--odd-sage);
+}
+
+/* Sage green accents */
+.woocommerce-message::before,
+.woocommerce-info::before {
+  color: var(--odd-sage);
+}
+
+/* ══════════════════════════════════════════════
+   PREMIUM PRODUCTS DROPDOWN
+   ══════════════════════════════════════════════ */
+
+/* "PRODUCTS" label in nav */
+.main-navigation .menu-item-has-children > a {
+  font-size: 11px !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+}
+
+/* Dropdown panel */
+.main-navigation .sub-menu {
+  background: #0d0d0d !important;
+  border: none !important;
+  border-top: 2px solid var(--odd-sage) !important;
+  border-radius: 0 0 16px 16px !important;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.28), 0 8px 24px rgba(0,0,0,0.16) !important;
+  padding: 0.75rem 0 0.9rem !important;
+  min-width: 300px !important;
+  overflow: hidden !important;
+  animation: premiumDrop 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes premiumDrop {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Each item row */
+.main-navigation .sub-menu li {
+  border: none !important;
+}
+
+.main-navigation .sub-menu li a {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+  padding: 0.8rem 1.6rem !important;
+  border-left: 2px solid transparent !important;
+  text-decoration: none !important;
+  transition: background 0.15s ease, border-color 0.15s ease !important;
+}
+
+/* Product code: ODD-01 */
+.main-navigation .sub-menu li a .nav-prod-code {
+  display: block;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--odd-sage);
+  margin-bottom: 1px;
+}
+
+/* Product name */
+.main-navigation .sub-menu li a .nav-prod-name {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #ede9e3;
+  line-height: 1.15;
+}
+
+/* Meta row: type + price */
+.main-navigation .sub-menu li a .nav-prod-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2px;
+}
+
+.main-navigation .sub-menu li a .nav-prod-type {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4a4a4a;
+}
+
+.main-navigation .sub-menu li a .nav-prod-price {
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  color: #3a3a3a;
+}
+
+/* Hover */
+.main-navigation .sub-menu li a:hover {
+  background: rgba(255,255,255,0.04) !important;
+  border-left-color: var(--odd-sage) !important;
+}
+
+.main-navigation .sub-menu li a:hover .nav-prod-name {
+  color: #ffffff !important;
+}
+
+.main-navigation .sub-menu li a:hover .nav-prod-price {
+  color: var(--odd-sage) !important;
+}
+
+/* Bundle row — separated + sage tinted */
+.main-navigation .sub-menu li.nav-bundle-item {
+  border-top: 0.5px solid rgba(255,255,255,0.07) !important;
+  margin-top: 0.4rem !important;
+  padding-top: 0.15rem !important;
+}
+
+.main-navigation .sub-menu li.nav-bundle-item a {
+  background: rgba(156, 175, 136, 0.07) !important;
+  border-left: 2px solid var(--odd-sage) !important;
+}
+
+.main-navigation .sub-menu li.nav-bundle-item a .nav-prod-name {
+  color: #c8dfc0 !important;
+}
+
+.main-navigation .sub-menu li.nav-bundle-item a .nav-prod-price {
+  color: var(--odd-sage) !important;
+}
+
+.main-navigation .sub-menu li.nav-bundle-item a:hover {
+  background: rgba(156, 175, 136, 0.13) !important;
+}
+
+
+/* ── Product pages: hide tab scrollbar ── */
+.tabs {
+  scrollbar-width: none !important;           /* Firefox */
+  -ms-overflow-style: none !important;        /* IE/Edge */
+}
+.tabs::-webkit-scrollbar {
+  display: none !important;                   /* Chrome/Safari */
+}
+
+/* ── Homepage v2: hero has no "4" watermark anymore ── */
+
+/* ── Fix WordPress block wrapper clipping ── */
+.wp-site-blocks {
+  overflow: visible !important;
+}
+
+/* ── Custom footer ── */
+.odd-footer {
+  background: #0d0d0d;
+  border-top: 1px solid #1f1f1f;
+  padding: 3rem 2rem;
+}
+
+.odd-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.odd-footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.odd-footer-logo {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f0ede8;
+}
+
+.odd-footer-tagline {
+  font-size: 11px;
+  color: #888;
+  letter-spacing: 0.03em;
+}
+
+.odd-footer-nav {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.odd-footer-nav a {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #999;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.odd-footer-nav a:hover {
+  color: var(--odd-sage);
+}
+
+/* ── Remove white article background and side padding on all pages ── */
+.entry.content-bg {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.entry-content-wrap {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Footer CTA: no longer used in homepage v2 (footer is built into page HTML) */
+
+/* Subtle divider between CTA content and brand footer */
+.odd-footer {
+  margin-top: 0 !important;
+  border-top: 1px solid rgba(255,255,255,0.05) !important;
+}
+
+/* Kadence copyright footer: match dark theme */
+.site-footer {
+  background: #0d0d0d !important;
+}
+
+.site-footer .site-bottom-footer-wrap {
+  background: #0d0d0d !important;
+  border-top: 1px solid rgba(255,255,255,0.05) !important;
+}
+
+.site-footer .footer-html {
+  color: #666 !important;
+  font-size: 11px !important;
+}
+
+.site-footer .footer-html a {
+  color: #777 !important;
+}
+
+/* ── Header: hide site name text next to logo ── */
+.site-title-wrap {
+  display: none !important;
+}
+
+/* ── Ticker replaced by static top-bar in homepage v2 ── */
+
+/* ══════════════════════════════════════════════
+   MY ACCOUNT PAGE
+   ══════════════════════════════════════════════ */
+
+/* Remove Kadence default padding on account page */
+.page-id-9 .entry-content-wrap {
+  padding: 0 !important;
+}
+
+/* ── Account page wrapper ── */
+.page-id-9 .woocommerce {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3.5rem 2rem 5rem;
+}
+
+/* ── LOGGED-IN: Dashboard layout ── */
+
+/* Force single-column layout (nav on top, content below) */
+.page-id-9 .woocommerce {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.page-id-9 .account-navigation-wrap,
+.page-id-9 .woocommerce-MyAccount-navigation,
+.page-id-9 .woocommerce-MyAccount-content {
+  float: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Hide Kadence avatar + name block above nav */
+.page-id-9 .kadence-account-avatar,
+.page-id-9 .woo-account-navigation-avatar {
+  display: none !important;
+}
+
+/* Navigation bar */
+.woocommerce-MyAccount-navigation {
+  background: var(--odd-beige);
+  border-radius: 14px;
+  padding: 1.8rem 0;
+  margin-bottom: 2.5rem;
+}
+
+.woocommerce-MyAccount-navigation ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.woocommerce-MyAccount-navigation ul li {
+  margin: 0;
+}
+
+.woocommerce-MyAccount-navigation ul li a {
+  display: block;
+  padding: 0.6rem 1.4rem;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--odd-gray);
+  text-decoration: none;
+  border-radius: 999px;
+  transition: all 0.15s ease;
+}
+
+.woocommerce-MyAccount-navigation ul li a:hover {
+  color: var(--odd-dark);
+  background: rgba(0,0,0,0.04);
+}
+
+.woocommerce-MyAccount-navigation ul li.is-active a {
+  background: var(--odd-dark);
+  color: #f5f5f5;
+}
+
+/* Dashboard content area */
+.woocommerce-MyAccount-content {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--odd-gray);
+}
+
+.woocommerce-MyAccount-content p {
+  margin-bottom: 1rem;
+}
+
+.woocommerce-MyAccount-content a {
+  color: var(--odd-dark);
+  text-decoration: underline;
+  text-decoration-color: var(--odd-sage);
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+
+.woocommerce-MyAccount-content a:hover {
+  color: #4e7053;
+}
+
+/* Remove default WooCommerce avatar styling */
+.woocommerce-MyAccount-navigation .woocommerce-MyAccount-avatar {
+  display: none;
+}
+
+/* ── Orders table ── */
+.woocommerce-orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.woocommerce-orders-table thead th {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--odd-gray);
+  font-weight: 500;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--odd-border);
+  text-align: left;
+}
+
+.woocommerce-orders-table tbody td {
+  padding: 1rem;
+  border-bottom: 1px solid #f0ede8;
+  color: var(--odd-dark);
+  vertical-align: middle;
+}
+
+.woocommerce-orders-table tbody tr:hover td {
+  background: #faf9f7;
+}
+
+/* ── Address cards ── */
+.woocommerce-Addresses {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.woocommerce-Addresses .woocommerce-Address {
+  border: 1px solid var(--odd-border);
+  border-radius: 14px;
+  padding: 1.8rem;
+}
+
+.woocommerce-Addresses .woocommerce-Address header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #f0ede8;
+}
+
+.woocommerce-Addresses .woocommerce-Address header h3 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--odd-dark);
+  margin: 0;
+}
+
+.woocommerce-Addresses .woocommerce-Address address {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--odd-gray);
+  font-style: normal;
+}
+
+/* ── Form fields (edit account, edit address) ── */
+.woocommerce-MyAccount-content .woocommerce-EditAccountForm,
+.woocommerce-MyAccount-content .woocommerce-address-fields {
+  max-width: 560px;
+}
+
+.woocommerce-MyAccount-content label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  color: var(--odd-gray);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.woocommerce-MyAccount-content input[type="text"],
+.woocommerce-MyAccount-content input[type="email"],
+.woocommerce-MyAccount-content input[type="password"],
+.woocommerce-MyAccount-content input[type="tel"],
+.woocommerce-MyAccount-content select,
+.woocommerce-MyAccount-content textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 14px;
+  border: 1px solid var(--odd-border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--odd-dark);
+  transition: border-color 0.15s ease;
+  font-family: inherit;
+}
+
+.woocommerce-MyAccount-content input:focus,
+.woocommerce-MyAccount-content select:focus,
+.woocommerce-MyAccount-content textarea:focus {
+  outline: none;
+  border-color: var(--odd-sage);
+}
+
+.woocommerce-MyAccount-content .form-row {
+  margin-bottom: 1.25rem;
+}
+
+/* Save button */
+.woocommerce-MyAccount-content button[type="submit"],
+.woocommerce-MyAccount-content input[type="submit"] {
+  background: var(--odd-dark);
+  color: #f5f5f5;
+  border: none;
+  border-radius: 999px;
+  padding: 0.8rem 2.2rem;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  margin-top: 0.5rem;
+}
+
+.woocommerce-MyAccount-content button[type="submit"]:hover,
+.woocommerce-MyAccount-content input[type="submit"]:hover {
+  background: var(--odd-black);
+}
+
+/* ── LOGGED-OUT: Login / Register ── */
+
+/* Two-column layout for login + register */
+.page-id-9 .u-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* Each column card */
+.page-id-9 .u-columns .u-column-1,
+.page-id-9 .u-columns .u-column-2 {
+  border: 1px solid var(--odd-border);
+  border-radius: 14px;
+  padding: 2.5rem;
+  background: #fff;
+}
+
+/* Login/Register headings */
+.page-id-9 .u-columns h2 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  color: var(--odd-dark);
+  margin-bottom: 1.8rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #f0ede8;
+}
+
+/* Form labels */
+.page-id-9 .woocommerce-form label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  color: var(--odd-gray);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+/* Form inputs */
+.page-id-9 .woocommerce-form input[type="text"],
+.page-id-9 .woocommerce-form input[type="email"],
+.page-id-9 .woocommerce-form input[type="password"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 14px;
+  border: 1px solid var(--odd-border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--odd-dark);
+  transition: border-color 0.15s ease;
+  font-family: inherit;
+  margin-bottom: 1.25rem;
+}
+
+.page-id-9 .woocommerce-form input:focus {
+  outline: none;
+  border-color: var(--odd-sage);
+}
+
+/* Login/Register buttons */
+.page-id-9 .woocommerce-form button[type="submit"] {
+  width: 100%;
+  background: var(--odd-dark);
+  color: #f5f5f5;
+  border: none;
+  border-radius: 999px;
+  padding: 0.85rem 1.5rem;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  margin-top: 0.5rem;
+}
+
+.page-id-9 .woocommerce-form button[type="submit"]:hover {
+  background: var(--odd-black);
+}
+
+/* Remember me checkbox */
+.page-id-9 .woocommerce-form .woocommerce-form__label-for-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 13px;
+  color: var(--odd-gray);
+  margin-bottom: 1.25rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Lost password link */
+.page-id-9 .woocommerce-LostPassword {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+.page-id-9 .woocommerce-LostPassword a {
+  font-size: 12px;
+  color: var(--odd-gray);
+  text-decoration: underline;
+  text-decoration-color: var(--odd-border);
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+
+.page-id-9 .woocommerce-LostPassword a:hover {
+  color: var(--odd-dark);
+  text-decoration-color: var(--odd-sage);
+}
+
+/* Privacy policy text */
+.page-id-9 .woocommerce-privacy-policy-text {
+  font-size: 12px;
+  color: #999;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.page-id-9 .woocommerce-privacy-policy-text a {
+  color: var(--odd-gray);
+}
+
+/* Single-column login when registration is shown */
+.page-id-9 .woocommerce-form-login,
+.page-id-9 .woocommerce-form-register {
+  box-sizing: border-box;
+}
+
+/* ── Account page: notice/info boxes ── */
+.page-id-9 .woocommerce-message,
+.page-id-9 .woocommerce-info,
+.page-id-9 .woocommerce-Message,
+.page-id-9 .woocommerce-message--info,
+.page-id-9 .woocommerce-Message--info {
+  background: var(--odd-beige) !important;
+  border: none !important;
+  border-left: 3px solid var(--odd-sage) !important;
+  border-top: none !important;
+  border-radius: 10px !important;
+  padding: 1.3rem 1.8rem !important;
+  font-size: 14px;
+  color: var(--odd-gray);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-id-9 .woocommerce-message::before,
+.page-id-9 .woocommerce-info::before {
+  display: none !important;
+}
+
+.page-id-9 .woocommerce-info .button,
+.page-id-9 .woocommerce-Message .button {
+  background: var(--odd-dark) !important;
+  color: #f5f5f5 !important;
+  border: none !important;
+  border-radius: 999px !important;
+  padding: 0.6rem 1.5rem !important;
+  font-size: 12px !important;
+  letter-spacing: 0.04em;
+}
+
+/* ══════════════════════════════════════════════
+   DEEP DUSK PAGE — Contrast Fixes
+   Page ID 37 · Dark (#0d0d0d) background
+   ══════════════════════════════════════════════ */
+
+/* Hero: labels, stars, meta text */
+.page-id-37 .label { color: #888 !important; }
+.page-id-37 .breadcrumb span { color: #777 !important; }
+.page-id-37 .stars { color: #888 !important; }
+.page-id-37 .rating-text { color: #999 !important; }
+.page-id-37 .price-note { color: #999 !important; }
+.page-id-37 .active-tag { color: #999 !important; }
+
+/* Tabs: inactive and hover */
+.page-id-37 .tab { color: #777 !important; }
+.page-id-37 .tab:hover { color: #aaa !important; }
+.page-id-37 .tab.active { color: #ddd !important; }
+
+/* Body text in cards and paragraphs */
+.page-id-37 .dark-card p { color: #999 !important; }
+.page-id-37 .callout-algae p { color: #999 !important; }
+.page-id-37 .callout-algae span { color: #bbb !important; }
+
+/* GenZ strip */
+.page-id-37 .genz-label { color: #777 !important; }
+.page-id-37 .genz-text { color: #aaa !important; }
+
+/* Does/Doesn't grid */
+.page-id-37 .does-yes .does-item { color: #999 !important; }
+.page-id-37 .does-no .does-item { color: #666 !important; }
+.page-id-37 .does-no .does-title { color: #666 !important; }
+.page-id-37 .yes-dot { background: #666 !important; }
+.page-id-37 .no-dot { background: #444 !important; }
+
+/* Honest strip */
+.page-id-37 .honest-strip-dark p { color: #999 !important; }
+
+/* Timeline */
+.page-id-37 .tl-circle-text { color: #888 !important; }
+.page-id-37 .tl-week { color: #999 !important; }
+.page-id-37 .tl-what { color: #aaa !important; }
+
+/* Ingredients */
+.page-id-37 .ing-intro { color: #999 !important; }
+.page-id-37 .ing-tldr { color: #777 !important; }
+.page-id-37 .ing-detail p { color: #aaa !important; }
+.page-id-37 .ing-conc { color: #888 !important; }
+.page-id-37 .badge-support { color: #777 !important; }
+
+/* Reviews */
+.page-id-37 .reviewer-tag { color: #777 !important; }
+.page-id-37 .review-text { color: #999 !important; }
+.page-id-37 .review-badge { color: #888 !important; }
+
+/* Footer CTA on Deep Dusk (inline styles need !important) */
+.page-id-37 .footer-cta .label { color: #888 !important; }
+.page-id-37 .footer-cta p { color: #999 !important; }
+
+/* Inline color overrides for elements using style="color: #333/444/555" */
+.page-id-37 [style*="color: #333"] { color: #888 !important; }
+.page-id-37 [style*="color: #444"] { color: #888 !important; }
+.page-id-37 [style*="color: #555"] { color: #999 !important; }
+.page-id-37 [style*="color: var(--night-text)"] { color: #999 !important; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .page-id-9 .woocommerce {
+    padding: 2rem 1.25rem 3rem;
+  }
+
+  .woocommerce-MyAccount-navigation ul {
+    gap: 0.15rem;
+  }
+
+  .woocommerce-MyAccount-navigation ul li a {
+    padding: 0.5rem 1rem;
+    font-size: 11px;
+  }
+
+  .page-id-9 .u-columns {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .woocommerce-Addresses {
+    grid-template-columns: 1fr;
+  }
+
+  /* Homepage v2: responsive handled in inline styles */
+}
+
+/* ── Fix: remove black hover on product cards ── */
+.wf .product-card:hover {
+  background: #fff !important;
+  color: inherit !important;
+}
+.wf .product-card:hover .product-tag {
+  border-color: inherit !important;
+  color: inherit !important;
+}
+.wf .product-card:hover .product-price {
+  color: inherit !important;
+}
+.wf .product-card:hover .product-card-desc {
+  color: var(--odd-gray) !important;
+}
+.wf .product-card:hover .product-card-body {
+  border-top-color: var(--odd-border) !important;
+}
+.wf .product-card:hover .card-tag {
+  background: transparent !important;
+  color: inherit !important;
+  border-color: var(--odd-border) !important;
+}
+
+/* ── Product card colored circles behind bottles ── */
+.wf .product-card-img {
+  position: relative !important;
+}
+/* Center bottle vertically instead of pushing to bottom */
+.wf .product-card .card-bottle-wrap {
+  align-items: center !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+/* Circle: centered in the image box */
+.wf .product-card-img::before {
+  content: '' !important;
+  position: absolute !important;
+  border-radius: 50% !important;
+  top: 50% !important; left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 0 !important;
+}
+/* Clear First */
+.wf .product-card:has(.bottle-tube) .product-card-img::before {
+  background: #d5d5d5 !important;
+  width: 140px !important; height: 140px !important;
+}
+/* Foam Rinse */
+.wf .product-card:has(.bottle-foamer) .product-card-img::before {
+  background: #8a8a8a !important;
+  width: 165px !important; height: 165px !important;
+}
+/* Dawn Shield */
+.wf .product-card:has(.bottle-airless-am) .product-card-img::before {
+  background: #d4b078 !important;
+  width: 140px !important; height: 140px !important;
+}
+/* Deep Dusk */
+.wf .product-card:has(.bottle-airless-pm) .product-card-img::before {
+  background: #1a1a1a !important;
+  width: 140px !important; height: 140px !important;
+}
+
+/* ── "THE SYSTEM" section label box — match reference design ── */
+/* White background (override inline style + card-products-row rule) */
+#wf-products.card-section-label {
+  background: #fff !important;
+  background-image: none !important;
+  position: relative !important;
+}
+
+/* Heading — large, sketchy style */
+#wf-products h2 {
+  font-family: 'Caveat', cursive !important;
+  font-size: 2.5rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  color: var(--odd-dark) !important;
+  margin-top: 1.5rem !important;
+}
+
+/* Sketchy hand-drawn underline via SVG */
+#wf-products .hand-underline {
+  position: relative !important;
+  display: inline-block !important;
+}
+#wf-products .hand-underline::after {
+  content: '' !important;
+  position: absolute !important;
+  left: -4px !important;
+  bottom: -6px !important;
+  width: calc(100% + 8px) !important;
+  height: 10px !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M2 7 C 30 3, 50 8, 80 5 S 130 2, 160 6 S 185 4, 198 5' stroke='%231a1a1a' stroke-width='2.8' fill='none' stroke-linecap='round'/%3E%3Cpath d='M4 8 C 25 5, 55 9, 85 6 S 125 3, 155 7 S 180 5, 196 6' stroke='%231a1a1a' stroke-width='1.5' fill='none' stroke-linecap='round' opacity='0.4'/%3E%3C/svg%3E") no-repeat !important;
+  background-size: 100% 100% !important;
+  border-radius: 0 !important;
+  transform: none !important;
+}
+
+/* "THE SYSTEM" title — bold, sketchy */
+#wf-products .section-eyebrow {
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.1em !important;
+}
+
+/* Mascot — bottom right corner */
+#wf-products .section-label-mascot {
+  position: absolute !important;
+  bottom: 1.5rem !important;
+  right: 1.5rem !important;
+  width: 70px !important;
+  margin-top: 0 !important;
+}
+
+/* Mascot standalone section (removed from grid) */
+.wf-mascot-standalone {
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  background: #F5F0EB !important;
+}
+.wf-mascot-standalone .card-mascot {
+  background: #F5F0EB !important;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  max-width: 500px !important;
+  margin: 2rem auto !important;
+  padding: 2rem !important;
+  text-align: center !important;
+  position: relative !important;
+}
+
+/* Reviews → About transition gradient */
+.wf-reviews-ticker {
+  position: relative !important;
+}
+.wf-reviews-ticker::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 80px !important;
+  background: linear-gradient(to bottom, transparent, #F5F0EB) !important;
+  pointer-events: none !important;
+  z-index: 2 !important;
+}
+
+/* ═══════ ABOUT US SECTION ═══════ */
+.wf-about {
+  background: #F5F0EB !important;
+  padding: 3rem 2rem 4rem !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+}
+.wf-about-inner {
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 2rem !important;
+}
+.wf-about-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.wf-about-header h2 {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  color: #9CAF88 !important;
+  margin-bottom: 8px !important;
+}
+.wf-about-header p {
+  font-size: 14px !important;
+  color: #888 !important;
+  margin: 0 !important;
+}
+.wf-about-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 0 !important;
+}
+.wf-about-item {
+  text-align: center !important;
+  padding: 2rem 1.5rem !important;
+  border-right: 1px solid rgba(0,0,0,0.06);
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+.wf-about-item:nth-child(3),
+.wf-about-item:nth-child(6) {
+  border-right: none;
+}
+.wf-about-item:nth-child(n+4) {
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.wf-about-icon {
+  width: 36px;
+  height: 36px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wf-about-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.wf-about-item h4 {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  margin-bottom: 6px !important;
+  color: #1a1a1a !important;
+}
+.wf-about-item p {
+  font-size: 12px !important;
+  color: #888 !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+/* About section — mobile responsive */
+@media (max-width: 768px) {
+  .wf-about-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .wf-about-item {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .wf-about-item:last-child {
+    border-bottom: none;
+  }
+  .wf-about-item:nth-child(n+4) {
+    border-top: none;
+  }
+}
+
+/* ═══════ FOOTER REDESIGN — BEIGE + WATERMARK ═══════ */
+
+/* Background: beige with dark grid overlay */
+.wf .wf-footer {
+  background:
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px),
+    #F5F0EB !important;
+  background-size: 28px 28px !important;
+  color: #1a1a1a !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* ODD CARE CO. watermark */
+.wf .wf-footer::before {
+  content: "ODD  CARE  CO." !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 0 !important;
+  right: 0 !important;
+  transform: translateY(-50%) !important;
+  font-size: 11.4vw !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1 !important;
+  color: rgba(0, 0, 0, 0.06) !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+/* Ensure footer content sits above watermark */
+.wf .wf-footer .footer-inner {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Newsletter section */
+.wf .footer-newsletter {
+  border-bottom: 1px solid rgba(0,0,0,0.08) !important;
+}
+.wf .footer-nl-icon svg {
+  stroke: #1a1a1a !important;
+}
+.wf .footer-nl-text h3 {
+  color: #000 !important;
+  font-weight: 700 !important;
+}
+.wf .footer-nl-text p {
+  color: #555 !important;
+}
+.wf .footer-nl-right input {
+  background: transparent !important;
+  border: 1px solid rgba(0,0,0,0.2) !important;
+  color: #1a1a1a !important;
+}
+.wf .footer-nl-right input::placeholder {
+  color: #999 !important;
+}
+.wf .footer-nl-right button {
+  background: #1a1a1a !important;
+  color: #fff !important;
+}
+
+/* Column headings and links */
+.wf .footer-columns {
+  border-bottom: 1px solid rgba(0,0,0,0.08) !important;
+}
+.wf .footer-col h5 {
+  color: #1a1a1a !important;
+  font-weight: 800 !important;
+}
+.wf .footer-col a {
+  color: #333 !important;
+}
+.wf .footer-col a:hover {
+  color: #000 !important;
+}
+.wf .footer-col ul li {
+  color: #333 !important;
+}
+
+/* Trust badges */
+.wf .footer-badge-item {
+  color: #333 !important;
+  font-weight: 500 !important;
+}
+.wf .footer-badge-item svg {
+  stroke: #555 !important;
+}
+
+/* Bottom bar */
+.wf .footer-bottom {
+  border-top: none !important;
+}
+.wf .footer-bottom p {
+  color: #666 !important;
+}
+.wf .footer-socials a {
+  color: #555 !important;
+}
+.wf .footer-socials a:hover {
+  color: #000 !important;
+}
+.wf .footer-bottom-links a {
+  color: #666 !important;
+}
+.wf .footer-bottom-links a:hover {
+  color: #000 !important;
+}

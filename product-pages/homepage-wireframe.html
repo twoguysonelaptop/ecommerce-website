@@ -1,0 +1,1524 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* Kadence overrides */
+.entry-content-wrap { padding-top: 0 !important; padding-bottom: 0 !important; }
+.entry.content-bg { background: transparent !important; box-shadow: none !important; }
+
+/* ══════════════════════════════════════════
+   WIREFRAME RESET & BASE
+   ══════════════════════════════════════════ */
+.wf *, .wf *::before, .wf *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.wf {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  color: #000;
+  background:
+    linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px),
+    #F9F9F9;
+  background-size: 28px 28px;
+  --bg: #F9F9F9;
+  --black: #000000;
+  --white: #FFFFFF;
+  --gray-100: #F2F2F2;
+  --gray-200: #E5E5E5;
+  --gray-400: #999999;
+  --gray-600: #666666;
+  --red: #D32F2F;
+  --green: #2E7D32;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Space Mono', 'Courier New', monospace;
+  --font-hand: 'Caveat', cursive;
+  --border: 1px solid #000;
+  --max-w: 1280px;
+}
+.wf a { text-decoration: none; color: inherit; }
+.wf img { max-width: 100%; display: block; }
+.wf button { cursor: pointer; font-family: inherit; }
+
+/* ══════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════ */
+.wf .btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--black); color: var(--white);
+  font-size: 12px; font-weight: 600; padding: 14px 28px;
+  border: none; letter-spacing: 0.1em; text-transform: uppercase;
+  transition: opacity 0.15s;
+}
+.wf .btn-primary:hover { opacity: 0.8; }
+.wf .btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--black);
+  font-size: 12px; font-weight: 600; padding: 14px 28px;
+  border: var(--border); letter-spacing: 0.1em; text-transform: uppercase;
+  transition: all 0.15s;
+}
+.wf .btn-secondary:hover { background: var(--black); color: var(--white); }
+
+/* ══════════════════════════════════════════
+   SECTION EYEBROW
+   ══════════════════════════════════════════ */
+.wf .section-num {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.1em; margin-right: 8px;
+}
+.wf .section-eyebrow {
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.15em;
+  color: var(--black); margin-bottom: 1rem;
+}
+
+/* ══════════════════════════════════════════
+   1. TOP BAR
+   ══════════════════════════════════════════ */
+.wf .topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 2.5rem; border-bottom: var(--border);
+  background:
+    linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px),
+    var(--white);
+  background-size: 28px 28px;
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.wf .topbar-left { display: flex; align-items: center; gap: 10px; }
+.wf .topbar-left img { width: 22px; height: 22px; object-fit: contain; border-radius: 50%; }
+.wf .topbar-center { color: var(--gray-400); }
+.wf .topbar-right { display: flex; align-items: center; gap: 14px; }
+.wf .topbar-dots { display: flex; gap: 5px; }
+.wf .topbar-dots span {
+  width: 10px; height: 10px; border-radius: 50%;
+  border: 1px solid var(--black); display: block;
+}
+.wf .topbar-close { font-size: 14px; font-weight: 700; cursor: pointer; line-height: 1; }
+
+/* ══════════════════════════════════════════
+   1b. HEADER
+   ══════════════════════════════════════════ */
+.wf .wf-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem; height: 64px;
+  background:
+    linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px),
+    var(--white);
+  background-size: 28px 28px;
+  border-bottom: var(--border); position: sticky; top: 0; z-index: 100;
+}
+.wf .wf-logo {
+  display: flex; align-items: baseline; gap: 4px;
+  font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em;
+}
+.wf .wf-logo .logo-light { font-weight: 400; font-size: 14px; text-transform: lowercase; }
+.wf .wf-nav { display: flex; align-items: center; gap: 2.5rem; }
+.wf .wf-nav a {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--black); transition: opacity 0.15s;
+}
+.wf .wf-nav a:hover { opacity: 0.6; }
+.wf .header-right { display: flex; align-items: center; gap: 1.25rem; }
+.wf .header-cart { display: flex; align-items: center; color: var(--black); }
+.wf .header-cart svg { width: 20px; height: 20px; }
+
+/* ══════════════════════════════════════════
+   3D BOTTLE BASE STYLES
+   ══════════════════════════════════════════ */
+.wf .svg-filters { position: absolute; width: 0; height: 0; overflow: hidden; }
+.wf .bottle {
+  position: relative; transform-style: preserve-3d;
+  transform: rotateY(-8deg) rotateX(2deg);
+  transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+  cursor: pointer;
+}
+.wf .bottle:hover { transform: rotateY(12deg) rotateX(-1deg); }
+.wf .bottle-shadow {
+  position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
+  width: 80%; height: 16px;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.15) 0%, transparent 70%);
+  border-radius: 50%; filter: blur(3px); z-index: -1;
+}
+
+/* Clear First -- Squeeze Tube */
+.wf .bottle-tube { width: 90px; height: 260px; position: relative; }
+.wf .tube-body {
+  position: absolute; bottom: 0; left: 0; width: 90px; height: 220px;
+  border-radius: 6px 6px 24px 24px; overflow: hidden; background: #b0b0b0;
+}
+.wf .tube-body .label {
+  position: absolute; inset: 0;
+  background-image: url('/wp-content/uploads/2026/04/label-clear-first.jpeg');
+  background-size: 240% auto; background-position: 68% 45%; background-repeat: no-repeat;
+}
+.wf .tube-body .cylinder-shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.22) 0%, rgba(255,255,255,0.18) 12%, rgba(255,255,255,0.08) 25%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.03) 75%, rgba(0,0,0,0.18) 100%);
+  pointer-events: none;
+}
+.wf .tube-body .highlight {
+  position: absolute; top: 0; left: 14px; width: 6px; height: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.05) 100%);
+  filter: blur(3px); pointer-events: none;
+}
+.wf .tube-cap {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 38px; height: 44px;
+  background: linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 40%, #bbb 100%);
+  border-radius: 6px 6px 2px 2px;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.4), inset 0 -1px 3px rgba(0,0,0,0.1);
+}
+.wf .tube-cap::before {
+  content: ''; position: absolute; top: -2px; left: 50%; transform: translateX(-50%);
+  width: 22px; height: 6px; background: #ccc; border-radius: 3px 3px 0 0;
+}
+.wf .tube-cap::after {
+  content: ''; position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%);
+  width: 12px; height: 3px; background: rgba(0,0,0,0.1); border-radius: 2px;
+}
+.wf .tube-neck {
+  position: absolute; top: 34px; left: 50%; transform: translateX(-50%);
+  width: 32px; height: 12px;
+  background: linear-gradient(135deg, #ddd, #c5c5c5); border-radius: 0 0 4px 4px;
+}
+
+/* Foam Rinse -- Foamer Pump */
+.wf .bottle-foamer { width: 100px; height: 340px; position: relative; }
+.wf .foamer-body {
+  position: absolute; bottom: 0; left: 5px; width: 90px; height: 250px;
+  border-radius: 6px 6px 10px 10px; overflow: hidden; background: #e8e5e0;
+}
+.wf .foamer-body .label {
+  position: absolute; inset: 0;
+  background-image: url('/wp-content/uploads/2026/04/label-foam-rinse.jpeg');
+  background-size: 220% auto; background-position: 68% 50%; background-repeat: no-repeat;
+}
+.wf .foamer-body .cylinder-shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(255,255,255,0.2) 10%, rgba(255,255,255,0.1) 22%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.02) 70%, rgba(0,0,0,0.15) 100%);
+  pointer-events: none;
+}
+.wf .foamer-body .highlight {
+  position: absolute; top: 0; left: 10px; width: 5px; height: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%);
+  filter: blur(3px); pointer-events: none;
+}
+.wf .foamer-neck {
+  position: absolute; top: 58px; left: 50%; transform: translateX(-50%);
+  width: 24px; height: 32px;
+  background: linear-gradient(135deg, #f0f0f0, #d8d8d8); border-radius: 3px;
+}
+.wf .foamer-pump {
+  position: absolute; top: 22px; left: 50%; transform: translateX(-50%);
+  width: 36px; height: 40px;
+  background: linear-gradient(180deg, #f5f5f5 0%, #e0e0e0 60%, #d0d0d0 100%);
+  border-radius: 6px 6px 3px 3px;
+  box-shadow: inset 0 2px 3px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.08);
+}
+.wf .foamer-nozzle {
+  position: absolute; top: 10px; left: 50%;
+  width: 30px; height: 14px;
+  background: linear-gradient(180deg, #eee, #d5d5d5);
+  border-radius: 3px 14px 14px 3px; box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+.wf .foamer-pump::before {
+  content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+  width: 28px; height: 10px;
+  background: linear-gradient(180deg, #f8f8f8, #e8e8e8); border-radius: 4px 4px 0 0;
+}
+
+/* Dawn Shield -- Airless Pump (AM) */
+.wf .bottle-airless-am { width: 56px; height: 270px; position: relative; }
+.wf .airless-am-body {
+  position: absolute; bottom: 0; left: 0; width: 56px; height: 225px;
+  border-radius: 5px 5px 8px 8px; overflow: hidden; background: #c4a96e;
+}
+.wf .airless-am-body .label {
+  position: absolute; inset: 0;
+  background-image: url('/wp-content/uploads/2026/04/label-dawn-shield.jpeg');
+  background-size: 240% auto; background-position: 68% 40%; background-repeat: no-repeat;
+}
+.wf .airless-am-body .cylinder-shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.25) 0%, rgba(255,255,255,0.2) 12%, rgba(255,255,255,0.08) 25%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.05) 75%, rgba(0,0,0,0.2) 100%);
+  pointer-events: none;
+}
+.wf .airless-am-body .highlight {
+  position: absolute; top: 0; left: 8px; width: 4px; height: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%);
+  filter: blur(2px); pointer-events: none;
+}
+.wf .airless-am-shoulder {
+  position: absolute; top: 22px; left: 50%; transform: translateX(-50%);
+  width: 48px; height: 20px;
+  background: linear-gradient(180deg, #d8d8d8, #bbb); border-radius: 4px 4px 0 0;
+}
+.wf .airless-am-cap {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 38px; height: 28px;
+  background: linear-gradient(180deg, #f0f0f0 0%, #ddd 40%, #ccc 100%);
+  border-radius: 50% 50% 6px 6px;
+  box-shadow: inset 0 3px 6px rgba(255,255,255,0.5), inset 0 -2px 3px rgba(0,0,0,0.08);
+}
+.wf .airless-am-cap::after {
+  content: ''; position: absolute; top: 4px; left: 50%; transform: translateX(-50%);
+  width: 8px; height: 4px; background: rgba(0,0,0,0.08); border-radius: 50%;
+}
+
+/* Deep Dusk -- Airless Pump (PM) */
+.wf .bottle-airless-pm { width: 56px; height: 270px; position: relative; }
+.wf .airless-pm-body {
+  position: absolute; bottom: 0; left: 0; width: 56px; height: 225px;
+  border-radius: 5px 5px 8px 8px; overflow: hidden; background: #1a1a1a;
+}
+.wf .airless-pm-body .label {
+  position: absolute; inset: 0;
+  background-image: url('/wp-content/uploads/2026/04/label-deep-dusk.jpeg');
+  background-size: 240% auto; background-position: 68% 40%; background-repeat: no-repeat;
+}
+.wf .airless-pm-body .cylinder-shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.3) 0%, rgba(255,255,255,0.12) 12%, rgba(255,255,255,0.05) 25%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.05) 75%, rgba(0,0,0,0.25) 100%);
+  pointer-events: none;
+}
+.wf .airless-pm-body .highlight {
+  position: absolute; top: 0; left: 7px; width: 4px; height: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 100%);
+  filter: blur(2px); pointer-events: none;
+}
+.wf .airless-pm-shoulder {
+  position: absolute; top: 22px; left: 50%; transform: translateX(-50%);
+  width: 48px; height: 20px;
+  background: linear-gradient(180deg, #d8d8d8, #bbb); border-radius: 4px 4px 0 0;
+}
+.wf .airless-pm-cap {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 38px; height: 28px;
+  background: linear-gradient(180deg, rgba(240,235,225,0.85) 0%, rgba(225,218,205,0.7) 40%, rgba(210,200,185,0.6) 100%);
+  border-radius: 50% 50% 6px 6px;
+  box-shadow: inset 0 3px 8px rgba(255,255,255,0.5), inset 0 -2px 4px rgba(0,0,0,0.05), 0 0 6px rgba(255,255,255,0.15);
+}
+.wf .airless-pm-cap::after {
+  content: ''; position: absolute; top: 5px; left: 50%; transform: translateX(-50%);
+  width: 8px; height: 4px; background: rgba(180,170,150,0.4); border-radius: 50%;
+}
+
+/* Bottle context helpers */
+.wf .card-bottle-wrap {
+  display: flex; align-items: flex-end; justify-content: center;
+  height: 100%; padding: 8px 0 4px; perspective: 600px;
+}
+.wf .card-bottle-wrap .bottle { pointer-events: none; }
+.wf .card-bottle-wrap .bottle-shadow { display: none; }
+.wf .hero-bottle-wrap { filter: url(#wf-sketch); perspective: 800px; }
+.wf .hero-bottle-wrap .bottle { zoom: 0.62; }
+.wf .product-card .card-bottle-wrap .bottle { zoom: 0.42; }
+.wf .timeline-bottle-wrap .bottle { zoom: 0.25; }
+.wf .timeline-bottle-wrap .bottle-shadow { display: none; }
+
+/* ══════════════════════════════════════════
+   ODD GRID SYSTEM (Oatly-inspired)
+   ══════════════════════════════════════════ */
+.wf .odd-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-flow: dense;
+  gap: 2px;
+  background: var(--black);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.wf .odd-card {
+  background:
+    linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px),
+    var(--bg);
+  background-size: 28px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.25s ease;
+}
+.wf .odd-card:hover {
+  z-index: 2;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+/* Span utilities */
+.wf .span-2c { grid-column: span 2; }
+.wf .span-3c { grid-column: span 3; }
+.wf .span-4c { grid-column: span 4; }
+.wf .span-2r { grid-row: span 2; }
+
+/* Category Tags */
+.wf .card-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border: 1px solid var(--black);
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: var(--bg);
+  z-index: 5;
+  pointer-events: none;
+}
+.wf .tag-routine { border-color: var(--green); color: var(--green); }
+.wf .tag-reviews { border-color: var(--red); color: var(--red); }
+
+/* ══════════════════════════════════════════
+   CARD: HERO TEXT
+   ══════════════════════════════════════════ */
+.wf .card-hero-text {
+  padding: 4rem 2.5rem 3rem;
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: 420px;
+}
+.wf .hero-title {
+  font-size: clamp(2.6rem,5.5vw,3.8rem); font-weight: 900;
+  line-height: 1.02; letter-spacing: -0.03em; margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+.wf .hero-title .title-light { font-weight: 400; }
+.wf .hero-title .title-gray { color: #999; }
+.wf .hero-title .title-highlight {
+  color: var(--gray-400);
+}
+.wf .hero-sub {
+  font-family: var(--font-mono); font-size: 13px;
+  color: var(--gray-600); margin-bottom: 2rem; letter-spacing: 0.02em;
+}
+/* Hero eyebrow with hand-drawn underline */
+.wf .hero-eyebrow-new {
+  font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--gray-400); margin-bottom: 1.8rem;
+  padding-bottom: 0.9rem; position: relative;
+}
+.wf .hero-eyebrow-new::after {
+  content: ''; position: absolute; left: 0; bottom: 0;
+  width: 100%; max-width: 340px; height: 2px;
+  background: var(--black);
+}
+/* Subtitle pill */
+.wf .hero-subtitle-pill {
+  display: inline-block; font-family: var(--font-mono); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--black);
+  border: 1.5px solid var(--black); padding: 10px 22px;
+  border-radius: 30px; margin-bottom: 2rem;
+}
+.wf .hero-btns { display: flex; gap: 12px; align-items: center; margin-bottom: 2.5rem; }
+.wf .hero-handwritten { display: flex; align-items: center; gap: 10px; }
+.wf .hero-arrow { font-size: 22px; line-height: 1; }
+.wf .hero-handwritten span { font-family: var(--font-hand); font-size: 20px; color: var(--gray-600); }
+
+/* ══════════════════════════════════════════
+   CARD: HERO VISUAL
+   ══════════════════════════════════════════ */
+.wf .card-hero-visual {
+  position: relative; padding: 3rem 2.5rem;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  min-height: 420px;
+}
+.wf .hero-products-row {
+  display: flex; align-items: flex-end; justify-content: center; gap: 6px;
+}
+.wf .hero-handwritten-right {
+  font-family: var(--font-hand); font-size: 18px;
+  color: var(--gray-600); margin-top: 1.5rem; text-align: center;
+}
+.wf .hero-mascot {
+  position: absolute; bottom: 40px; right: 24px;
+  width: 90px; opacity: 0.85; border-radius: 8px;
+}
+
+/* ══════════════════════════════════════════
+   CARD: HERO MERGED
+   ══════════════════════════════════════════ */
+.wf .card-hero-merged {
+  padding: 4rem 2.5rem 3rem;
+  min-height: 420px;
+}
+.wf .hero-merged-inner {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  height: 100%;
+}
+.wf .hero-merged-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.wf .hero-merged-visual {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+/* Hero sketch SVG illustrations */
+.wf .hero-sketch-row { gap: 0; }
+.wf .hero-sketch-svg { width: 100%; max-width: 520px; height: auto; }
+
+/* ══════════════════════════════════════════
+   CARD: SECTION LABEL
+   ══════════════════════════════════════════ */
+.wf .card-section-label {
+  padding: 2.5rem;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.wf .card-section-label h2 {
+  font-size: 1.5rem; font-weight: 800;
+  margin-top: 0.5rem; line-height: 1.1;
+}
+.wf .card-section-label .section-label-mascot {
+  width: 80px; margin-top: 1.5rem; opacity: 0.85; border-radius: 8px;
+}
+.wf .card-section-label .label-sub {
+  font-size: 13px; color: var(--gray-600); margin-top: 0.75rem; line-height: 1.5;
+}
+.wf .card-section-label .label-hand {
+  font-family: var(--font-hand); font-size: 18px;
+  color: var(--gray-600); margin-top: 1rem; display: flex; align-items: center; gap: 6px;
+}
+
+/* ══════════════════════════════════════════
+   CARD: PRODUCT
+   ══════════════════════════════════════════ */
+.wf .product-card {
+  display: flex; flex-direction: column;
+  transition: background 0.15s, color 0.15s;
+}
+.wf .product-card:hover {
+  background: #fff;
+}
+.wf .product-card:hover .card-tag { border-color: var(--gray-200); }
+.wf .product-card-num {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.1em; padding: 1rem 1.25rem 0; color: var(--gray-400);
+}
+.wf .product-card-img {
+  padding: 1rem 1.25rem; min-height: 180px;
+  position: relative;
+}
+.wf .product-card .card-bottle-wrap { align-items: center; position: relative; z-index: 1; }
+.wf .product-card-img::before {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+.wf .product-card:has(.bottle-tube) .product-card-img::before {
+  background: #d5d5d5; width: 140px; height: 140px;
+}
+.wf .product-card:has(.bottle-foamer) .product-card-img::before {
+  background: #8a8a8a; width: 165px; height: 165px;
+}
+.wf .product-card:has(.bottle-airless-am) .product-card-img::before {
+  background: #d4b078; width: 140px; height: 140px;
+}
+.wf .product-card:has(.bottle-airless-pm) .product-card-img::before {
+  background: #1a1a1a; width: 140px; height: 140px;
+}
+.wf .product-card-body {
+  padding: 1rem 1.25rem 2.5rem; border-top: var(--border);
+  flex: 1; display: flex; flex-direction: column;
+}
+.wf .product-card:hover .product-card-body { border-top-color: var(--gray-200); }
+.wf .product-card-name {
+  font-size: 14px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; margin-bottom: 4px;
+}
+.wf .product-card-desc { font-size: 12px; color: var(--gray-600); margin-bottom: 12px; line-height: 1.4; }
+.wf .product-card:hover .product-card-desc { color: var(--gray-600); }
+.wf .product-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+.wf .product-tag {
+  font-family: var(--font-mono); font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.08em; border: var(--border); padding: 3px 8px;
+  transition: border-color 0.15s, color 0.15s;
+}
+.wf .product-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: auto; padding-top: 0.75rem;
+}
+.wf .product-price { font-family: var(--font-mono); font-size: 16px; font-weight: 700; }
+.wf .product-arrow { font-size: 20px; transition: transform 0.15s; }
+.wf .product-card:hover .product-arrow { transform: translateX(4px); }
+
+/* ══════════════════════════════════════════
+   CARD: COMBO BANNER
+   ══════════════════════════════════════════ */
+.wf .card-combo { display: flex; align-items: center; }
+.wf .combo-banner-img {
+  width: 180px; flex-shrink: 0; padding: 1.5rem;
+  display: flex; align-items: center; justify-content: center;
+  border-right: var(--border);
+}
+.wf .combo-banner-img img { width: 110px; height: 90px; object-fit: cover; border: var(--border); }
+.wf .combo-banner-text { flex: 1; padding: 1.5rem 1.5rem; }
+.wf .combo-banner-title {
+  font-size: 14px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.08em; margin-bottom: 4px;
+}
+.wf .combo-banner-desc { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
+.wf .combo-banner-pricing {
+  display: flex; align-items: center; gap: 12px;
+  padding: 1.5rem; flex-shrink: 0; border-left: var(--border);
+}
+.wf .combo-original { font-family: var(--font-mono); font-size: 14px; text-decoration: line-through; color: var(--gray-400); }
+.wf .combo-price { font-family: var(--font-mono); font-size: 20px; font-weight: 700; }
+.wf .combo-save {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 700;
+  background: var(--black); color: var(--white); padding: 4px 10px; letter-spacing: 0.06em;
+}
+.wf .combo-arrow { font-size: 24px; margin-left: 4px; }
+
+/* ══════════════════════════════════════════
+   CARD: ROUTINE TOTAL
+   ══════════════════════════════════════════ */
+.wf .card-routine-total {
+  padding: 2.5rem; display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; position: relative;
+}
+.wf .routine-total-number {
+  font-family: var(--font-mono); font-size: 3.5rem; font-weight: 700;
+  line-height: 1; margin-bottom: 0.25rem;
+}
+.wf .routine-total-label {
+  font-family: var(--font-mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--gray-600); margin-bottom: 1rem;
+}
+.wf .routine-ampm { display: flex; gap: 12px; margin-bottom: 1.5rem; }
+.wf .routine-ampm span {
+  font-family: var(--font-mono); font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.1em; border: var(--border); padding: 6px 14px;
+  display: flex; align-items: center; gap: 6px;
+}
+.wf .routine-total-done {
+  font-family: var(--font-hand); font-size: 18px; color: var(--gray-600);
+}
+.wf .routine-total-mascot {
+  width: 60px; position: absolute; bottom: 36px; right: 12px;
+  opacity: 0.7; border-radius: 6px;
+}
+
+/* ══════════════════════════════════════════
+   CARD: ROUTINE STEPS (TIMELINE)
+   ══════════════════════════════════════════ */
+.wf .card-routine-steps { padding: 3rem 2rem; }
+.wf .timeline {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 0; position: relative;
+}
+.wf .timeline::before {
+  content: ''; position: absolute; top: 50%; left: 2rem; right: 2rem;
+  border-top: 2px dashed var(--black); transform: translateY(-50%); z-index: 0;
+}
+.wf .timeline-step { position: relative; z-index: 1; text-align: center; padding: 0 0.75rem; }
+.wf .timeline-step-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--black); margin: 0 auto 1.25rem;
+}
+.wf .timeline-step-icon {
+  width: 60px; height: 100px; margin: 0 auto 1rem;
+  display: flex; align-items: flex-end; justify-content: center;
+  background: var(--bg); padding-bottom: 4px;
+}
+.wf .timeline-step-label {
+  font-family: var(--font-mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--gray-400); margin-bottom: 4px;
+}
+.wf .timeline-step-name {
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.04em; margin-bottom: 6px;
+}
+.wf .timeline-step-desc { font-size: 11px; color: var(--gray-600); margin-bottom: 10px; line-height: 1.4; }
+.wf .timeline-step-time {
+  font-family: var(--font-mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.08em; display: inline-flex; align-items: center;
+  gap: 4px; border: var(--border); padding: 3px 8px;
+}
+.wf .timeline-step-time svg { width: 12px; height: 12px; }
+
+/* ══════════════════════════════════════════
+   CARD: COMPARISON TABLE
+   ══════════════════════════════════════════ */
+.wf .card-compare { padding: 2rem; overflow-x: auto; }
+.wf .compare-table { width: 100%; border-collapse: collapse; border: var(--border); }
+.wf .compare-table th, .wf .compare-table td {
+  border: var(--border); padding: 0.85rem 1.25rem;
+  font-size: 13px; text-align: left; vertical-align: middle;
+}
+.wf .compare-table thead th {
+  font-family: var(--font-mono); font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.1em; font-weight: 700; padding: 1rem 1.25rem;
+}
+.wf .col-them { width: 35%; }
+.wf .col-vs { width: 30%; text-align: center !important; }
+.wf .col-odd { width: 35%; background: var(--black); color: var(--white); }
+.wf .compare-table tbody .col-odd { background: var(--black); color: var(--white); }
+.wf .vs-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--black); color: var(--white);
+  font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.05em;
+}
+.wf .compare-x { color: var(--red); font-weight: 700; margin-right: 8px; }
+.wf .compare-check { color: var(--green); font-weight: 700; margin-right: 8px; }
+.wf .compare-category {
+  font-family: var(--font-mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.12em; text-align: center !important; color: var(--gray-600);
+}
+
+/* ══════════════════════════════════════════
+   CARD: OUR RULES (STICKY NOTE)
+   ══════════════════════════════════════════ */
+.wf .card-rules {
+  padding: 2.5rem; display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+}
+.wf .sticky-note {
+  background: #FFFDE7; border: var(--border); padding: 1.5rem;
+  transform: rotate(-2deg); max-width: 180px; position: relative;
+}
+.wf .sticky-note-pin {
+  position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--red); border: 2px solid #B71C1C;
+}
+.wf .sticky-note-title {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; padding-top: 4px;
+}
+.wf .sticky-note-item { font-size: 12px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.wf .sticky-note-item::before { content: '\2713'; color: var(--green); font-weight: 700; }
+.wf .card-rules-mascot { width: 70px; margin-top: 1.5rem; opacity: 0.8; border-radius: 6px; }
+
+/* ══════════════════════════════════════════
+   CARD: REVIEW
+   ══════════════════════════════════════════ */
+.wf .card-review {
+  padding: 2rem 1.5rem; display: flex; flex-direction: column;
+}
+.wf .review-quote-icon { font-size: 28px; line-height: 1; margin-bottom: 0.75rem; color: var(--gray-200); }
+.wf .review-stars { color: var(--black); font-size: 14px; letter-spacing: 2px; margin-bottom: 1rem; }
+.wf .review-text { font-size: 13px; line-height: 1.6; color: var(--gray-600); flex: 1; margin-bottom: 1.5rem; }
+.wf .review-author {
+  display: flex; align-items: center; gap: 10px;
+  border-top: var(--border); padding-top: 1rem;
+}
+.wf .review-avatar {
+  width: 36px; height: 36px; border-radius: 50%; border: var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; background: var(--gray-100); flex-shrink: 0;
+}
+.wf .review-name { font-size: 12px; font-weight: 700; }
+.wf .review-skin {
+  font-family: var(--font-mono); font-size: 10px; color: var(--gray-400);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+/* ══════════════════════════════════════════
+   CARD: MASCOT FEATURE
+   ══════════════════════════════════════════ */
+.wf .card-mascot {
+  display: flex; flex-direction: column; justify-content: center;
+  align-items: center; padding: 2rem; text-align: center;
+}
+.wf .card-mascot .mascot-img {
+  width: 120px; border-radius: 12px; margin-bottom: 1.25rem; opacity: 0.9;
+}
+.wf .card-mascot .mascot-tagline {
+  font-family: var(--font-hand); font-size: 22px; color: var(--gray-600); line-height: 1.3;
+}
+
+/* ══════════════════════════════════════════
+   CARD: VALUE PROP
+   ══════════════════════════════════════════ */
+.wf .card-value { padding: 2.5rem 1.5rem; text-align: center; }
+.wf .value-icon {
+  width: 48px; height: 48px; border: var(--border);
+  margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;
+}
+.wf .value-icon svg { width: 24px; height: 24px; }
+.wf .card-value h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+.wf .card-value p { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
+
+/* ══════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════ */
+.wf .wf-footer {
+  background:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+    var(--black);
+  background-size: 28px 28px;
+  color: var(--white);
+}
+.wf .footer-inner { max-width: var(--max-w); margin: 0 auto; }
+.wf .footer-newsletter {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+.wf .footer-nl-left { display: flex; align-items: center; gap: 1.5rem; }
+.wf .footer-nl-icon svg { width: 28px; height: 28px; }
+.wf .footer-nl-text h3 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.wf .footer-nl-text p { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+.wf .footer-nl-right { display: flex; gap: 0; }
+.wf .footer-nl-right input {
+  background: transparent; border: 1px solid rgba(255,255,255,0.3);
+  color: #fff; padding: 12px 20px; font-size: 13px; font-family: inherit;
+  width: 260px; outline: none;
+}
+.wf .footer-nl-right input::placeholder { color: rgba(255,255,255,0.4); }
+.wf .footer-nl-right button {
+  background: #fff; color: #000; border: none; padding: 12px 24px;
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; cursor: pointer; transition: opacity 0.15s;
+}
+.wf .footer-nl-right button:hover { opacity: 0.85; }
+.wf .footer-columns {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  padding: 2.5rem; gap: 2rem; border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+.wf .footer-col h5 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 1rem; color: rgba(255,255,255,0.5); }
+.wf .footer-col ul { list-style: none; }
+.wf .footer-col li { margin-bottom: 8px; }
+.wf .footer-col a { font-size: 13px; color: rgba(255,255,255,0.8); transition: color 0.15s; }
+.wf .footer-col a:hover { color: #fff; }
+.wf .footer-badges { display: flex; flex-direction: column; gap: 10px; }
+.wf .footer-badge-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.8); }
+.wf .footer-badge-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+.wf .footer-bottom {
+  display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 2.5rem;
+}
+.wf .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.4); }
+.wf .footer-socials { display: flex; align-items: center; gap: 1rem; }
+.wf .footer-socials a { color: rgba(255,255,255,0.5); display: flex; align-items: center; transition: color 0.15s; }
+.wf .footer-socials a:hover { color: #fff; }
+.wf .footer-socials svg { width: 16px; height: 16px; }
+.wf .footer-bottom-links { display: flex; gap: 1.5rem; }
+.wf .footer-bottom-links a { font-size: 12px; color: rgba(255,255,255,0.4); transition: color 0.15s; }
+.wf .footer-bottom-links a:hover { color: #fff; }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE -- TABLET (2 columns)
+   ══════════════════════════════════════════ */
+@media (max-width: 1200px) {
+  .wf .odd-grid { grid-template-columns: repeat(2, 1fr); }
+  .wf .span-4c { grid-column: span 2; }
+  .wf .span-2r { grid-row: span 1; }
+  .wf .card-hero-merged { min-height: auto; }
+  .wf .hero-merged-inner { gap: 2rem; }
+  .wf .topbar { padding: 8px 1.5rem; }
+  .wf .wf-header { padding: 0 1.5rem; }
+  .wf .wf-nav { gap: 1.5rem; }
+  .wf .timeline { grid-template-columns: repeat(2,1fr); gap: 2rem; }
+  .wf .timeline::before { display: none; }
+  .wf .card-combo { flex-direction: column; }
+  .wf .combo-banner-img { width: 100%; border-right: none; border-bottom: var(--border); }
+  .wf .combo-banner-pricing { border-left: none; border-top: var(--border); width: 100%; justify-content: center; }
+  .wf .hero-bottle-wrap .bottle { zoom: 0.5; }
+  .wf .hero-sketch-svg { max-width: 380px; }
+  .wf .footer-newsletter { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+  .wf .footer-columns { grid-template-columns: repeat(2,1fr); }
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE -- MOBILE (1 column)
+   ══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .wf .odd-grid { grid-template-columns: 1fr; }
+  .wf .span-2c, .wf .span-3c, .wf .span-4c { grid-column: span 1; }
+  .wf .topbar-center { display: none; }
+  .wf .topbar-right .topbar-text { display: none; }
+  .wf .wf-nav { display: none; }
+  .wf .card-hero-merged { padding: 3rem 1.5rem 2rem; }
+  .wf .hero-merged-inner { flex-direction: column; gap: 2rem; }
+  .wf .hero-title { font-size: 2rem; }
+  .wf .hero-btns { flex-direction: column; align-items: stretch; }
+  .wf .hero-bottle-wrap .bottle { zoom: 0.38; }
+  .wf .hero-sketch-svg { max-width: 280px; }
+  .wf .timeline { grid-template-columns: 1fr; gap: 1.5rem; }
+  .wf .card-combo { flex-direction: column; }
+  .wf .combo-banner-img { border-right: none; border-bottom: var(--border); width: 100%; }
+  .wf .combo-banner-pricing { border-left: none; border-top: var(--border); justify-content: center; flex-wrap: wrap; width: 100%; }
+  .wf .compare-table { font-size: 11px; }
+  .wf .compare-table th, .wf .compare-table td { padding: 0.6rem 0.8rem; }
+  .wf .footer-columns { grid-template-columns: 1fr 1fr; }
+  .wf .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+  .wf .footer-nl-right { flex-direction: column; width: 100%; }
+  .wf .footer-nl-right input { width: 100%; }
+  .wf .routine-ampm { flex-direction: column; gap: 8px; }
+}
+
+/* Scroll reveal */
+.wf .reveal-ready { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.wf .revealed { opacity: 1 !important; transform: translateY(0) !important; }
+</style>
+
+<!-- SVG Filter: Sketch outline effect for bottles -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
+  <filter id="wf-sketch" x="-15%" y="-15%" width="130%" height="130%">
+    <feMorphology in="SourceAlpha" operator="dilate" radius="1.8" result="fat"/>
+    <feTurbulence type="turbulence" baseFrequency="0.035" numOctaves="4" seed="3" result="noise"/>
+    <feDisplacementMap in="fat" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="wobbly"/>
+    <feFlood flood-color="#2a2a2a" result="color"/>
+    <feComposite in="color" in2="wobbly" operator="in" result="outline"/>
+    <feMerge><feMergeNode in="outline"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+</svg>
+
+<div class="wf">
+
+<!-- ════════════ TOP BAR ════════════ -->
+<div class="topbar">
+  <div class="topbar-left">
+    <span>ODD CARE CO.</span>
+    <img src="/wp-content/uploads/2026/04/mascot.jpeg" alt="ODD Mascot">
+  </div>
+  <div class="topbar-center">SYSTEM v1.0</div>
+  <div class="topbar-right">
+    <span class="topbar-text">NO FLUFF. JUST WHAT WORKS.</span>
+    <div class="topbar-dots"><span></span><span></span><span></span></div>
+    <span class="topbar-close">&times;</span>
+  </div>
+</div>
+
+<!-- ════════════ HEADER ════════════ -->
+<header class="wf-header">
+  <a href="/" class="wf-logo">ODD <span class="logo-light">care co.</span></a>
+  <nav class="wf-nav">
+    <a href="#wf-products">Products</a>
+    <a href="#wf-routine">Routine</a>
+    <a href="#wf-compare">Why ODD</a>
+    <a href="#wf-reviews">Reviews</a>
+    <a href="#wf-values">About Us</a>
+  </nav>
+  <div class="header-right">
+    <a href="/the-whole-routine" class="btn-primary" style="padding:10px 20px;font-size:11px;">GET ALL 4</a>
+    <a href="/cart" class="header-cart" aria-label="Cart">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    </a>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════
+     ODD GRID — Oatly-style asymmetric card layout
+     ═══════════════════════════════════════════════ -->
+<div class="odd-grid">
+
+  <!-- ──── ROW 1-2: HERO ──── -->
+
+  <!-- Card A: Hero (Merged) -->
+  <div class="odd-card card-hero-merged span-4c span-2r" id="wf-hero">
+    <div class="hero-merged-inner">
+      <div class="hero-merged-text">
+        <div class="hero-eyebrow-new">Made for people, not perfect people.</div>
+        <h1 class="hero-title">Designed for people who have <span class="title-highlight">better things</span> to do.</h1>
+        <div class="hero-subtitle-pill">Honest care for everyday humans.</div>
+        <div class="hero-btns">
+          <a href="/shop" class="btn-primary">SHOP PRODUCTS</a>
+          <a href="#wf-routine" class="btn-secondary">TAKE THE QUIZ</a>
+        </div>
+        <div class="hero-handwritten">
+          <span class="hero-arrow">&#8629;</span>
+          <span>no fluff. Just what works.</span>
+        </div>
+      </div>
+      <div class="hero-merged-visual">
+        <div class="hero-products-row hero-sketch-row">
+          <svg class="hero-sketch-svg" viewBox="0 0 520 380" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- ── SPARKLES near Clear First ── -->
+            <g fill="#2a2a2a" stroke="none">
+              <path d="M 43,112 L 45,120 L 53,122 L 45,124 L 43,132 L 41,124 L 33,122 L 41,120 Z"/>
+              <path d="M 30,138 L 31.5,143 L 36,144 L 31.5,145 L 30,150 L 28.5,145 L 24,144 L 28.5,143 Z"/>
+              <path d="M 53,98 L 54,102 L 57,103 L 54,104 L 53,108 L 52,104 L 49,103 L 52,102 Z"/>
+            </g>
+
+            <!-- ══ BOTTLE 1 : CLEAR FIRST (Squeeze Tube) ══ -->
+            <g>
+              <!-- Flip cap -->
+              <path d="M 59,130 C 60,128 100,128 101,130 L 102,147 C 102,149 59,149 59,147 Z"
+                    stroke="#2a2a2a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="#b8b8b8"/>
+              <path d="M 60,139 C 61,138 99,138 100,139" stroke="#2a2a2a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+
+              <!-- Tube body (gentle taper, convex sides, crimped bottom) -->
+              <path d="M 59,151 C 60,149 100,149 101,151
+                       C 106,215 111,275 112,318
+                       C 113,330 107,339 80,340
+                       C 53,339 47,330 48,318
+                       C 49,275 54,215 59,151 Z"
+                    stroke="#2a2a2a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="#d0d0d0"/>
+
+              <!-- Brand -->
+              <text x="75" y="172" font-family="Inter,sans-serif" font-size="6.5" font-weight="800" fill="#2a2a2a">ODD</text>
+              <text x="75" y="178" font-family="Inter,sans-serif" font-size="3.5" fill="#555">care</text>
+              <text x="75" y="182.5" font-family="Inter,sans-serif" font-size="3.5" fill="#555">co.</text>
+
+              <!-- Product name (vertical, reads top→bottom) -->
+              <text x="82" y="188" transform="rotate(90,82,188)"
+                    font-family="Inter,sans-serif" font-size="13" font-weight="800" fill="#2a2a2a" letter-spacing="2">CLEAR FIRST</text>
+
+              <!-- Description -->
+              <text font-family="Inter,sans-serif" font-size="3.5" fill="#2a2a2a">
+                <tspan x="57" y="310">All-in-One</tspan>
+                <tspan x="57" dy="5">Daily Cleanser</tspan>
+              </text>
+
+              <!-- Tagline -->
+              <text x="53" y="328" font-family="'Space Mono',monospace" font-size="2.8" fill="#2a2a2a" letter-spacing="0.3">ONEE. DOSE. DAILY.</text>
+            </g>
+
+            <!-- ══ BOTTLE 2 : FOAM RINSE (Pump Bottle) ══ -->
+            <g>
+              <!-- Pump head (rectangular press-piece) -->
+              <path d="M 196,56 C 195,54 226,54 227,56 L 228,80 C 228,82 195,82 195,80 Z"
+                    stroke="#2a2a2a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="#d0d0d0"/>
+
+              <!-- Nozzle tube extending left -->
+              <path d="M 196,63 L 179,64 L 179,71 L 196,70"
+                    stroke="#2a2a2a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="#d8d5d0"/>
+              <!-- Nozzle end tip -->
+              <path d="M 179,61 C 178,60 176,60 175,61 L 175,74 C 175,75 178,75 179,74"
+                    stroke="#2a2a2a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#d0d0d0"/>
+
+              <!-- Pump shaft -->
+              <line x1="203" y1="82" x2="203" y2="118" stroke="#2a2a2a" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="218" y1="82" x2="218" y2="118" stroke="#2a2a2a" stroke-width="1.8" stroke-linecap="round"/>
+
+              <!-- Bottle neck -->
+              <path d="M 195,118 C 194,116 226,116 227,118 L 228,137 C 228,139 194,139 194,137 Z"
+                    stroke="#2a2a2a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="#d8d5d0"/>
+
+              <!-- Bottle body (flat bottom with subtle corner radii) -->
+              <path d="M 177,137 C 176,135 244,135 245,137
+                       L 246,333 C 247,339 242,342 236,342
+                       L 184,342 C 178,342 173,339 174,333 Z"
+                    stroke="#2a2a2a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="#e8e5e0"/>
+
+              <!-- Brand -->
+              <text x="222" y="160" font-family="Inter,sans-serif" font-size="7" font-weight="800" fill="#2a2a2a">ODD</text>
+              <text x="222" y="167" font-family="Inter,sans-serif" font-size="3.8" fill="#555">care</text>
+              <text x="222" y="172" font-family="Inter,sans-serif" font-size="3.8" fill="#555">co.</text>
+
+              <!-- Product name (vertical) -->
+              <text x="215" y="157" transform="rotate(90,215,157)"
+                    font-family="Inter,sans-serif" font-size="15" font-weight="800" fill="#2a2a2a" letter-spacing="2.5">FOAM RINSE</text>
+
+              <!-- Description -->
+              <text font-family="Inter,sans-serif" font-size="3.5" fill="#2a2a2a">
+                <tspan x="183" y="305">All-in-One</tspan>
+                <tspan x="183" dy="5">Foaming Face Wash</tspan>
+              </text>
+
+              <!-- Tagline -->
+              <text x="182" y="325" font-family="'Space Mono',monospace" font-size="2.8" fill="#2a2a2a" letter-spacing="0.3">ONEE. DOSE. DAILY.</text>
+            </g>
+
+            <!-- ══ BOTTLE 3 : DAWN SHIELD (Spray Bottle) ══ -->
+            <g>
+              <!-- Spray actuator body (rectangular, sits on cap) -->
+              <path d="M 333,108 C 332,106 348,106 349,108 L 349,119 C 349,120 333,120 333,119 Z"
+                    stroke="#2a2a2a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="#b8a060"/>
+              <!-- Actuator tube -->
+              <line x1="340" y1="106" x2="340" y2="95" stroke="#2a2a2a" stroke-width="2.5" stroke-linecap="round"/>
+              <!-- Nozzle tip (small rectangle) -->
+              <path d="M 337,92 C 336,91 344,91 345,92 L 345,97 C 345,98 337,98 337,97 Z"
+                    stroke="#2a2a2a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#b8a060"/>
+
+              <!-- Spray cap -->
+              <path d="M 322,119 C 321,117 359,117 360,119 L 361,140 C 361,142 321,142 321,140 Z"
+                    stroke="#2a2a2a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="#b8a060"/>
+
+              <!-- Bottle body (flat bottom) -->
+              <path d="M 314,140 C 313,138 367,138 368,140
+                       L 369,333 C 370,339 366,342 361,342
+                       L 319,342 C 314,342 310,339 311,333 Z"
+                    stroke="#2a2a2a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="#c4a96e"/>
+
+              <!-- Brand -->
+              <text x="348" y="160" font-family="Inter,sans-serif" font-size="5.5" font-weight="800" fill="#2a2a2a">ODD</text>
+              <text x="348" y="165.5" font-family="Inter,sans-serif" font-size="3.2" fill="#444">care</text>
+              <text x="348" y="169.5" font-family="Inter,sans-serif" font-size="3.2" fill="#444">co.</text>
+
+              <!-- Product name (vertical) -->
+              <text x="345" y="160" transform="rotate(90,345,160)"
+                    font-family="Inter,sans-serif" font-size="12" font-weight="800" fill="#2a2a2a" letter-spacing="1.5">DAWN SHIELD</text>
+
+              <!-- Description -->
+              <text font-family="Inter,sans-serif" font-size="3" fill="#2a2a2a">
+                <tspan x="318" y="302">All-in-One</tspan>
+                <tspan x="318" dy="4.5">Daily Protection</tspan>
+                <tspan x="318" dy="4.5">SPF 30 PA+++</tspan>
+              </text>
+
+              <!-- Tagline -->
+              <text x="316" y="326" font-family="'Space Mono',monospace" font-size="2.5" fill="#2a2a2a" letter-spacing="0.2">ONEE. DOSE. DAILY.</text>
+            </g>
+
+            <!-- ══ BOTTLE 4 : DEEP DUSK (Spray Bottle) ══ -->
+            <g>
+              <!-- Spray actuator body -->
+              <path d="M 433,108 C 432,106 448,106 449,108 L 449,119 C 449,120 433,120 433,119 Z"
+                    stroke="#2a2a2a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="#3a3a2a"/>
+              <!-- Actuator tube -->
+              <line x1="440" y1="106" x2="440" y2="95" stroke="#2a2a2a" stroke-width="2.5" stroke-linecap="round"/>
+              <!-- Nozzle tip -->
+              <path d="M 437,92 C 436,91 444,91 445,92 L 445,97 C 445,98 437,98 437,97 Z"
+                    stroke="#2a2a2a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#3a3a2a"/>
+
+              <!-- Spray cap -->
+              <path d="M 422,119 C 421,117 459,117 460,119 L 461,140 C 461,142 421,142 421,140 Z"
+                    stroke="#2a2a2a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="#3a3a2a"/>
+
+              <!-- Bottle body (flat bottom) -->
+              <path d="M 414,140 C 413,138 467,138 468,140
+                       L 469,333 C 470,339 466,342 461,342
+                       L 419,342 C 414,342 410,339 411,333 Z"
+                    stroke="#2a2a2a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="#4a4a3a"/>
+
+              <!-- Brand (light text on dark) -->
+              <text x="448" y="160" font-family="Inter,sans-serif" font-size="5.5" font-weight="800" fill="#e8e5e0">ODD</text>
+              <text x="448" y="165.5" font-family="Inter,sans-serif" font-size="3.2" fill="#c8c5c0">care</text>
+              <text x="448" y="169.5" font-family="Inter,sans-serif" font-size="3.2" fill="#c8c5c0">co.</text>
+
+              <!-- Product name (vertical, light text) -->
+              <text x="445" y="160" transform="rotate(90,445,160)"
+                    font-family="Inter,sans-serif" font-size="12" font-weight="800" fill="#e8e5e0" letter-spacing="1.5">DEEP DUSK</text>
+
+              <!-- Description (light text) -->
+              <text font-family="Inter,sans-serif" font-size="3" fill="#e8e5e0">
+                <tspan x="418" y="302">All-in-One</tspan>
+                <tspan x="418" dy="4.5">Night</tspan>
+                <tspan x="418" dy="4.5">Moisturiser</tspan>
+              </text>
+
+              <!-- Tagline (light text) -->
+              <text x="416" y="326" font-family="'Space Mono',monospace" font-size="2.5" fill="#e8e5e0" letter-spacing="0.2">ONEE. DOSE. DAILY.</text>
+            </g>
+
+            <!-- ── WAVY GROUND LINE ── -->
+            <path d="M 12,348 C 50,345 85,353 130,349 S 195,345 260,349 S 345,345 400,349 S 465,345 508,348"
+                  stroke="#2a2a2a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+            <!-- ── HASH SHADOWS ── -->
+            <g stroke="#2a2a2a" stroke-width="1.2" stroke-linecap="round">
+              <!-- Under Clear First -->
+              <line x1="52" y1="344" x2="45" y2="354"/><line x1="59" y1="344" x2="52" y2="354"/>
+              <line x1="66" y1="344" x2="59" y2="354"/><line x1="73" y1="344" x2="66" y2="354"/>
+              <line x1="80" y1="344" x2="73" y2="354"/><line x1="87" y1="344" x2="80" y2="354"/>
+              <line x1="94" y1="344" x2="87" y2="354"/><line x1="101" y1="344" x2="94" y2="354"/>
+              <line x1="108" y1="344" x2="101" y2="354"/>
+              <!-- Under Foam Rinse -->
+              <line x1="180" y1="344" x2="173" y2="354"/><line x1="187" y1="344" x2="180" y2="354"/>
+              <line x1="194" y1="344" x2="187" y2="354"/><line x1="201" y1="344" x2="194" y2="354"/>
+              <line x1="208" y1="344" x2="201" y2="354"/><line x1="215" y1="344" x2="208" y2="354"/>
+              <line x1="222" y1="344" x2="215" y2="354"/><line x1="229" y1="344" x2="222" y2="354"/>
+              <line x1="236" y1="344" x2="229" y2="354"/>
+              <!-- Under Dawn Shield -->
+              <line x1="316" y1="344" x2="309" y2="354"/><line x1="323" y1="344" x2="316" y2="354"/>
+              <line x1="330" y1="344" x2="323" y2="354"/><line x1="337" y1="344" x2="330" y2="354"/>
+              <line x1="344" y1="344" x2="337" y2="354"/><line x1="351" y1="344" x2="344" y2="354"/>
+              <line x1="358" y1="344" x2="351" y2="354"/><line x1="365" y1="344" x2="358" y2="354"/>
+              <!-- Under Deep Dusk -->
+              <line x1="416" y1="344" x2="409" y2="354"/><line x1="423" y1="344" x2="416" y2="354"/>
+              <line x1="430" y1="344" x2="423" y2="354"/><line x1="437" y1="344" x2="430" y2="354"/>
+              <line x1="444" y1="344" x2="437" y2="354"/><line x1="451" y1="344" x2="444" y2="354"/>
+              <line x1="458" y1="344" x2="451" y2="354"/><line x1="465" y1="344" x2="458" y2="354"/>
+            </g>
+
+            <!-- ── BOTTOM TAGLINE ── -->
+            <text x="260" y="374" text-anchor="middle" font-family="'Space Mono',monospace" font-size="7" fill="#2a2a2a" letter-spacing="2.5">ONEE. DOSE. DAILY.</text>
+
+          </svg>
+        </div>
+        <div class="hero-handwritten-right">&rarr; the essentials. nothing extra.</div>
+        <img src="/wp-content/uploads/2026/04/mascot.jpeg" alt="ODD Robot Mascot" class="hero-mascot">
+      </div>
+    </div>
+    <span class="card-tag">ABOUT</span>
+  </div>
+
+  <!-- ──── ROW 3: SECTION LABEL + PRODUCTS ──── -->
+
+  <!-- Card C: Section Label "02 THE SYSTEM" -->
+  <div class="odd-card card-section-label" id="wf-products">
+    <div class="section-eyebrow"><span class="section-num">02</span> <span class="hand-underline">THE SYSTEM</span></div>
+    <h2>4 steps.<br><span class="hand-underline">That's it.</span></h2>
+    <img src="/wp-content/uploads/2026/04/mascot.jpeg" alt="ODD Mascot" class="section-label-mascot">
+    <span class="card-tag tag-products">PRODUCTS</span>
+  </div>
+
+  <!-- Card D: Product 01 — Clear First -->
+  <a href="/clear-first-facewash" class="odd-card product-card">
+    <div class="product-card-num">01</div>
+    <div class="product-card-img">
+      <div class="card-bottle-wrap"><div class="bottle bottle-tube"><div class="tube-cap"></div><div class="tube-neck"></div><div class="tube-body"><div class="label"></div><div class="cylinder-shade"></div><div class="highlight"></div></div></div></div>
+    </div>
+    <div class="product-card-body">
+      <div class="product-card-name">Clear First</div>
+      <div class="product-card-desc">All in One Daily Cleanser</div>
+      <div class="product-tags">
+        <span class="product-tag">Cleanse</span>
+        <span class="product-tag">Refresh</span>
+        <span class="product-tag">Balance</span>
+      </div>
+      <div class="product-footer">
+        <span class="product-price">&#8377;499</span>
+        <span class="product-arrow">&rarr;</span>
+      </div>
+    </div>
+    <span class="card-tag tag-products">PRODUCTS</span>
+  </a>
+
+  <!-- Card E: Product 02 — Foam Rinse -->
+  <a href="/foam-rinse-body-wash" class="odd-card product-card">
+    <div class="product-card-num">02</div>
+    <div class="product-card-img">
+      <div class="card-bottle-wrap"><div class="bottle bottle-foamer"><div class="foamer-nozzle"></div><div class="foamer-pump"></div><div class="foamer-neck"></div><div class="foamer-body"><div class="label"></div><div class="cylinder-shade"></div><div class="highlight"></div></div></div></div>
+    </div>
+    <div class="product-card-body">
+      <div class="product-card-name">Foam Rinse</div>
+      <div class="product-card-desc">All in One Foaming Body Wash</div>
+      <div class="product-tags">
+        <span class="product-tag">Cleanse</span>
+        <span class="product-tag">Purify</span>
+        <span class="product-tag">Calm</span>
+      </div>
+      <div class="product-footer">
+        <span class="product-price">&#8377;449</span>
+        <span class="product-arrow">&rarr;</span>
+      </div>
+    </div>
+    <span class="card-tag tag-products">PRODUCTS</span>
+  </a>
+
+  <!-- Card F: Product 03 — Dawn Shield -->
+  <a href="/dawn-shield-am-cream" class="odd-card product-card">
+    <div class="product-card-num">03</div>
+    <div class="product-card-img">
+      <div class="card-bottle-wrap"><div class="bottle bottle-airless-am"><div class="airless-am-cap"></div><div class="airless-am-shoulder"></div><div class="airless-am-body"><div class="label"></div><div class="cylinder-shade"></div><div class="highlight"></div></div></div></div>
+    </div>
+    <div class="product-card-body">
+      <div class="product-card-name">Dawn Shield</div>
+      <div class="product-card-desc">All in One Daily Protective Moisturizer</div>
+      <div class="product-tags">
+        <span class="product-tag">Protect</span>
+        <span class="product-tag">Hydrate</span>
+        <span class="product-tag">Shield</span>
+      </div>
+      <div class="product-footer">
+        <span class="product-price">&#8377;399</span>
+        <span class="product-arrow">&rarr;</span>
+      </div>
+    </div>
+    <span class="card-tag tag-products">PRODUCTS</span>
+  </a>
+
+  <!-- ──── ROW 4: PRODUCT 4 + COMBO + ROUTINE TOTAL ──── -->
+
+  <!-- Card G: Product 04 — Deep Dusk -->
+  <a href="/deep-dusk-pm-cream" class="odd-card product-card">
+    <div class="product-card-num">04</div>
+    <div class="product-card-img">
+      <div class="card-bottle-wrap"><div class="bottle bottle-airless-pm"><div class="airless-pm-cap"></div><div class="airless-pm-shoulder"></div><div class="airless-pm-body"><div class="label"></div><div class="cylinder-shade"></div><div class="highlight"></div></div></div></div>
+    </div>
+    <div class="product-card-body">
+      <div class="product-card-name">Deep Dusk</div>
+      <div class="product-card-desc">All in One Night Cream With Actives</div>
+      <div class="product-tags">
+        <span class="product-tag">Nourish</span>
+        <span class="product-tag">Restore</span>
+        <span class="product-tag">Soothe</span>
+      </div>
+      <div class="product-footer">
+        <span class="product-price">&#8377;549</span>
+        <span class="product-arrow">&rarr;</span>
+      </div>
+    </div>
+    <span class="card-tag tag-products">PRODUCTS</span>
+  </a>
+
+  <!-- Card H: Combo Banner -->
+  <div class="odd-card card-combo span-2c">
+    <div class="combo-banner-img">
+      <img src="/wp-content/uploads/2026/04/product-images.jpeg" alt="The Daily ODD Combo">
+    </div>
+    <div class="combo-banner-text">
+      <div class="combo-banner-title">The Daily ODD Combo</div>
+      <div class="combo-banner-desc">Everything you need. Every day. Complete routine at a better value.</div>
+    </div>
+    <div class="combo-banner-pricing">
+      <span class="combo-original">&#8377;1,896</span>
+      <span class="combo-price">&#8377;1,499</span>
+      <span class="combo-save">SAVE 21%</span>
+      <span class="combo-arrow">&rarr;</span>
+    </div>
+    <span class="card-tag tag-products">PRODUCTS</span>
+  </div>
+
+  <!-- Card I: Routine Total -->
+  <div class="odd-card card-routine-total" id="wf-routine">
+    <div class="section-eyebrow"><span class="section-num">03</span> ROUTINE</div>
+    <div class="routine-total-number">3.5</div>
+    <div class="routine-total-label">Minutes Total</div>
+    <div class="routine-ampm">
+      <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg> AM</span>
+      <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> PM</span>
+    </div>
+    <div class="routine-total-done">You're done. Go live.</div>
+    <img src="/wp-content/uploads/2026/04/mascot.jpeg" alt="ODD Mascot" class="routine-total-mascot">
+    <span class="card-tag tag-routine">ROUTINE</span>
+  </div>
+
+  <!-- ──── ROW 5: ROUTINE STEPS (full width) ──── -->
+
+  <!-- Card J: Routine Timeline Steps -->
+  <div class="odd-card card-routine-steps span-4c">
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="timeline-step-icon"><div class="timeline-bottle-wrap"><div class="bottle bottle-tube"><div class="tube-cap"></div><div class="tube-neck"></div><div class="tube-body"><div class="label"></div><div class="cylinder-shade"></div><div class="highlight"></div></div></div></div></div>
+        <div class="timeline-step-dot"></div>
+        <div class="timeline-step-label">Cleanse</div>
+        <div class="timeline-step-name">Clear First</div>
+        <div class="timeline-step-desc">Clean skin, clear head.</div>
+        <span class="timeline-step-time"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 30 SEC</span>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-step-icon"><div class="timeline-bottle-wrap"><div class="bottle bottle-foamer"><div class="foamer-nozzle"></div><div class="foamer-pump"></div><div class="foamer-neck"></div><div class="foamer-body"><div class="label"></div><div class="cylinder-shade"></div><div class="highlight"></div></div></div></div></div>
+        <div class="timeline-step-dot"></div>
+        <div class="timeline-step-label">Wash</div>
+        <div class="timeline-step-name">Foam Rinse</div>
+        <div class="timeline-step-desc">Deep clean, not stripped.</div>
+        <span class="timeline-step-time"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 60 SEC</span>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-step-icon"><div class="timeline-bottle-wrap"><div class="bottle bottle-airless-am"><div class="airless-am-cap"></div><div class="airless-am-shoulder"></div><div class="airless-am-body"><div class="label"></div><div class="cylinder-shade"></div><div class="highlight"></div></div></div></div></div>
+        <div class="timeline-step-dot"></div>
+        <div class="timeline-step-label">Protect</div>
+        <div class="timeline-step-name">Dawn Shield SPF</div>
+        <div class="timeline-step-desc">Shield what matters most.</div>
+        <span class="timeline-step-time"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 60 SEC</span>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-step-icon"><div class="timeline-bottle-wrap"><div class="bottle bottle-airless-pm"><div class="airless-pm-cap"></div><div class="airless-pm-shoulder"></div><div class="airless-pm-body"><div class="label"></div><div class="cylinder-shade"></div><div class="highlight"></div></div></div></div></div>
+        <div class="timeline-step-dot"></div>
+        <div class="timeline-step-label">Nourish</div>
+        <div class="timeline-step-name">Deep Dusk</div>
+        <div class="timeline-step-desc">Nourish &amp; restore. Always.</div>
+        <span class="timeline-step-time"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 60 SEC</span>
+      </div>
+    </div>
+    <span class="card-tag tag-routine">ROUTINE</span>
+  </div>
+
+  <!-- ──── ROW 6: WHY ODD + COMPARE + RULES ──── -->
+
+  <!-- Card K: WHY ODD Label -->
+  <div class="odd-card card-section-label" id="wf-compare">
+    <div class="section-eyebrow"><span class="section-num">04</span> WHY ODD &gt; THEM</div>
+    <h2>We don't do shortcuts.</h2>
+    <div class="label-sub">Honest ingredients. Honest routines. That's the ODD way.</div>
+    <div class="label-hand">&#9758; the ODD way. always.</div>
+    <span class="card-tag tag-about">ABOUT</span>
+  </div>
+
+  <!-- Card L: Comparison Table -->
+  <div class="odd-card card-compare span-2c">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th class="col-them">THEM</th>
+          <th class="col-vs"><span class="vs-badge">VS</span></th>
+          <th class="col-odd">ODD CARE CO.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="compare-x">&#10007;</span> Harsh Chemicals</td><td class="compare-category">INGREDIENTS</td><td class="col-odd"><span class="compare-check">&#10003;</span> Clean, Safe Ingredients</td></tr>
+        <tr><td><span class="compare-x">&#10007;</span> Short term Fix</td><td class="compare-category">PHILOSOPHY</td><td class="col-odd"><span class="compare-check">&#10003;</span> Long term Care</td></tr>
+        <tr><td><span class="compare-x">&#10007;</span> Overcomplicated</td><td class="compare-category">ROUTINE</td><td class="col-odd"><span class="compare-check">&#10003;</span> Simple &amp; Effective</td></tr>
+        <tr><td><span class="compare-x">&#10007;</span> Hidden Ingredients</td><td class="compare-category">TRANSPARENCY</td><td class="col-odd"><span class="compare-check">&#10003;</span> Full Transparency</td></tr>
+        <tr><td><span class="compare-x">&#10007;</span> 10+ Step Routines</td><td class="compare-category">MADE FOR</td><td class="col-odd"><span class="compare-check">&#10003;</span> People with better things to do</td></tr>
+        <tr><td><span class="compare-x">&#10007;</span> Tested on Animals</td><td class="compare-category">ETHICS</td><td class="col-odd"><span class="compare-check">&#10003;</span> Cruelty Free</td></tr>
+      </tbody>
+    </table>
+    <span class="card-tag tag-about">ABOUT</span>
+  </div>
+
+  <!-- Card M: Our Rules Sticky Note -->
+  <div class="odd-card card-rules">
+    <div class="sticky-note">
+      <div class="sticky-note-pin"></div>
+      <div class="sticky-note-title">Our Rules</div>
+      <div class="sticky-note-item">Real Ingredients</div>
+      <div class="sticky-note-item">Real Results</div>
+      <div class="sticky-note-item">No BS</div>
+      <div class="sticky-note-item">Always Honest</div>
+    </div>
+    <img src="/wp-content/uploads/2026/04/mascot.jpeg" alt="ODD Mascot" class="card-rules-mascot">
+    <span class="card-tag tag-about">ABOUT</span>
+  </div>
+
+  <!-- ──── ROW 7: REVIEWS + MASCOT ──── -->
+
+  <!-- Card N: Review 1 -->
+  <div class="odd-card card-review" id="wf-reviews">
+    <div class="review-quote-icon">&ldquo;</div>
+    <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    <div class="review-text">My skin finally feels calm and balanced. The routine is so effortless!</div>
+    <div class="review-author">
+      <div class="review-avatar">A</div>
+      <div><div class="review-name">Ananya, 28</div><div class="review-skin">Combination Skin</div></div>
+    </div>
+    <span class="card-tag tag-reviews">REVIEWS</span>
+  </div>
+
+  <!-- Card O: Review 2 -->
+  <div class="odd-card card-review">
+    <div class="review-quote-icon">&ldquo;</div>
+    <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    <div class="review-text">Simple, effective and no weird ingredients. Finally, a brand that gets it.</div>
+    <div class="review-author">
+      <div class="review-avatar">R</div>
+      <div><div class="review-name">Rohan, 31</div><div class="review-skin">Oily Skin</div></div>
+    </div>
+    <span class="card-tag tag-reviews">REVIEWS</span>
+  </div>
+
+  <!-- Card P: Review 3 -->
+  <div class="odd-card card-review">
+    <div class="review-quote-icon">&ldquo;</div>
+    <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    <div class="review-text">I travel a lot and this routine keeps my skin happy everywhere.</div>
+    <div class="review-author">
+      <div class="review-avatar">M</div>
+      <div><div class="review-name">Mehak, 26</div><div class="review-skin">Dry Skin</div></div>
+    </div>
+    <span class="card-tag tag-reviews">REVIEWS</span>
+  </div>
+
+  <!-- Card Q: Mascot Feature -->
+  <div class="odd-card card-mascot">
+    <img src="/wp-content/uploads/2026/04/mascot.jpeg" alt="ODD Robot Mascot" class="mascot-img">
+    <div class="mascot-tagline">Built different.<br>On purpose.</div>
+    <span class="card-tag tag-about">ABOUT</span>
+  </div>
+
+</div><!-- /.odd-grid -->
+
+<!-- ════════════ ABOUT US ════════════ -->
+<section class="wf-about" id="wf-values">
+  <div class="wf-about-inner">
+    <div class="wf-about-header">
+      <h2>About Us</h2>
+      <p>What we believe in. Nothing more.</p>
+    </div>
+    <div class="wf-about-grid">
+      <div class="wf-about-item">
+        <div class="wf-about-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#9CAF88" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div>
+        <h4>Clean &amp; Safe</h4>
+        <p>No nasties. Just the good stuff.</p>
+      </div>
+      <div class="wf-about-item">
+        <div class="wf-about-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#9CAF88" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <h4>Cruelty Free</h4>
+        <p>We love animals. They're not our testers.</p>
+      </div>
+      <div class="wf-about-item">
+        <div class="wf-about-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#9CAF88" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <h4>Sustainable</h4>
+        <p>Better for you. Better for Earth.</p>
+      </div>
+      <div class="wf-about-item">
+        <div class="wf-about-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#9CAF88" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <h4>Made in India</h4>
+        <p>Thoughtfully made. Proudly local.</p>
+      </div>
+      <div class="wf-about-item">
+        <div class="wf-about-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#9CAF88" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg></div>
+        <h4>Dermatologist Tested</h4>
+        <p>Tested by experts. Not just influencers.</p>
+      </div>
+      <div class="wf-about-item">
+        <div class="wf-about-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#9CAF88" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h4>pH Balanced</h4>
+        <p>Your skin's comfort zone. We stay in it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer class="wf-footer">
+  <div class="footer-inner">
+    <div class="footer-newsletter">
+      <div class="footer-nl-left">
+        <div class="footer-nl-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21.5 2.5L2.5 8.4l7.7 3.8 3.8 7.7z"/><path d="M10.2 12.2l5.3-5.3"/></svg></div>
+        <div class="footer-nl-text">
+          <h3>Stay in the ODD Loop</h3>
+          <p>New drops. Honest talks. Special offers. No spam. Just good stuff.</p>
+        </div>
+      </div>
+      <div class="footer-nl-right">
+        <input type="email" placeholder="your@email.com">
+        <button>Subscribe</button>
+      </div>
+    </div>
+    <div class="footer-columns">
+      <div class="footer-col"><h5>Shop</h5><ul><li><a href="/shop">All Products</a></li><li><a href="#wf-routine">Build Your Routine</a></li><li><a href="/the-whole-routine">Combos</a></li><li><a href="#">Gift Cards</a></li></ul></div>
+      <div class="footer-col"><h5>Company</h5><ul><li><a href="/our-mission">About Us</a></li><li><a href="#">Sustainability</a></li><li><a href="#">Careers</a></li><li><a href="#">Contact Us</a></li></ul></div>
+      <div class="footer-col"><h5>Help</h5><ul><li><a href="#">FAQs</a></li><li><a href="#">Shipping &amp; Delivery</a></li><li><a href="#">Returns &amp; Refunds</a></li><li><a href="#">Track Your Order</a></li></ul></div>
+      <div class="footer-col"><h5>&nbsp;</h5><div class="footer-badges"><div class="footer-badge-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> 100% Secure Payments</div><div class="footer-badge-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Easy Returns</div><div class="footer-badge-item"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Dermatologically Tested</div></div></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 ODD Care Co. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="X"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg></a>
+      </div>
+      <div class="footer-bottom-links">
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/refund_returns">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</div><!-- /.wf -->
+
+<script>
+/* Smooth scroll */
+document.querySelectorAll('.wf a[href^="#"]').forEach(function(link) {
+  link.addEventListener('click', function(e) {
+    var target = document.querySelector(this.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+/* Scroll-reveal */
+(function() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) { entry.target.classList.add('revealed'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.wf .odd-card').forEach(function(el) {
+    el.classList.add('reveal-ready');
+    observer.observe(el);
+  });
+})();
+</script>
